@@ -1,0 +1,2419 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://quanganhno153.github.io/pdf/ -->
+<html lang="vi"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Studio</title>
+<script src="./PDF Studio_files/pdf.min.js.tải xuống"></script>
+<script src="./PDF Studio_files/pdf-lib.min.js.tải xuống"></script>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#f4f6fb;--panel:#fff;--primary:#635bff;--primary2:#5148e5;--text:#202238;--muted:#7b8096;--border:#e6e8f0;--danger:#e5484d;--shadow:0 8px 28px rgba(31,35,70,.07)}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.login-screen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#5148e5,#8a70ff)}
+.login-card{width:min(390px,90%);background:white;padding:38px;border-radius:22px;text-align:center;box-shadow:0 25px 80px #24205c55}
+.login-card h1{margin:0 0 8px;font-size:27px}
+.login-card p{color:var(--muted)}
+.login-card input{width:100%;padding:14px;border:1px solid var(--border);border-radius:10px;margin:16px 0;outline:none}
+.login-card button{width:100%;padding:14px;border:0;border-radius:10px;color:white;background:var(--primary);font-weight:700}
+.login-error{color:var(--danger);font-size:13px;min-height:18px}
+.app{max-width:1500px;margin:auto;padding:24px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.brand-icon{width:46px;height:46px;border-radius:14px;background:var(--primary);color:white;display:grid;place-items:center;font-size:23px}
+.brand h1{font-size:23px;margin:0}.brand small{color:var(--muted)}.header-actions{display:flex;gap:9px;flex-wrap:wrap}
+.btn{border:1px solid var(--border);background:white;color:var(--text);padding:10px 15px;border-radius:10px;font-weight:600;transition:.15s}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}.btn.primary{background:var(--primary);color:white;border-color:var(--primary)}
+.btn.primary:hover{background:var(--primary2)}.btn.danger{color:var(--danger)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:17px;box-shadow:var(--shadow);padding:20px;margin-bottom:18px}
+.dropzone{border:2px dashed #c9c8f8;border-radius:15px;padding:30px 15px;text-align:center;background:#fafaff;cursor:pointer;transition:.2s}
+.dropzone.dragover{background:#eeedff;border-color:var(--primary)}.dropzone .big-icon{font-size:34px;margin-bottom:8px}
+.dropzone h3{margin:5px 0}.dropzone p{margin:5px;color:var(--muted);font-size:13px}
+.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}.toolbar .spacer{flex:1}
+.toolbar .sep{width:1px;height:26px;background:var(--border);margin:0 2px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
+.section-title h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:13px}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px}
+.page-card{position:relative;background:white;border:2px solid transparent;border-radius:12px;padding:9px;cursor:pointer;box-shadow:0 2px 10px #2222220b;transition:box-shadow .15s,transform .15s;min-width:0}
+.page-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}.page-card.selected{border-color:var(--primary);background:#f6f5ff}
+.page-card.dragging{opacity:.35}
+.page-card.drop-before{box-shadow:-6px 0 0 0 var(--primary)}
+.page-card.drop-after{box-shadow:6px 0 0 0 var(--primary)}
+.thumb-wrap{height:190px;background:#f0f1f5;border-radius:7px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.thumb-wrap canvas{max-width:100%;max-height:100%;object-fit:contain}
+.page-number{position:absolute;top:7px;left:7px;background:#222d;color:white;padding:3px 7px;border-radius:6px;font-size:11px}
+.page-check{position:absolute;right:7px;top:7px;width:19px;height:19px;border-radius:6px;background:white;border:1px solid #ccc}
+.page-card.selected .page-check{background:var(--primary);border-color:var(--primary)}
+.page-card.selected .page-check:after{content:"✓";color:white;display:block;text-align:center;font-size:13px;line-height:18px}
+.page-info{padding:9px 2px 3px;font-size:12px;display:flex;justify-content:space-between;gap:5px}
+.page-info span:last-child{color:var(--muted)}.empty-state{text-align:center;padding:45px 15px;color:var(--muted)}.empty-state .big-icon{font-size:42px}
+.progress-area{margin-top:15px}.progress-track{height:8px;background:#ececf4;border-radius:20px;overflow:hidden}
+.progress-fill{width:0;height:100%;background:var(--primary);transition:width .15s}.status-text{font-size:12px;color:var(--muted);margin-top:7px}
+.enhance-panel{border:1px solid #dedcff;background:linear-gradient(135deg,#faf9ff,#f4f2ff)}
+.enhance-panel h2{margin:0 0 8px;font-size:18px}.enhance-options{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:15px}
+.enhance-options label{font-size:13px;color:#555}.enhance-options select{padding:10px;border:1px solid var(--border);border-radius:9px;background:white}
+.enhance-note{margin-top:13px;padding:11px 13px;border-radius:9px;background:#fff8e8;color:#775b1b;font-size:12px;line-height:1.6}
+.enhance-status{font-size:13px;color:var(--primary);margin-top:10px}
+.modal{position:fixed;inset:0;background:#111827dd;z-index:500;display:flex;align-items:center;justify-content:center;padding:18px}
+.modal-box{background:white;border-radius:16px;width:min(1000px,100%);max-height:95vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-header,.modal-footer{padding:13px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.modal-footer{border-top:1px solid var(--border);border-bottom:0}.preview-area{background:#343642;overflow:auto;flex:1;min-height:250px;display:flex;justify-content:center;align-items:flex-start;padding:20px}
+.preview-area canvas{max-width:100%;height:auto;box-shadow:0 5px 25px #0006}.modal-title{font-weight:700}
+.close-btn{border:0;background:#f0f1f5;border-radius:8px;width:34px;height:34px;font-size:19px}
+.opt-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted);margin-bottom:12px}
+.opt-field select,.opt-field input[type=number]{padding:9px;border:1px solid var(--border);border-radius:8px;background:#fff;font:inherit;color:var(--text);width:100%}
+.opt-check{display:flex;gap:8px;align-items:center;font-size:13px;margin-bottom:10px}
+.merge-body{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:14px;padding:14px;overflow:auto}
+@media(max-width:700px){.merge-body{grid-template-columns:1fr}}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#25263a;color:white;padding:12px 18px;border-radius:10px;z-index:2000;box-shadow:var(--shadow);font-size:13px;max-width:90%;text-align:center}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
+@media(max-width:600px){.app{padding:13px}.panel{padding:14px}.page-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.thumb-wrap{height:165px}.header{align-items:flex-start}}
+
+/* ====== Giao diện nhiều tệp: chồng giấy → bung trang ====== */
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:26px 22px}
+.stack-card{position:relative;cursor:pointer;text-align:center;padding:10px 8px 6px;border-radius:14px;transition:.15s;min-width:0}
+.stack-card:hover{background:#f6f5ff}
+.stack-card.selected{background:#efedff;outline:2px solid var(--primary)}
+.stack-card.drop-target{background:#e3e0ff;outline:3px dashed var(--primary)}
+.stack-card.dragging{opacity:.4}
+.stack-pages{position:relative;height:250px;width:78%;margin:8px auto 14px}
+.stack-layer{position:absolute;inset:0;background:#fff;border:1px solid #d9dbe6;border-radius:6px;box-shadow:0 2px 8px #2222221a}
+.stack-layer.l2{transform:translate(12px,-10px) rotate(2.5deg)}.stack-layer.l1{transform:translate(6px,-5px) rotate(1.2deg)}
+.stack-front{position:absolute;inset:0;background:#fff;border:1px solid #d9dbe6;border-radius:6px;box-shadow:0 6px 18px #22222233;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.stack-front canvas{max-width:100%;max-height:100%;object-fit:contain}
+.stack-check{position:absolute;left:-10px;top:-10px;width:24px;height:24px;border-radius:7px;background:#fff;border:1.5px solid #bbb;z-index:3;cursor:pointer;box-shadow:0 2px 6px #0002}
+.stack-card.selected .stack-check{background:var(--primary);border-color:var(--primary)}
+.stack-card.selected .stack-check:after{content:"✓";color:#fff;display:block;text-align:center;font-size:15px;line-height:22px}
+.stack-pill{display:inline-block;max-width:100%;padding:5px 14px;border-radius:7px;font-size:13px;font-weight:600;color:#3a3a4a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stack-count{color:var(--muted);font-size:13px;margin-top:5px}
+.stack-badge{position:absolute;right:4px;top:-6px;z-index:3;background:var(--primary);color:#fff;border-radius:20px;font-size:11px;padding:2px 8px;font-weight:700}
+.skip-tag{position:absolute;left:7px;bottom:7px;background:#fff8e8;color:#775b1b;border:1px solid #f0d58a;border-radius:6px;font-size:11px;padding:2px 7px;font-weight:600}
+.group-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.page-grid .stack-pages{height:190px;width:80%}.page-grid .stack-card{padding:8px 6px 4px}.file-pill{padding:2px 9px;border-radius:6px;font-weight:600;color:#3a3a4a;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+
+/* ====== Hộp thoại chuyển trang ====== */
+.mv-body{padding:16px;overflow:auto;display:flex;flex-direction:column;gap:14px}
+.mv-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.mv-row select{padding:10px;border:1px solid var(--border);border-radius:9px;background:#fff;min-width:240px;max-width:100%}
+.mv-moving{display:flex;gap:6px;flex-wrap:wrap;padding:10px;background:#f6f5ff;border-radius:10px;border:1px solid #dedcff}
+.mv-moving .chip{background:#fff;border:1px solid #cfcdfa;border-radius:20px;padding:3px 10px;font-size:12px}
+.mv-strip{display:flex;align-items:stretch;overflow-x:auto;padding:12px 6px;background:#eceef4;border-radius:12px;min-height:200px}
+.mv-thumb{flex:0 0 auto;width:110px;text-align:center;font-size:11px;color:#555}
+.mv-thumb .tw{height:140px;background:#fff;border:1px solid #d9dbe6;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mv-thumb canvas{max-width:100%;max-height:100%}
+.mv-slot{flex:0 0 22px;margin:0 3px;border-radius:8px;border:2px dashed transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:transparent;font-size:16px;transition:.12s}
+.mv-slot:hover{background:#dcd9ff;border-color:#a9a4ff}
+.mv-slot.active{background:var(--primary);color:#fff;border-color:var(--primary);flex-basis:34px}
+.mv-slot.only{flex:1 1 200px;min-height:120px;color:var(--muted);font-size:13px}
+.mv-slot.only.active{color:#fff}
+.mv-info{font-size:13px;color:#3d3a8a;background:#eeedff;border-radius:9px;padding:9px 12px}
+
+/* ====== Trình soạn thảo văn bản (kiểu Word) ====== */
+.ed-box{width:min(1150px,100%);height:95vh}
+.ed-toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-bottom:1px solid var(--border);background:#fafaff;align-items:center}
+.ed-btn{min-width:32px;height:32px;border:1px solid var(--border);background:#fff;border-radius:7px;padding:0 9px;font-weight:600;color:var(--text);font-size:13px}
+.ed-btn:hover{background:#eeedff}
+.ed-btn.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.ed-toolbar select,.ed-toolbar input[type=number]{height:32px;border:1px solid var(--border);border-radius:7px;background:#fff;padding:0 6px;font-size:13px;color:var(--text)}
+.ed-toolbar input[type=number]{width:54px}
+#edImgW,#edImgH{width:68px!important}
+.ed-toolbar input[type=color]{width:32px;height:32px;padding:2px;border:1px solid var(--border);border-radius:7px;background:#fff;cursor:pointer}
+.ed-toolbar label.ed-lbl{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.ed-sep{width:1px;height:24px;background:var(--border);margin:0 2px}
+.ed-scroll{background:#343642;overflow:auto;flex:1;padding:20px;display:block}
+.ed-wrap{position:relative;display:grid;grid-template-columns:22px max-content;grid-template-rows:22px auto;width:max-content;margin:0 auto}
+.ed-corner{background:#e3e5ee;position:sticky;top:0;left:0;z-index:6}
+.ed-hr,.ed-vr{position:relative;background:#f4f5fa;user-select:none;color:#555;touch-action:none}
+.ed-hr{height:22px;border-bottom:1px solid #c9ccda;position:sticky;top:0;z-index:5}
+.ed-vr{width:22px;align-self:start;border-right:1px solid #c9ccda}
+.ed-hr .tk{position:absolute;bottom:0;width:1px;background:#888}
+.ed-vr .tk{position:absolute;right:0;height:1px;background:#888}
+.ed-hr .t1{height:4px}.ed-hr .t5{height:7px}.ed-hr .t10{height:11px}
+.ed-vr .t1{width:4px}.ed-vr .t5{width:7px}.ed-vr .t10{width:11px}
+.ed-hr .lb,.ed-vr .lb{position:absolute;font-size:9px;font-style:normal;font-weight:400;color:#555;pointer-events:none}
+.ed-hr .lb{top:1px;transform:translateX(-50%)}
+.ed-vr .lb{left:3px;transform:translateY(-50%)}
+.ed-hr .rz,.ed-vr .rz{position:absolute;background:#d3d6e4;pointer-events:none}
+.ed-hr .rz{top:0;bottom:0}.ed-hr .rz[data-z=l]{left:0}.ed-hr .rz[data-z=r]{right:0}
+.ed-vr .rz{left:0;right:0}.ed-vr .rz[data-z=t]{top:0}.ed-vr .rz[data-z=b]{bottom:0}
+.ed-hr .rm,.ed-vr .rm{position:absolute;background:var(--primary);z-index:2}
+.ed-hr .rm{top:3px;width:14px;height:16px;clip-path:polygon(50% 100%,100% 55%,100% 0,0 0,0 55%);cursor:ew-resize}
+.ed-vr .rm{left:3px;width:16px;height:14px;clip-path:polygon(100% 50%,55% 100%,0 100%,0 0,55% 0);cursor:ns-resize}
+.ed-hr .rm:hover,.ed-vr .rm:hover{background:var(--primary2)}
+.ed-guide{position:absolute;pointer-events:none;z-index:7}
+.ed-guide.v{top:0;bottom:0;width:0;border-left:1px dashed #635bff}
+.ed-guide.h{left:0;right:0;height:0;border-top:1px dashed #635bff}
+.ed-page{position:relative;background:#fff;width:210mm;min-height:297mm;padding:20mm;margin:0;box-shadow:0 5px 25px #0006;outline:none;color:#000;font-family:"Times New Roman",Times,serif;font-size:13pt;line-height:1.3}
+.ed-tb{position:absolute;border:1px solid #000;padding:6px;box-sizing:border-box;overflow:hidden;resize:both;min-width:20mm;min-height:8mm;cursor:move;z-index:2;outline:none;background:transparent}
+.ed-tb.sel{outline:2px solid var(--primary);outline-offset:1px}
+.ed-tb-body{outline:none;min-height:100%;cursor:text}
+.ed-tb-body p{margin:0}
+.ed-page p{margin:0 0 6pt}
+.ed-page ul,.ed-page ol{margin:0 0 6pt}
+.ed-page table{border-collapse:collapse}
+.ed-page img{max-width:100%;cursor:pointer}
+.ed-imgbox{position:absolute;z-index:4;border:2px solid var(--primary);box-sizing:border-box;pointer-events:none}
+.ed-imgbox i{position:absolute;width:12px;height:12px;background:#fff;border:2px solid var(--primary);border-radius:3px;box-sizing:border-box;pointer-events:auto;touch-action:none}
+.ed-imgbox i[data-h=e]{right:-8px;top:50%;margin-top:-6px;cursor:ew-resize}
+.ed-imgbox i[data-h=w]{left:-8px;top:50%;margin-top:-6px;cursor:ew-resize}
+.ed-imgbox i[data-h=n]{top:-8px;left:50%;margin-left:-6px;cursor:ns-resize}
+.ed-imgbox i[data-h=nw]{left:-8px;top:-8px;cursor:nwse-resize}
+.ed-imgbox i[data-h=ne]{right:-8px;top:-8px;cursor:nesw-resize}
+.ed-imgbox i[data-h=sw]{left:-8px;bottom:-8px;cursor:nesw-resize}
+.ed-imgbox i[data-h=s]{bottom:-8px;left:50%;margin-left:-6px;cursor:ns-resize}
+.ed-imgbox i[data-h=se]{right:-8px;bottom:-8px;cursor:nwse-resize}
+.ed-imgbox b{display:none;position:absolute;left:4px;top:4px;background:var(--primary);color:#fff;font:600 11px system-ui,sans-serif;padding:2px 7px;border-radius:5px;white-space:nowrap;pointer-events:none}
+.ed-imgbox.drag b{display:block}
+.ed-page td,.ed-page th{vertical-align:top}
+.ed-hint{padding:7px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+.low-end .page-card,.low-end .stack-card,.low-end .btn{transition:none}
+.low-end .page-card:hover,.low-end .btn:hover{transform:none;box-shadow:none}
+.low-end .page-card{box-shadow:none;border:2px solid #eceef4}
+.low-end .page-card.selected{border-color:var(--primary)}
+</style>
+</head>
+<body>
+<div class="login-screen" id="loginScreen"><div class="login-card">
+<div style="font-size:38px;margin-bottom:10px">📄</div><h1>Xin Chào Quang Anh! 🐱</h1>
+<p>PDF Studio</p><input id="passwordInput" type="password" placeholder="Nhập mật khẩu">
+<div class="login-error" id="loginError"></div><button id="loginButton">Đăng nhập</button>
+</div></div>
+
+<div class="app hidden" id="app">
+<header class="header"><div class="brand"><div class="brand-icon">📄</div><div><h1>PDF Studio Ver 5.0</h1><small>Quản lý, chỉnh sửa và làm đẹp PDF</small></div></div>
+<div class="header-actions"><button class="btn" id="editorButton" title="Mở trình soạn thảo văn bản kiểu Word">📝 Soạn văn bản</button><button class="btn" id="addFilesButton">＋ Thêm tệp</button><button class="btn primary" id="exportButton">Xuất PDF ↓</button></div></header>
+
+<section class="panel"><div class="dropzone" id="dropzone"><div class="big-icon">📂</div><h3>Kéo thả PDF hoặc hình ảnh vào đây</h3><p>Hỗ trợ PDF, JPG, JPEG, PNG và WEBP</p><p>Hoặc nhấn vào đây để chọn tệp từ máy tính</p></div>
+<input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/*" multiple="" hidden=""></section>
+
+<section class="panel"><div class="section-title"><h2>Danh sách trang</h2><span class="muted" id="pageCount">0 trang</span></div>
+<div class="toolbar"><button class="btn" id="undoButton" title="Hoàn tác (Ctrl+Z)" disabled="">↶ Hoàn tác</button><button class="btn" id="redoButton" title="Làm lại (Ctrl+Y)" disabled="">↷ Làm lại</button><button class="btn" id="selectAllButton">Chọn tất cả</button><button class="btn primary" id="saveSelectedButton" title="Lưu riêng các trang đang chọn thành 1 file PDF (giữ nguyên thứ tự hiển thị)">💾 Lưu trang đã chọn</button><button class="btn primary" id="printSelectedButton" title="In trực tiếp các trang đang chọn (giữ nguyên xoay, cắt, chỉnh sửa)">🖨 In trang đã chọn</button>
+<span class="sep"></span>
+<button class="btn primary" id="moveToButton" title="Chọn trang rồi chuyển sang tệp/vị trí bất kỳ (kể cả sang tệp khác)">⇄ Chuyển trang đến…</button><button class="btn" id="moveLeftButton" title="Dời các trang đã chọn lên trước 1 vị trí (trong cùng tệp)">◀ Lùi</button><button class="btn" id="moveRightButton" title="Dời các trang đã chọn ra sau 1 vị trí (trong cùng tệp)">Tiến ▶</button>
+<span class="sep"></span>
+<button class="btn primary" id="autoCropButton" title="Tự tìm 4 góc tờ giấy rồi mở khung để bạn chỉnh lại">🪄 Tự nhận diện</button><button class="btn primary" id="manualCropButton" title="Kéo 4 góc độc lập, nắn thẳng thành chữ nhật khi xuất">✂ Cắt freeform</button><button class="btn primary" id="rectCropButton" title="Khung hình chữ nhật, kéo góc/cạnh để chỉnh">▭ Cắt chữ nhật</button><button class="btn" id="mergeButton" title="Chọn 2 trang/ảnh trở lên rồi ghép vào 1 trang">▦ Ghép vào 1 trang</button><button class="btn" id="copyCropButton" title="Sao chép vùng đã cắt vào clipboard, rồi dán (Ctrl+V) lên trang khác">📋 Sao chép vùng cắt</button><button class="btn" id="moveCropButton" title="Sau khi cắt, kéo vùng đã cắt đến vị trí khác trong trang">✥ Di chuyển vùng cắt</button><button class="btn" id="stampButton" title="Chèn ảnh (chữ ký, con dấu...) lên trang đã chọn. Cũng có thể dán bằng Ctrl+V">🖼 Chèn ảnh</button><button class="btn" id="rotateButton">↻ Xoay</button><button class="btn" id="duplicateButton">▣ Nhân đôi</button><button class="btn danger" id="deleteButton">✕ Xóa</button><span class="spacer"></span><button class="btn" id="clearButton">Xóa tất cả</button></div>
+<div class="muted" style="margin:-4px 0 12px">💡 Chuyển trang: <b>kéo thả</b> trang (hoặc nhiều trang đã chọn) vào vị trí bất kỳ — thả lên <b>chồng giấy</b> của tệp khác để đưa vào cuối tệp đó. Hoặc chọn trang rồi bấm <b>⇄ Chuyển trang đến…</b> để chọn tệp và vị trí chính xác.</div>
+<div id="groupBar" class="group-bar hidden"></div><div id="pageGrid" class="page-grid hidden"></div><div id="emptyState" class="empty-state"><div class="big-icon">📑</div><h3>Chưa có tài liệu nào</h3><p>Thêm PDF hoặc hình ảnh để bắt đầu.</p></div></section>
+
+<section class="panel enhance-panel"><h2>✨ Làm đẹp PDF – Khử bóng điện thoại</h2>
+<div class="muted">Phân tích ánh sáng từng vùng trên mỗi trang để làm sáng vùng bị bóng, cân bằng nền giấy và giữ nguyên nội dung, bảng biểu, hình ảnh, chữ ký cùng dấu màu.</div>
+<div class="enhance-options"><label for="enhanceMode">Kiểu:</label><select id="enhanceMode"><option value="color" selected="">Giữ màu – Khử bóng</option><option value="gray">Thang xám – Sạch nền</option><option value="bw">Đen trắng – Kiểu scan</option></select><label for="enhanceLevel">Mức độ:</label><select id="enhanceLevel">
+<option value="light">Nhẹ – Can thiệp ít</option><option value="medium" selected="">Vừa – Khuyên dùng</option><option value="strong">Mạnh – Bóng đậm</option></select>
+<label for="renderDpi">Chất lượng xuất:</label><select id="renderDpi"><option value="180">180 DPI – Nhẹ hơn</option><option value="220" selected="">220 DPI – Khuyên dùng</option><option value="300">300 DPI – Nét cao, tệp lớn</option></select>
+<button class="btn" id="previewEnhanceButton">👁 Xem thử trước / sau</button><button class="btn primary" id="enhanceExportButton">✨ Khử bóng và xuất PDF</button></div>
+<div class="enhance-options" style="margin-top:12px"><label for="enhanceScope">Áp dụng cho:</label><select id="enhanceScope"><option value="all" selected="">Tất cả trang</option><option value="selected">Chỉ các trang đã chọn</option><option value="except">Tất cả, trừ các trang đã chọn</option></select>
+<label for="enhanceWhiten">Màu giấy:</label><select id="enhanceWhiten"><option value="keep" selected="">Giữ màu giấy gốc (bìa vàng, giấy ngả màu…)</option><option value="white">Làm trắng nền giấy (khử luôn ám màu)</option></select>
+<label class="opt-check" style="margin:0"><input type="checkbox" id="enhanceSharpen" checked=""> Làm nét chữ</label>
+<span class="muted" id="enhanceScopeInfo"></span></div>
+<div class="enhance-note"><b>Cách xử lý:</b> Ước lượng “bản đồ nền giấy” (xoá nét chữ nhưng giữ cạnh bóng đổ), rồi chia từng điểm ảnh cho nền cục bộ nên bóng được khử mà nét mực trong vùng bóng vẫn đậm đúng mức. <b>Chọn trang:</b> bấm chọn trang (hoặc tích ô vuông của cả tệp) trong danh sách rồi chọn “Chỉ các trang đã chọn” hoặc “Tất cả, trừ các trang đã chọn”; trang không áp dụng được giữ nguyên bản gốc. Trang đã khử bóng được raster hóa nên chữ có thể không còn chọn/tìm kiếm được. Kiểu “Thang xám” và “Đen trắng” sẽ bỏ màu (dấu đỏ, chữ ký màu). Bóng che khuất hoàn toàn nội dung thì không thể khôi phục chi tiết đã mất.</div>
+<div class="progress-area hidden" id="progressArea"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="status-text" id="progressText">Đang chuẩn bị...</div></div>
+<div class="enhance-status" id="enhanceStatus"></div></section>
+<section class="panel enhance-panel" id="magicPanel" style="border-color:#ffd9a8;background:linear-gradient(135deg,#fffaf2,#fff4e3)"><h2>🎨 Magic Color – Làm sạch kiểu CamScanner</h2>
+<div class="muted">Khử bóng, làm trắng nền giấy, làm đậm nét chữ đen và giữ rõ dấu đỏ, chữ ký màu. Chỉ áp dụng cho các trang bạn chọn (hoặc tất cả); trang còn lại được giữ nguyên bản gốc.</div>
+<div class="enhance-options"><label for="magicScope">Áp dụng cho:</label><select id="magicScope"><option value="selected" selected="">Chỉ các trang đã chọn</option><option value="all">Tất cả trang</option></select>
+<label for="magicDpi">Chất lượng xuất:</label><select id="magicDpi"><option value="180">180 DPI – Nhẹ hơn</option><option value="220" selected="">220 DPI – Khuyên dùng</option><option value="300">300 DPI – Nét cao, tệp lớn</option></select>
+<button class="btn" id="previewMagicButton">👁 Xem thử trước / sau</button><button class="btn primary" id="magicExportButton">🎨 Áp dụng Magic Color và xuất PDF</button>
+<span class="muted" id="magicScopeInfo"></span></div>
+<div class="enhance-status" id="magicStatus"></div></section>
+<section class="panel enhance-panel" id="compressPanel"><h2>🗜 Giảm dung lượng PDF</h2>
+<div class="muted">Nén từng trang thành ảnh JPEG với độ phân giải và chất lượng bạn chọn để tệp nhỏ hơn nhiều. Giữ nguyên thứ tự, xoay, vùng cắt và các chỉnh sửa đã làm. Chữ sẽ không còn chọn/tìm kiếm được.</div>
+<div class="enhance-options"><label for="compressPreset">Mức nén:</label><select id="compressPreset"><option value="light">Nhẹ – Chất lượng cao (150 DPI)</option><option value="medium" selected="">Vừa – Khuyên dùng (120 DPI)</option><option value="strong">Mạnh – Nhỏ nhất (90 DPI)</option><option value="custom">Tùy chỉnh</option></select>
+<label for="compressDpi">DPI:</label><input type="number" id="compressDpi" min="50" max="300" step="10" value="120" style="width:80px;padding:10px;border:1px solid var(--border);border-radius:9px">
+<label for="compressQuality">Chất lượng JPEG (%):</label><input type="number" id="compressQuality" min="20" max="95" step="5" value="65" style="width:80px;padding:10px;border:1px solid var(--border);border-radius:9px">
+<label class="opt-check" style="margin:0"><input type="checkbox" id="compressGray"> Chuyển thang xám</label>
+<label class="opt-check" style="margin:0"><input type="checkbox" id="compressTarget"> Nén tự động đến tối đa</label><input type="number" id="compressTargetMb" min="0.1" max="100" step="0.1" value="2" style="width:80px;padding:10px;border:1px solid var(--border);border-radius:9px"><span class="muted">MB</span>
+<button class="btn primary" id="compressExportButton">🗜 Nén và xuất PDF</button></div>
+<div class="enhance-note" style="background:#eefaf1;color:#25623a">Mẹo: chọn “Nén tự động đến tối đa … MB” để chương trình tự hạ chất lượng/DPI từng bước cho đến khi tệp đạt dung lượng mong muốn (ví dụ nộp hồ sơ giới hạn 2MB).</div>
+<div class="enhance-status" id="compressStatus"></div></section>
+<div class="footer">PDF Studio · Xử lý tài liệu ngay trên trình duyệt của bạn</div></div>
+
+<div class="modal hidden" id="previewModal"><div class="modal-box">
+<div class="modal-header"><div class="modal-title" id="previewTitle">Xem trước trang</div><button class="close-btn" id="closePreview">×</button></div>
+<div class="preview-area"><div id="cropStage" style="position:relative;display:inline-block;line-height:0;max-width:100%">
+<canvas id="previewCanvas" style="display:block"></canvas>
+<svg id="cropOverlay" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;display:none;touch-action:none;cursor:crosshair"></svg>
+</div></div>
+<div class="modal-footer">
+<button class="btn" id="previousPageButton">← Trang trước</button>
+<span class="muted" id="previewCounter"></span>
+<button class="btn" id="startManualCrop">✂ Cắt freeform (4 góc)</button>
+<button class="btn" id="startRectCrop">▭ Cắt chữ nhật</button>
+<button class="btn" id="moveCropPrev" title="Kéo vùng đã cắt đến vị trí khác trong trang">✥ Di chuyển vùng cắt</button>
+<button class="btn hidden" id="autoDetectCrop" title="Tự tìm 4 góc tờ giấy">🪄 Tự nhận diện</button>
+<button class="btn primary hidden" id="applyManualCrop">Áp dụng khung</button>
+<button class="btn hidden" id="cancelManualCrop">Hủy</button>
+<button class="btn" id="nextPageButton">Trang sau →</button>
+</div>
+</div></div>
+<div class="modal hidden" id="enhancePreviewModal"><div class="modal-box" style="width:min(1200px,100%)">
+<div class="modal-header"><div class="modal-title">So sánh trước và sau</div><button class="close-btn" id="closeEnhancePreview">×</button></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px;overflow:auto">
+<div><b style="display:block;margin-bottom:8px">Ảnh gốc</b><div style="background:#eceef4;padding:8px;text-align:center"><canvas id="beforeEnhanceCanvas" style="max-width:100%;height:auto"></canvas></div></div>
+<div><b style="display:block;margin-bottom:8px">Sau khi xử lý</b><div style="background:#eceef4;padding:8px;text-align:center"><canvas id="afterEnhanceCanvas" style="max-width:100%;height:auto"></canvas></div></div>
+</div><div class="modal-footer"><span class="muted" id="enhancePreviewLabel">Trang xem thử</span><button class="btn" id="closeEnhancePreview2">Đóng</button></div>
+</div></div>
+<input type="file" id="stampFileInput" accept="image/*" hidden="">
+
+<!-- Hộp thoại chuyển trang sang tệp / vị trí khác -->
+<div class="modal hidden" id="moveToModal"><div class="modal-box" style="width:min(1000px,100%)">
+<div class="modal-header"><div class="modal-title">⇄ Chuyển trang đến tệp / vị trí khác</div><button class="close-btn" id="closeMoveTo">×</button></div>
+<div class="mv-body">
+<div><div class="muted" style="margin-bottom:6px">Các trang sẽ được chuyển:</div><div class="mv-moving" id="mvMoving"></div></div>
+<div class="mv-row"><b>Chuyển đến tệp:</b><select id="mvDest"></select>
+<button class="btn" id="mvStart" type="button">⇤ Đầu tệp</button><button class="btn" id="mvEnd" type="button">Cuối tệp ⇥</button></div>
+<div class="muted">Bấm vào vạch / khoảng trống giữa các trang bên dưới để chọn chỗ chèn.</div>
+<div class="mv-strip" id="mvStrip"></div>
+<div class="mv-info" id="mvInfo"></div>
+</div>
+<div class="modal-footer"><span class="muted">Trang chuyển đi giữ nguyên chỉnh sửa (xoay, cắt…)</span><span style="display:flex;gap:8px"><button class="btn" id="cancelMoveTo">Hủy</button><button class="btn primary" id="applyMoveTo">Chuyển trang</button></span></div>
+</div></div>
+
+<div class="modal hidden" id="moveModal"><div class="modal-box">
+<div class="modal-header"><div class="modal-title">Di chuyển vùng đã cắt trong trang</div><button class="close-btn" id="closeMove">×</button></div>
+<div class="preview-area"><div id="moveStage" style="position:relative;display:inline-block;line-height:0;max-width:100%;touch-action:none">
+<canvas id="moveCanvas" style="display:block;background:#fff"></canvas>
+<img id="moveImg" alt="" draggable="false" style="position:absolute;pointer-events:none;user-select:none;-webkit-user-drag:none">
+<div id="moveFrame" style="position:absolute;outline:2px dashed #635bff;cursor:move;touch-action:none"><div data-mode="h" data-hx="-1" data-hy="-1" style="position:absolute;left:0%;top:0%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nwse-resize"></div><div data-mode="h" data-hx="0" data-hy="-1" style="position:absolute;left:50%;top:0%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ns-resize"></div><div data-mode="h" data-hx="1" data-hy="-1" style="position:absolute;left:100%;top:0%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nesw-resize"></div><div data-mode="h" data-hx="1" data-hy="0" style="position:absolute;left:100%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ew-resize"></div><div data-mode="h" data-hx="1" data-hy="1" style="position:absolute;left:100%;top:100%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nwse-resize"></div><div data-mode="h" data-hx="0" data-hy="1" style="position:absolute;left:50%;top:100%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ns-resize"></div><div data-mode="h" data-hx="-1" data-hy="1" style="position:absolute;left:0%;top:100%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nesw-resize"></div><div data-mode="h" data-hx="-1" data-hy="0" style="position:absolute;left:0%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ew-resize"></div><div style="position:absolute;left:50%;top:-30px;width:2px;height:30px;background:#5148e5;transform:translateX(-50%);pointer-events:none"></div><div data-mode="rot" title="Xoay" style="position:absolute;left:50%;top:-30px;width:20px;height:20px;transform:translate(-50%,-50%);border-radius:50%;background:#5148e5;border:3px solid #fff;cursor:grab"></div></div>
+<canvas id="moveWarp" style="display:none;position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none"></canvas>
+<svg id="moveSvg" xmlns="http://www.w3.org/2000/svg" style="display:none;position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none"></svg>
+</div></div>
+<div class="modal-footer">
+<label class="opt-check" style="margin:0"><input type="checkbox" id="moveFree"> Freeform 4 góc (kéo từng góc độc lập)</label>
+<label class="opt-check" style="margin:0"><input type="checkbox" id="moveLock" checked=""> Khóa tỉ lệ khi kéo góc (chế độ khung)</label>
+<span class="muted">Kéo vùng cắt để di chuyển · kéo góc/cạnh để đổi cỡ · chấm tím để xoay · bật Freeform để kéo méo từng góc · trang sẽ thành ảnh sau khi áp dụng</span>
+<span style="display:flex;gap:8px"><button class="btn" id="moveDup" title="Giữ lại bản hiện tại tại chỗ và tạo thêm một bản mới để kéo đi">⧉ Nhân bản</button><button class="btn" id="moveUndoDup">↶ Bỏ bản sao</button><button class="btn" id="moveCopyClip" title="Sao chép vùng cắt vào clipboard">📋 Sao chép</button><button class="btn" id="moveCenter">⊕ Giữa trang</button><button class="btn" id="moveReset">↺ Vị trí cũ</button><button class="btn" id="cancelMove">Hủy</button><button class="btn primary" id="applyMove">Áp dụng</button></span>
+</div></div></div>
+<div class="modal hidden" id="mergeModal"><div class="modal-box" style="width:min(900px,100%)">
+<div class="modal-header"><div class="modal-title">Ghép ảnh đã chọn vào 1 trang</div><button class="close-btn" id="closeMerge">×</button></div>
+<div class="merge-body">
+<div style="background:#343642;padding:14px;display:flex;justify-content:center;align-items:flex-start;border-radius:10px"><canvas id="mergePreview" style="max-width:100%;height:auto;box-shadow:0 5px 25px #0006;background:#fff"></canvas></div>
+<div class="merge-opts">
+<label class="opt-field">Cách xếp<select id="mergeLayout"><option value="vertical" selected="">Xếp dọc (trên – dưới)</option><option value="horizontal">Xếp ngang (trái – phải)</option><option value="grid">Lưới 2 cột</option></select></label>
+<label class="opt-field">Khổ giấy<select id="mergePage"><option value="port" selected="">A4 dọc</option><option value="land">A4 ngang</option></select></label>
+<label class="opt-field">Lề trang (mm)<input type="number" id="mergeMargin" min="0" max="40" step="1" value="12"></label>
+<label class="opt-field">Khoảng cách giữa các ảnh (mm)<input type="number" id="mergeGap" min="0" max="40" step="1" value="8"></label>
+<label class="opt-check"><input type="checkbox" id="mergeTrim" checked=""> Tự cắt viền trắng quanh mỗi ảnh</label>
+<label class="opt-check"><input type="checkbox" id="mergeBorder"> Vẽ khung mảnh quanh mỗi ảnh</label>
+<label class="opt-check"><input type="checkbox" id="mergeDelete"> Xóa các trang gốc sau khi ghép</label>
+<button class="btn" id="mergeReverse" type="button">⇅ Đảo thứ tự</button>
+<div class="muted" style="margin-top:10px;line-height:1.5">Mẹo: cắt gọn từng ảnh bằng “Cắt freeform / chữ nhật” trước để ảnh ghép đẹp hơn. Thứ tự ảnh theo danh sách trang.</div>
+</div></div>
+<div class="modal-footer"><span class="muted" id="mergeInfo"></span><span style="display:flex;gap:8px"><button class="btn" id="cancelMerge">Hủy</button><button class="btn primary" id="applyMerge">Tạo trang ghép</button></span></div>
+</div></div>
+<div class="modal hidden" id="stampModal"><div class="modal-box">
+<div class="modal-header"><div class="modal-title">Chèn ảnh lên trang</div><button class="close-btn" id="closeStamp">×</button></div>
+<div class="preview-area"><div id="stampStage" style="position:relative;display:inline-block;line-height:0;max-width:100%;touch-action:none">
+<canvas id="stampCanvas" style="display:block"></canvas>
+<img id="stampImg" alt="" draggable="false" style="position:absolute;pointer-events:none;user-select:none;-webkit-user-drag:none">
+<div id="stampFrame" style="position:absolute;outline:2px dashed #635bff;cursor:move;touch-action:none"><div data-mode="h" data-hx="-1" data-hy="-1" style="position:absolute;left:0%;top:0%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nwse-resize"></div><div data-mode="h" data-hx="0" data-hy="-1" style="position:absolute;left:50%;top:0%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ns-resize"></div><div data-mode="h" data-hx="1" data-hy="-1" style="position:absolute;left:100%;top:0%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nesw-resize"></div><div data-mode="h" data-hx="1" data-hy="0" style="position:absolute;left:100%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ew-resize"></div><div data-mode="h" data-hx="1" data-hy="1" style="position:absolute;left:100%;top:100%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nwse-resize"></div><div data-mode="h" data-hx="0" data-hy="1" style="position:absolute;left:50%;top:100%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ns-resize"></div><div data-mode="h" data-hx="-1" data-hy="1" style="position:absolute;left:0%;top:100%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #5148e5;cursor:nesw-resize"></div><div data-mode="h" data-hx="-1" data-hy="0" style="position:absolute;left:0%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:4px;background:#fff;border:3px solid #5148e5;cursor:ew-resize"></div><div style="position:absolute;left:50%;top:-30px;width:2px;height:30px;background:#5148e5;transform:translateX(-50%);pointer-events:none"></div><div data-mode="rot" title="Xoay" style="position:absolute;left:50%;top:-30px;width:20px;height:20px;transform:translate(-50%,-50%);border-radius:50%;background:#5148e5;border:3px solid #fff;cursor:grab"></div></div>
+</div></div>
+<div class="modal-footer">
+<label class="opt-check" style="margin:0"><input type="checkbox" id="stampMultiply" checked=""> Làm trong suốt nền trắng (chữ ký, con dấu)</label>
+<label class="opt-check" style="margin:0"><input type="checkbox" id="stampLock"> Khóa tỉ lệ khi kéo góc</label>
+<span class="muted">Kéo ảnh để di chuyển · kéo góc/cạnh để kéo giãn tự do · chấm tím phía trên để xoay (giữ Shift: xoay theo 15°, khóa tỉ lệ) · trang sẽ thành ảnh sau khi dán</span>
+<span style="display:flex;gap:8px"><button class="btn" id="stampReset">↺ Đặt lại</button><button class="btn" id="stampChooseOther">Chọn ảnh khác</button><button class="btn primary" id="applyStamp">Dán vào trang</button></span>
+</div></div></div>
+
+<!-- Trình soạn thảo văn bản -->
+<div class="modal hidden" id="editorModal"><div class="modal-box ed-box">
+<div class="modal-header"><div class="modal-title">📝 Soạn văn bản</div>
+<span style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button class="btn" id="edClear" type="button">🗑 Xóa nội dung</button><button class="btn" id="edSaveDoc" type="button" title="Tải về tệp .doc mở được bằng Word">⬇ Lưu .doc</button><button class="btn primary" id="edPrint" type="button" title="In trực tiếp (Ctrl+P). Chọn “Lưu dưới dạng PDF” trong hộp thoại in để xuất PDF">🖨 In</button><button class="close-btn" id="closeEditor" type="button">×</button></span></div>
+<div class="ed-toolbar" id="edToolbar">
+<select id="edFont" title="Kiểu chữ">
+<option value="Times New Roman" selected="">Times New Roman</option><option value="Arial">Arial</option><option value="Calibri">Calibri</option><option value="Tahoma">Tahoma</option><option value="Verdana">Verdana</option><option value="Georgia">Georgia</option><option value="Courier New">Courier New</option></select>
+<select id="edSize" title="Cỡ chữ (pt)"><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option selected="">13</option><option>14</option><option>16</option><option>18</option><option>20</option><option>24</option><option>28</option><option>32</option><option>36</option><option>48</option><option>72</option></select>
+<span class="ed-sep"></span>
+<button class="ed-btn" data-cmd="bold" title="In đậm (Ctrl+B)"><b>B</b></button>
+<button class="ed-btn" data-cmd="italic" title="In nghiêng (Ctrl+I)"><i>I</i></button>
+<button class="ed-btn" data-cmd="underline" title="Gạch chân (Ctrl+U)"><u>U</u></button>
+<button class="ed-btn" data-cmd="strikeThrough" title="Gạch ngang"><s>S</s></button>
+<label class="ed-lbl" title="Màu chữ">A<input type="color" id="edColor" value="#000000"></label>
+<label class="ed-lbl" title="Tô nền chữ">🖍<input type="color" id="edHilite" value="#ffff00"></label>
+<span class="ed-sep"></span>
+<button class="ed-btn" data-cmd="justifyLeft" title="Căn trái">⇤</button>
+<button class="ed-btn" data-cmd="justifyCenter" title="Căn giữa">↔</button>
+<button class="ed-btn" data-cmd="justifyRight" title="Căn phải">⇥</button>
+<button class="ed-btn" data-cmd="justifyFull" title="Căn đều hai bên">☰</button>
+<span class="ed-sep"></span>
+<button class="ed-btn" data-cmd="insertUnorderedList" title="Danh sách chấm">• Danh sách</button>
+<button class="ed-btn" data-cmd="insertOrderedList" title="Danh sách số">1. Danh sách</button>
+<button class="ed-btn" data-cmd="outdent" title="Giảm thụt lề">⇠</button>
+<button class="ed-btn" data-cmd="indent" title="Tăng thụt lề">⇢</button>
+<select id="edLine" title="Giãn dòng"><option value="">Giãn dòng</option><option value="1">1.0</option><option value="1.15">1.15</option><option value="1.3">1.3</option><option value="1.5">1.5</option><option value="2">2.0</option></select>
+<span class="ed-sep"></span>
+<button class="ed-btn" data-cmd="undo" title="Hoàn tác (Ctrl+Z)">↶</button>
+<button class="ed-btn" data-cmd="redo" title="Làm lại (Ctrl+Y)">↷</button>
+<button class="ed-btn" id="edImgBtn" type="button" title="Chèn ảnh vào văn bản">🖼 Ảnh</button>
+<span id="edImgTools" style="display:contents">
+<label class="ed-lbl" title="Chiều rộng ảnh đang chọn (mm)">R<input type="number" id="edImgW" min="3" step="0.5"></label>
+<label class="ed-lbl" title="Chiều cao ảnh đang chọn (mm)">C<input type="number" id="edImgH" min="3" step="0.5"></label>
+<button class="ed-btn" id="edImgLock" type="button" title="Khóa tỉ lệ khi đổi cỡ ảnh (khi kéo chuột, giữ Shift cũng khóa tỉ lệ)">🔓 Tỉ lệ</button>
+<button class="ed-btn" id="edImgInline" type="button" title="Đưa ảnh tự do trở lại nằm trong dòng chữ (tại vị trí con trỏ gần nhất)">⚓ Vào dòng</button>
+<button class="ed-btn" id="edImgReset" type="button" title="Trả ảnh về cỡ gốc (vừa khổ giấy)">↺ Cỡ gốc</button>
+<button class="ed-btn" id="edImgDel" type="button" title="Xóa ảnh đang chọn">✕ Ảnh</button>
+</span>
+<span class="ed-sep"></span>
+<label class="ed-lbl" title="Hướng giấy">Khổ giấy: <select id="edOrient"><option value="port">A4 dọc</option><option value="land">A4 ngang</option></select></label>
+<button class="ed-btn" id="edMarginReset" type="button" title="Đặt lại các lề về 20 mm">↺ Lề</button>
+<span class="ed-sep"></span>
+<button class="ed-btn" id="edTbBtn" type="button" title="Chèn hộp văn bản (textbox) có thể di chuyển">🔲 Textbox</button>
+<span id="edTbTools" style="display:contents">
+<button class="ed-btn" data-mv="-1,0" title="Dời textbox sang trái (←)">◀</button>
+<button class="ed-btn" data-mv="0,-1" title="Dời textbox lên (↑)">▲</button>
+<button class="ed-btn" data-mv="0,1" title="Dời textbox xuống (↓)">▼</button>
+<button class="ed-btn" data-mv="1,0" title="Dời textbox sang phải (→)">▶</button>
+<select id="edStep" title="Bước dời mỗi lần bấm phím mũi tên (giữ Shift: ×5)"><option value="0.05">0,05 mm</option><option value="0.1">0,1 mm</option><option value="0.25" selected="">0,25 mm</option><option value="0.5">0,5 mm</option><option value="1">1 mm</option><option value="2">2 mm</option><option value="5">5 mm</option></select>
+<button class="ed-btn" id="edTbBorder" type="button" title="Bật / tắt viền textbox">Viền</button>
+<label class="ed-lbl" title="Chọn màu viền cho textbox đang chọn">Màu viền<input type="color" id="edTbBorderColor" value="#000000"></label>
+<button class="ed-btn" id="edTbTransp" type="button" title="Đặt viền trong suốt (bấm lần nữa để trả lại màu)">⬚ Trong suốt</button>
+<select id="edTbBorderW" title="Độ dày viền textbox"><option value="0.5">Viền 0,5 px</option><option value="1" selected="">Viền 1 px</option><option value="2">Viền 2 px</option><option value="3">Viền 3 px</option><option value="4">Viền 4 px</option><option value="6">Viền 6 px</option></select>
+<button class="ed-btn" id="edTbDel" type="button" title="Xóa textbox đang chọn">✕ Textbox</button>
+</span>
+<span class="ed-sep"></span>
+<label class="ed-lbl">Bảng: <input type="number" id="edRows" min="1" max="30" value="3" title="Số hàng"> hàng ×<input type="number" id="edCols" min="1" max="12" value="3" title="Số cột"> cột</label>
+<button class="ed-btn" id="edTable" type="button" title="Chèn bảng tại vị trí con trỏ">▦ Chèn bảng</button>
+<span id="edTableTools" style="display:contents">
+<button class="ed-btn" data-tbl="rowAbove" title="Thêm hàng phía trên">＋Hàng ↑</button>
+<button class="ed-btn" data-tbl="rowBelow" title="Thêm hàng phía dưới">＋Hàng ↓</button>
+<button class="ed-btn" data-tbl="colLeft" title="Thêm cột bên trái">＋Cột ←</button>
+<button class="ed-btn" data-tbl="colRight" title="Thêm cột bên phải">＋Cột →</button>
+<button class="ed-btn" data-tbl="delRow" title="Xóa hàng đang chọn">－Hàng</button>
+<button class="ed-btn" data-tbl="delCol" title="Xóa cột đang chọn">－Cột</button>
+<button class="ed-btn" data-tbl="delTable" title="Xóa cả bảng">✕ Bảng</button>
+<label class="ed-lbl" title="Tô màu ô đang chọn">Ô<input type="color" id="edCellColor" value="#e8eaf6"></label>
+</span>
+</div>
+<div class="ed-scroll" id="edScroll"><div class="ed-wrap" id="edWrap">
+<div class="ed-corner"></div><div class="ed-hr" id="edHR" style="width: 210mm;"><i class="tk t10" style="left:0mm"></i><i class="tk t1" style="left:1mm"></i><i class="tk t1" style="left:2mm"></i><i class="tk t1" style="left:3mm"></i><i class="tk t1" style="left:4mm"></i><i class="tk t5" style="left:5mm"></i><i class="tk t1" style="left:6mm"></i><i class="tk t1" style="left:7mm"></i><i class="tk t1" style="left:8mm"></i><i class="tk t1" style="left:9mm"></i><i class="tk t10" style="left:10mm"></i><b class="lb" style="left:10mm">1</b><i class="tk t1" style="left:11mm"></i><i class="tk t1" style="left:12mm"></i><i class="tk t1" style="left:13mm"></i><i class="tk t1" style="left:14mm"></i><i class="tk t5" style="left:15mm"></i><i class="tk t1" style="left:16mm"></i><i class="tk t1" style="left:17mm"></i><i class="tk t1" style="left:18mm"></i><i class="tk t1" style="left:19mm"></i><i class="tk t10" style="left:20mm"></i><b class="lb" style="left:20mm">2</b><i class="tk t1" style="left:21mm"></i><i class="tk t1" style="left:22mm"></i><i class="tk t1" style="left:23mm"></i><i class="tk t1" style="left:24mm"></i><i class="tk t5" style="left:25mm"></i><i class="tk t1" style="left:26mm"></i><i class="tk t1" style="left:27mm"></i><i class="tk t1" style="left:28mm"></i><i class="tk t1" style="left:29mm"></i><i class="tk t10" style="left:30mm"></i><b class="lb" style="left:30mm">3</b><i class="tk t1" style="left:31mm"></i><i class="tk t1" style="left:32mm"></i><i class="tk t1" style="left:33mm"></i><i class="tk t1" style="left:34mm"></i><i class="tk t5" style="left:35mm"></i><i class="tk t1" style="left:36mm"></i><i class="tk t1" style="left:37mm"></i><i class="tk t1" style="left:38mm"></i><i class="tk t1" style="left:39mm"></i><i class="tk t10" style="left:40mm"></i><b class="lb" style="left:40mm">4</b><i class="tk t1" style="left:41mm"></i><i class="tk t1" style="left:42mm"></i><i class="tk t1" style="left:43mm"></i><i class="tk t1" style="left:44mm"></i><i class="tk t5" style="left:45mm"></i><i class="tk t1" style="left:46mm"></i><i class="tk t1" style="left:47mm"></i><i class="tk t1" style="left:48mm"></i><i class="tk t1" style="left:49mm"></i><i class="tk t10" style="left:50mm"></i><b class="lb" style="left:50mm">5</b><i class="tk t1" style="left:51mm"></i><i class="tk t1" style="left:52mm"></i><i class="tk t1" style="left:53mm"></i><i class="tk t1" style="left:54mm"></i><i class="tk t5" style="left:55mm"></i><i class="tk t1" style="left:56mm"></i><i class="tk t1" style="left:57mm"></i><i class="tk t1" style="left:58mm"></i><i class="tk t1" style="left:59mm"></i><i class="tk t10" style="left:60mm"></i><b class="lb" style="left:60mm">6</b><i class="tk t1" style="left:61mm"></i><i class="tk t1" style="left:62mm"></i><i class="tk t1" style="left:63mm"></i><i class="tk t1" style="left:64mm"></i><i class="tk t5" style="left:65mm"></i><i class="tk t1" style="left:66mm"></i><i class="tk t1" style="left:67mm"></i><i class="tk t1" style="left:68mm"></i><i class="tk t1" style="left:69mm"></i><i class="tk t10" style="left:70mm"></i><b class="lb" style="left:70mm">7</b><i class="tk t1" style="left:71mm"></i><i class="tk t1" style="left:72mm"></i><i class="tk t1" style="left:73mm"></i><i class="tk t1" style="left:74mm"></i><i class="tk t5" style="left:75mm"></i><i class="tk t1" style="left:76mm"></i><i class="tk t1" style="left:77mm"></i><i class="tk t1" style="left:78mm"></i><i class="tk t1" style="left:79mm"></i><i class="tk t10" style="left:80mm"></i><b class="lb" style="left:80mm">8</b><i class="tk t1" style="left:81mm"></i><i class="tk t1" style="left:82mm"></i><i class="tk t1" style="left:83mm"></i><i class="tk t1" style="left:84mm"></i><i class="tk t5" style="left:85mm"></i><i class="tk t1" style="left:86mm"></i><i class="tk t1" style="left:87mm"></i><i class="tk t1" style="left:88mm"></i><i class="tk t1" style="left:89mm"></i><i class="tk t10" style="left:90mm"></i><b class="lb" style="left:90mm">9</b><i class="tk t1" style="left:91mm"></i><i class="tk t1" style="left:92mm"></i><i class="tk t1" style="left:93mm"></i><i class="tk t1" style="left:94mm"></i><i class="tk t5" style="left:95mm"></i><i class="tk t1" style="left:96mm"></i><i class="tk t1" style="left:97mm"></i><i class="tk t1" style="left:98mm"></i><i class="tk t1" style="left:99mm"></i><i class="tk t10" style="left:100mm"></i><b class="lb" style="left:100mm">10</b><i class="tk t1" style="left:101mm"></i><i class="tk t1" style="left:102mm"></i><i class="tk t1" style="left:103mm"></i><i class="tk t1" style="left:104mm"></i><i class="tk t5" style="left:105mm"></i><i class="tk t1" style="left:106mm"></i><i class="tk t1" style="left:107mm"></i><i class="tk t1" style="left:108mm"></i><i class="tk t1" style="left:109mm"></i><i class="tk t10" style="left:110mm"></i><b class="lb" style="left:110mm">11</b><i class="tk t1" style="left:111mm"></i><i class="tk t1" style="left:112mm"></i><i class="tk t1" style="left:113mm"></i><i class="tk t1" style="left:114mm"></i><i class="tk t5" style="left:115mm"></i><i class="tk t1" style="left:116mm"></i><i class="tk t1" style="left:117mm"></i><i class="tk t1" style="left:118mm"></i><i class="tk t1" style="left:119mm"></i><i class="tk t10" style="left:120mm"></i><b class="lb" style="left:120mm">12</b><i class="tk t1" style="left:121mm"></i><i class="tk t1" style="left:122mm"></i><i class="tk t1" style="left:123mm"></i><i class="tk t1" style="left:124mm"></i><i class="tk t5" style="left:125mm"></i><i class="tk t1" style="left:126mm"></i><i class="tk t1" style="left:127mm"></i><i class="tk t1" style="left:128mm"></i><i class="tk t1" style="left:129mm"></i><i class="tk t10" style="left:130mm"></i><b class="lb" style="left:130mm">13</b><i class="tk t1" style="left:131mm"></i><i class="tk t1" style="left:132mm"></i><i class="tk t1" style="left:133mm"></i><i class="tk t1" style="left:134mm"></i><i class="tk t5" style="left:135mm"></i><i class="tk t1" style="left:136mm"></i><i class="tk t1" style="left:137mm"></i><i class="tk t1" style="left:138mm"></i><i class="tk t1" style="left:139mm"></i><i class="tk t10" style="left:140mm"></i><b class="lb" style="left:140mm">14</b><i class="tk t1" style="left:141mm"></i><i class="tk t1" style="left:142mm"></i><i class="tk t1" style="left:143mm"></i><i class="tk t1" style="left:144mm"></i><i class="tk t5" style="left:145mm"></i><i class="tk t1" style="left:146mm"></i><i class="tk t1" style="left:147mm"></i><i class="tk t1" style="left:148mm"></i><i class="tk t1" style="left:149mm"></i><i class="tk t10" style="left:150mm"></i><b class="lb" style="left:150mm">15</b><i class="tk t1" style="left:151mm"></i><i class="tk t1" style="left:152mm"></i><i class="tk t1" style="left:153mm"></i><i class="tk t1" style="left:154mm"></i><i class="tk t5" style="left:155mm"></i><i class="tk t1" style="left:156mm"></i><i class="tk t1" style="left:157mm"></i><i class="tk t1" style="left:158mm"></i><i class="tk t1" style="left:159mm"></i><i class="tk t10" style="left:160mm"></i><b class="lb" style="left:160mm">16</b><i class="tk t1" style="left:161mm"></i><i class="tk t1" style="left:162mm"></i><i class="tk t1" style="left:163mm"></i><i class="tk t1" style="left:164mm"></i><i class="tk t5" style="left:165mm"></i><i class="tk t1" style="left:166mm"></i><i class="tk t1" style="left:167mm"></i><i class="tk t1" style="left:168mm"></i><i class="tk t1" style="left:169mm"></i><i class="tk t10" style="left:170mm"></i><b class="lb" style="left:170mm">17</b><i class="tk t1" style="left:171mm"></i><i class="tk t1" style="left:172mm"></i><i class="tk t1" style="left:173mm"></i><i class="tk t1" style="left:174mm"></i><i class="tk t5" style="left:175mm"></i><i class="tk t1" style="left:176mm"></i><i class="tk t1" style="left:177mm"></i><i class="tk t1" style="left:178mm"></i><i class="tk t1" style="left:179mm"></i><i class="tk t10" style="left:180mm"></i><b class="lb" style="left:180mm">18</b><i class="tk t1" style="left:181mm"></i><i class="tk t1" style="left:182mm"></i><i class="tk t1" style="left:183mm"></i><i class="tk t1" style="left:184mm"></i><i class="tk t5" style="left:185mm"></i><i class="tk t1" style="left:186mm"></i><i class="tk t1" style="left:187mm"></i><i class="tk t1" style="left:188mm"></i><i class="tk t1" style="left:189mm"></i><i class="tk t10" style="left:190mm"></i><b class="lb" style="left:190mm">19</b><i class="tk t1" style="left:191mm"></i><i class="tk t1" style="left:192mm"></i><i class="tk t1" style="left:193mm"></i><i class="tk t1" style="left:194mm"></i><i class="tk t5" style="left:195mm"></i><i class="tk t1" style="left:196mm"></i><i class="tk t1" style="left:197mm"></i><i class="tk t1" style="left:198mm"></i><i class="tk t1" style="left:199mm"></i><i class="tk t10" style="left:200mm"></i><b class="lb" style="left:200mm">20</b><i class="tk t1" style="left:201mm"></i><i class="tk t1" style="left:202mm"></i><i class="tk t1" style="left:203mm"></i><i class="tk t1" style="left:204mm"></i><i class="tk t5" style="left:205mm"></i><i class="tk t1" style="left:206mm"></i><i class="tk t1" style="left:207mm"></i><i class="tk t1" style="left:208mm"></i><i class="tk t1" style="left:209mm"></i><i class="tk t10" style="left:210mm"></i><div class="rz" data-z="l" style="width: 20mm;"></div><div class="rz" data-z="r" style="width: 20mm;"></div><div class="rm" data-m="l" title="Kéo để chỉnh lề trái" style="left: calc(68.5906px);"></div><div class="rm" data-m="r" title="Kéo để chỉnh lề phải" style="left: calc(711.11px);"></div></div><div class="ed-vr" id="edVR" style="height: 297mm;"><i class="tk t10" style="top:0mm"></i><i class="tk t1" style="top:1mm"></i><i class="tk t1" style="top:2mm"></i><i class="tk t1" style="top:3mm"></i><i class="tk t1" style="top:4mm"></i><i class="tk t5" style="top:5mm"></i><i class="tk t1" style="top:6mm"></i><i class="tk t1" style="top:7mm"></i><i class="tk t1" style="top:8mm"></i><i class="tk t1" style="top:9mm"></i><i class="tk t10" style="top:10mm"></i><b class="lb" style="top:10mm">1</b><i class="tk t1" style="top:11mm"></i><i class="tk t1" style="top:12mm"></i><i class="tk t1" style="top:13mm"></i><i class="tk t1" style="top:14mm"></i><i class="tk t5" style="top:15mm"></i><i class="tk t1" style="top:16mm"></i><i class="tk t1" style="top:17mm"></i><i class="tk t1" style="top:18mm"></i><i class="tk t1" style="top:19mm"></i><i class="tk t10" style="top:20mm"></i><b class="lb" style="top:20mm">2</b><i class="tk t1" style="top:21mm"></i><i class="tk t1" style="top:22mm"></i><i class="tk t1" style="top:23mm"></i><i class="tk t1" style="top:24mm"></i><i class="tk t5" style="top:25mm"></i><i class="tk t1" style="top:26mm"></i><i class="tk t1" style="top:27mm"></i><i class="tk t1" style="top:28mm"></i><i class="tk t1" style="top:29mm"></i><i class="tk t10" style="top:30mm"></i><b class="lb" style="top:30mm">3</b><i class="tk t1" style="top:31mm"></i><i class="tk t1" style="top:32mm"></i><i class="tk t1" style="top:33mm"></i><i class="tk t1" style="top:34mm"></i><i class="tk t5" style="top:35mm"></i><i class="tk t1" style="top:36mm"></i><i class="tk t1" style="top:37mm"></i><i class="tk t1" style="top:38mm"></i><i class="tk t1" style="top:39mm"></i><i class="tk t10" style="top:40mm"></i><b class="lb" style="top:40mm">4</b><i class="tk t1" style="top:41mm"></i><i class="tk t1" style="top:42mm"></i><i class="tk t1" style="top:43mm"></i><i class="tk t1" style="top:44mm"></i><i class="tk t5" style="top:45mm"></i><i class="tk t1" style="top:46mm"></i><i class="tk t1" style="top:47mm"></i><i class="tk t1" style="top:48mm"></i><i class="tk t1" style="top:49mm"></i><i class="tk t10" style="top:50mm"></i><b class="lb" style="top:50mm">5</b><i class="tk t1" style="top:51mm"></i><i class="tk t1" style="top:52mm"></i><i class="tk t1" style="top:53mm"></i><i class="tk t1" style="top:54mm"></i><i class="tk t5" style="top:55mm"></i><i class="tk t1" style="top:56mm"></i><i class="tk t1" style="top:57mm"></i><i class="tk t1" style="top:58mm"></i><i class="tk t1" style="top:59mm"></i><i class="tk t10" style="top:60mm"></i><b class="lb" style="top:60mm">6</b><i class="tk t1" style="top:61mm"></i><i class="tk t1" style="top:62mm"></i><i class="tk t1" style="top:63mm"></i><i class="tk t1" style="top:64mm"></i><i class="tk t5" style="top:65mm"></i><i class="tk t1" style="top:66mm"></i><i class="tk t1" style="top:67mm"></i><i class="tk t1" style="top:68mm"></i><i class="tk t1" style="top:69mm"></i><i class="tk t10" style="top:70mm"></i><b class="lb" style="top:70mm">7</b><i class="tk t1" style="top:71mm"></i><i class="tk t1" style="top:72mm"></i><i class="tk t1" style="top:73mm"></i><i class="tk t1" style="top:74mm"></i><i class="tk t5" style="top:75mm"></i><i class="tk t1" style="top:76mm"></i><i class="tk t1" style="top:77mm"></i><i class="tk t1" style="top:78mm"></i><i class="tk t1" style="top:79mm"></i><i class="tk t10" style="top:80mm"></i><b class="lb" style="top:80mm">8</b><i class="tk t1" style="top:81mm"></i><i class="tk t1" style="top:82mm"></i><i class="tk t1" style="top:83mm"></i><i class="tk t1" style="top:84mm"></i><i class="tk t5" style="top:85mm"></i><i class="tk t1" style="top:86mm"></i><i class="tk t1" style="top:87mm"></i><i class="tk t1" style="top:88mm"></i><i class="tk t1" style="top:89mm"></i><i class="tk t10" style="top:90mm"></i><b class="lb" style="top:90mm">9</b><i class="tk t1" style="top:91mm"></i><i class="tk t1" style="top:92mm"></i><i class="tk t1" style="top:93mm"></i><i class="tk t1" style="top:94mm"></i><i class="tk t5" style="top:95mm"></i><i class="tk t1" style="top:96mm"></i><i class="tk t1" style="top:97mm"></i><i class="tk t1" style="top:98mm"></i><i class="tk t1" style="top:99mm"></i><i class="tk t10" style="top:100mm"></i><b class="lb" style="top:100mm">10</b><i class="tk t1" style="top:101mm"></i><i class="tk t1" style="top:102mm"></i><i class="tk t1" style="top:103mm"></i><i class="tk t1" style="top:104mm"></i><i class="tk t5" style="top:105mm"></i><i class="tk t1" style="top:106mm"></i><i class="tk t1" style="top:107mm"></i><i class="tk t1" style="top:108mm"></i><i class="tk t1" style="top:109mm"></i><i class="tk t10" style="top:110mm"></i><b class="lb" style="top:110mm">11</b><i class="tk t1" style="top:111mm"></i><i class="tk t1" style="top:112mm"></i><i class="tk t1" style="top:113mm"></i><i class="tk t1" style="top:114mm"></i><i class="tk t5" style="top:115mm"></i><i class="tk t1" style="top:116mm"></i><i class="tk t1" style="top:117mm"></i><i class="tk t1" style="top:118mm"></i><i class="tk t1" style="top:119mm"></i><i class="tk t10" style="top:120mm"></i><b class="lb" style="top:120mm">12</b><i class="tk t1" style="top:121mm"></i><i class="tk t1" style="top:122mm"></i><i class="tk t1" style="top:123mm"></i><i class="tk t1" style="top:124mm"></i><i class="tk t5" style="top:125mm"></i><i class="tk t1" style="top:126mm"></i><i class="tk t1" style="top:127mm"></i><i class="tk t1" style="top:128mm"></i><i class="tk t1" style="top:129mm"></i><i class="tk t10" style="top:130mm"></i><b class="lb" style="top:130mm">13</b><i class="tk t1" style="top:131mm"></i><i class="tk t1" style="top:132mm"></i><i class="tk t1" style="top:133mm"></i><i class="tk t1" style="top:134mm"></i><i class="tk t5" style="top:135mm"></i><i class="tk t1" style="top:136mm"></i><i class="tk t1" style="top:137mm"></i><i class="tk t1" style="top:138mm"></i><i class="tk t1" style="top:139mm"></i><i class="tk t10" style="top:140mm"></i><b class="lb" style="top:140mm">14</b><i class="tk t1" style="top:141mm"></i><i class="tk t1" style="top:142mm"></i><i class="tk t1" style="top:143mm"></i><i class="tk t1" style="top:144mm"></i><i class="tk t5" style="top:145mm"></i><i class="tk t1" style="top:146mm"></i><i class="tk t1" style="top:147mm"></i><i class="tk t1" style="top:148mm"></i><i class="tk t1" style="top:149mm"></i><i class="tk t10" style="top:150mm"></i><b class="lb" style="top:150mm">15</b><i class="tk t1" style="top:151mm"></i><i class="tk t1" style="top:152mm"></i><i class="tk t1" style="top:153mm"></i><i class="tk t1" style="top:154mm"></i><i class="tk t5" style="top:155mm"></i><i class="tk t1" style="top:156mm"></i><i class="tk t1" style="top:157mm"></i><i class="tk t1" style="top:158mm"></i><i class="tk t1" style="top:159mm"></i><i class="tk t10" style="top:160mm"></i><b class="lb" style="top:160mm">16</b><i class="tk t1" style="top:161mm"></i><i class="tk t1" style="top:162mm"></i><i class="tk t1" style="top:163mm"></i><i class="tk t1" style="top:164mm"></i><i class="tk t5" style="top:165mm"></i><i class="tk t1" style="top:166mm"></i><i class="tk t1" style="top:167mm"></i><i class="tk t1" style="top:168mm"></i><i class="tk t1" style="top:169mm"></i><i class="tk t10" style="top:170mm"></i><b class="lb" style="top:170mm">17</b><i class="tk t1" style="top:171mm"></i><i class="tk t1" style="top:172mm"></i><i class="tk t1" style="top:173mm"></i><i class="tk t1" style="top:174mm"></i><i class="tk t5" style="top:175mm"></i><i class="tk t1" style="top:176mm"></i><i class="tk t1" style="top:177mm"></i><i class="tk t1" style="top:178mm"></i><i class="tk t1" style="top:179mm"></i><i class="tk t10" style="top:180mm"></i><b class="lb" style="top:180mm">18</b><i class="tk t1" style="top:181mm"></i><i class="tk t1" style="top:182mm"></i><i class="tk t1" style="top:183mm"></i><i class="tk t1" style="top:184mm"></i><i class="tk t5" style="top:185mm"></i><i class="tk t1" style="top:186mm"></i><i class="tk t1" style="top:187mm"></i><i class="tk t1" style="top:188mm"></i><i class="tk t1" style="top:189mm"></i><i class="tk t10" style="top:190mm"></i><b class="lb" style="top:190mm">19</b><i class="tk t1" style="top:191mm"></i><i class="tk t1" style="top:192mm"></i><i class="tk t1" style="top:193mm"></i><i class="tk t1" style="top:194mm"></i><i class="tk t5" style="top:195mm"></i><i class="tk t1" style="top:196mm"></i><i class="tk t1" style="top:197mm"></i><i class="tk t1" style="top:198mm"></i><i class="tk t1" style="top:199mm"></i><i class="tk t10" style="top:200mm"></i><b class="lb" style="top:200mm">20</b><i class="tk t1" style="top:201mm"></i><i class="tk t1" style="top:202mm"></i><i class="tk t1" style="top:203mm"></i><i class="tk t1" style="top:204mm"></i><i class="tk t5" style="top:205mm"></i><i class="tk t1" style="top:206mm"></i><i class="tk t1" style="top:207mm"></i><i class="tk t1" style="top:208mm"></i><i class="tk t1" style="top:209mm"></i><i class="tk t10" style="top:210mm"></i><b class="lb" style="top:210mm">21</b><i class="tk t1" style="top:211mm"></i><i class="tk t1" style="top:212mm"></i><i class="tk t1" style="top:213mm"></i><i class="tk t1" style="top:214mm"></i><i class="tk t5" style="top:215mm"></i><i class="tk t1" style="top:216mm"></i><i class="tk t1" style="top:217mm"></i><i class="tk t1" style="top:218mm"></i><i class="tk t1" style="top:219mm"></i><i class="tk t10" style="top:220mm"></i><b class="lb" style="top:220mm">22</b><i class="tk t1" style="top:221mm"></i><i class="tk t1" style="top:222mm"></i><i class="tk t1" style="top:223mm"></i><i class="tk t1" style="top:224mm"></i><i class="tk t5" style="top:225mm"></i><i class="tk t1" style="top:226mm"></i><i class="tk t1" style="top:227mm"></i><i class="tk t1" style="top:228mm"></i><i class="tk t1" style="top:229mm"></i><i class="tk t10" style="top:230mm"></i><b class="lb" style="top:230mm">23</b><i class="tk t1" style="top:231mm"></i><i class="tk t1" style="top:232mm"></i><i class="tk t1" style="top:233mm"></i><i class="tk t1" style="top:234mm"></i><i class="tk t5" style="top:235mm"></i><i class="tk t1" style="top:236mm"></i><i class="tk t1" style="top:237mm"></i><i class="tk t1" style="top:238mm"></i><i class="tk t1" style="top:239mm"></i><i class="tk t10" style="top:240mm"></i><b class="lb" style="top:240mm">24</b><i class="tk t1" style="top:241mm"></i><i class="tk t1" style="top:242mm"></i><i class="tk t1" style="top:243mm"></i><i class="tk t1" style="top:244mm"></i><i class="tk t5" style="top:245mm"></i><i class="tk t1" style="top:246mm"></i><i class="tk t1" style="top:247mm"></i><i class="tk t1" style="top:248mm"></i><i class="tk t1" style="top:249mm"></i><i class="tk t10" style="top:250mm"></i><b class="lb" style="top:250mm">25</b><i class="tk t1" style="top:251mm"></i><i class="tk t1" style="top:252mm"></i><i class="tk t1" style="top:253mm"></i><i class="tk t1" style="top:254mm"></i><i class="tk t5" style="top:255mm"></i><i class="tk t1" style="top:256mm"></i><i class="tk t1" style="top:257mm"></i><i class="tk t1" style="top:258mm"></i><i class="tk t1" style="top:259mm"></i><i class="tk t10" style="top:260mm"></i><b class="lb" style="top:260mm">26</b><i class="tk t1" style="top:261mm"></i><i class="tk t1" style="top:262mm"></i><i class="tk t1" style="top:263mm"></i><i class="tk t1" style="top:264mm"></i><i class="tk t5" style="top:265mm"></i><i class="tk t1" style="top:266mm"></i><i class="tk t1" style="top:267mm"></i><i class="tk t1" style="top:268mm"></i><i class="tk t1" style="top:269mm"></i><i class="tk t10" style="top:270mm"></i><b class="lb" style="top:270mm">27</b><i class="tk t1" style="top:271mm"></i><i class="tk t1" style="top:272mm"></i><i class="tk t1" style="top:273mm"></i><i class="tk t1" style="top:274mm"></i><i class="tk t5" style="top:275mm"></i><i class="tk t1" style="top:276mm"></i><i class="tk t1" style="top:277mm"></i><i class="tk t1" style="top:278mm"></i><i class="tk t1" style="top:279mm"></i><i class="tk t10" style="top:280mm"></i><b class="lb" style="top:280mm">28</b><i class="tk t1" style="top:281mm"></i><i class="tk t1" style="top:282mm"></i><i class="tk t1" style="top:283mm"></i><i class="tk t1" style="top:284mm"></i><i class="tk t5" style="top:285mm"></i><i class="tk t1" style="top:286mm"></i><i class="tk t1" style="top:287mm"></i><i class="tk t1" style="top:288mm"></i><i class="tk t1" style="top:289mm"></i><i class="tk t10" style="top:290mm"></i><b class="lb" style="top:290mm">29</b><i class="tk t1" style="top:291mm"></i><i class="tk t1" style="top:292mm"></i><i class="tk t1" style="top:293mm"></i><i class="tk t1" style="top:294mm"></i><i class="tk t5" style="top:295mm"></i><i class="tk t1" style="top:296mm"></i><i class="tk t1" style="top:297mm"></i><div class="rz" data-z="t" style="height: 20mm;"></div><div class="rz" data-z="b" style="height: 20mm;"></div><div class="rm" data-m="t" title="Kéo để chỉnh lề trên" style="top: calc(68.5906px);"></div><div class="rm" data-m="b" title="Kéo để chỉnh lề dưới" style="top: calc(1039.93px);"></div></div>
+<div id="edPage" class="ed-page" contenteditable="true" spellcheck="false" style="width: 210mm; min-height: 297mm; padding: 20mm;"><p><br></p></div>
+<div class="ed-guide hidden" id="edGuide"></div>
+<div class="ed-imgbox hidden" id="edImgBox"><i data-h="nw" title="Kéo góc để kéo giãn tự do (giữ Shift: khóa tỉ lệ)"></i><i data-h="n" title="Kéo để đổi chiều cao"></i><i data-h="ne" title="Kéo góc để kéo giãn tự do (giữ Shift: khóa tỉ lệ)"></i><i data-h="w" title="Kéo để đổi chiều rộng"></i><i data-h="e" title="Kéo để đổi chiều rộng"></i><i data-h="sw" title="Kéo góc để kéo giãn tự do (giữ Shift: khóa tỉ lệ)"></i><i data-h="s" title="Kéo để đổi chiều cao"></i><i data-h="se" title="Kéo góc để kéo giãn tự do (giữ Shift: khóa tỉ lệ)"></i><b id="edImgLabel"></b></div>
+</div></div>
+<div class="ed-hint"><b id="edMarginInfo">Lề (mm): trái 20 · phải 20 · trên 20 · dưới 20</b> · Kéo mũi tên tím trên thước để chỉnh lề. Textbox: bấm vào viền để chọn, kéo hoặc dùng phím ← ↑ ↓ → để dời (Shift: ×5), Enter / nhấp đúp để gõ chữ, Esc để thoát chế độ gõ, Delete để xóa; chọn textbox rồi dùng “Màu viền” / “⬚ Trong suốt” / độ dày viền trên thanh công cụ; khi đang gõ trong textbox, Alt + mũi tên vẫn dời được. Ảnh: kéo 8 ô vuông quanh ảnh để đổi cỡ (kéo cạnh/góc trên hoặc trái thì ảnh chuyển sang chế độ tự do); kéo ảnh để đặt tự do ở bất kỳ vị trí nào trên trang (nút “⚓ Vào dòng” để đưa về trong dòng chữ); bấm vào ảnh để chọn, kéo ô vuông ở cạnh phải / cạnh dưới / góc dưới-phải để kéo giãn tự do (giữ Shift: khóa tỉ lệ), hoặc nhập số mm trên thanh công cụ. Tab trong bảng: sang ô kế tiếp. Nội dung tự lưu nháp. In: “🖨 In” hoặc Ctrl+P — chọn “Lưu dưới dạng PDF” để xuất PDF.</div>
+</div></div>
+<input type="file" id="edImgInput" accept="image/*" hidden="">
+<div class="toast hidden" id="toast"></div>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const {PDFDocument,degrees}=PDFLib;
+const $=id=>document.getElementById(id);
+let documents=[],pages=[],selectedPages=new Set(),nextDocumentId=1,previewIndex=-1,busy=false,manualCropState=null,openGroups=new Set(),dragPayload=null;
+
+/* ====== HOÀN TÁC / LÀM LẠI ====== */
+const undoStack=[],redoStack=[];
+function snapshotPages(){return pages.map(p=>({...p,cropMm:p.cropMm?{...p.cropMm}:undefined,perspectiveCrop:p.perspectiveCrop?p.perspectiveCrop.map(q=>({...q})):undefined}))}
+function updateHistoryButtons(){const u=$("undoButton"),r=$("redoButton");if(!u||!r)return;u.disabled=busy||!undoStack.length;r.disabled=busy||!redoStack.length}
+function pushHistory(){undoStack.push(snapshotPages());if(undoStack.length>50)undoStack.shift();redoStack.length=0;updateHistoryButtons()}
+function undo(){if(busy||!undoStack.length)return;redoStack.push(snapshotPages());pages=undoStack.pop();selectedPages.clear();renderGrid();updateHistoryButtons();showToast("Đã hoàn tác")}
+function redo(){if(busy||!redoStack.length)return;undoStack.push(snapshotPages());pages=redoStack.pop();selectedPages.clear();renderGrid();updateHistoryButtons();showToast("Đã làm lại")}
+
+function login(){if($("passwordInput").value==="2001"){$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden")}else $("loginError").textContent="Mật khẩu không chính xác!"}
+$("loginButton").onclick=login;$("passwordInput").onkeydown=e=>{if(e.key==="Enter")login()};
+function showToast(m){const el=$("toast");el.textContent=m;el.classList.remove("hidden");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>el.classList.add("hidden"),3000)}
+function setProgress(p,m){$("progressArea").classList.remove("hidden");$("progressFill").style.width=p+"%";$("progressText").textContent=m}
+function setBusy(v){busy=v;["addFilesButton","exportButton","enhanceExportButton","compressExportButton","rotateButton","duplicateButton","deleteButton","clearButton","selectAllButton","saveSelectedButton","printSelectedButton","editorButton","manualCropButton","autoCropButton","rectCropButton","mergeButton","stampButton","moveCropButton","copyCropButton","moveCropPrev","applyManualCrop","autoDetectCrop","startManualCrop","startRectCrop","moveToButton","moveLeftButton","moveRightButton"].forEach(id=>$(id).disabled=v);updateHistoryButtons()}
+function getDoc(id){return documents.find(d=>d.id===id)}
+function sourceFor(item){const d=getDoc(item.docId);if(!d)throw Error("Không tìm thấy tài liệu nguồn");return d}
+function updateSaveButton(){updateEnhanceInfo();const b=$("saveSelectedButton"),pb=$("printSelectedButton");if(!b)return;const n=selectedPages.size;b.textContent=n?`💾 Lưu ${n} trang đã chọn`:"💾 Lưu trang đã chọn";if(pb)pb.textContent=n?`🖨 In ${n} trang đã chọn`:"🖨 In trang đã chọn"}
+function rangeLabel(idx){const nums=idx.map(i=>i+1),parts=[];for(let k=0;k<nums.length;){let j=k;while(j+1<nums.length&&nums[j+1]===nums[j]+1)j++;parts.push(j>k?nums[k]+"-"+nums[j]:String(nums[k]));k=j+1}return parts.join("_")}
+const PILL_COLORS=["#fde7b0","#b9eef2","#e0d4ff","#ffd3dc","#cdeec9","#ffe0c2"];
+function groupKey(it){return it.group??it.docId}
+function getGroups(){const m=new Map();pages.forEach(p=>{const k=groupKey(p);if(!m.has(k))m.set(k,{key:k,items:[],name:(getDoc(k)||{}).name||p.name});m.get(k).items.push(p)});return[...m.values()]}
+function visibleItems(){const g=getGroups();return g.length<2?pages:pages.filter(p=>openGroups.has(groupKey(p)))}
+function updateCount(){updateSaveButton();{const g=getGroups();$("pageCount").textContent=(g.length>=2?g.length+" tệp · ":"")+pages.length+" trang"}$("emptyState").classList.toggle("hidden",pages.length>0);$("pageGrid").classList.toggle("hidden",pages.length===0)}
+function downloadBytes(bytes,name){const blob=new Blob([bytes],{type:"application/pdf"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+
+$("addFilesButton").onclick=()=>$("fileInput").click();$("dropzone").onclick=()=>$("fileInput").click();
+$("fileInput").onchange=async e=>{await addFiles([...e.target.files]);e.target.value=""};
+["dragenter","dragover"].forEach(t=>$("dropzone").addEventListener(t,e=>{e.preventDefault();$("dropzone").classList.add("dragover")}));
+["dragleave","drop"].forEach(t=>$("dropzone").addEventListener(t,e=>{e.preventDefault();$("dropzone").classList.remove("dragover")}));
+$("dropzone").ondrop=async e=>addFiles([...e.dataTransfer.files]);
+
+async function addFiles(files){if(!files.length)return;pushHistory();setBusy(true);try{for(const f of files){const ext=f.name.split(".").pop().toLowerCase();if(ext==="pdf"||f.type==="application/pdf")await addPDF(f);else if(["jpg","jpeg","png","webp"].includes(ext)||f.type.startsWith("image/"))await addImage(f);else showToast("Không hỗ trợ: "+f.name)}renderGrid();showToast("Đã thêm tệp")}catch(e){console.error(e);showToast("Lỗi đọc tệp: "+e.message)}finally{setBusy(false)}}
+async function addPDF(file){const bytes=new Uint8Array(await file.arrayBuffer()),pdf=await pdfjsLib.getDocument({data:bytes.slice()}).promise,id=nextDocumentId++;documents.push({id,name:file.name,bytes,pdf});for(let n=1;n<=pdf.numPages;n++)pages.push({id:crypto.randomUUID(),docId:id,pageNum:n,rotation:0,name:file.name})}
+async function addImage(file){const bitmap=await createImageBitmap(file),maxSide=6000,ratio=Math.min(1,maxSide/Math.max(bitmap.width,bitmap.height)),c=document.createElement("canvas");c.width=Math.round(bitmap.width*ratio);c.height=Math.round(bitmap.height*ratio);const cx=c.getContext("2d");cx.fillStyle="#fff";cx.fillRect(0,0,c.width,c.height);cx.drawImage(bitmap,0,0,c.width,c.height);bitmap.close();const blob=await new Promise(r=>c.toBlob(r,"image/png"));if(!blob)throw Error("Không chuyển đổi được ảnh");const png=new Uint8Array(await blob.arrayBuffer()),p=await PDFDocument.create(),im=await p.embedPng(png),land=im.width>im.height,w=land?841.89:595.28,h=land?595.28:841.89,pg=p.addPage([w,h]),margin=20,s=Math.min((w-2*margin)/im.width,(h-2*margin)/im.height),iw=im.width*s,ih=im.height*s;pg.drawImage(im,{x:(w-iw)/2,y:(h-ih)/2,width:iw,height:ih});const bytes=new Uint8Array(await p.save()),pdf=await pdfjsLib.getDocument({data:bytes.slice()}).promise,id=nextDocumentId++;documents.push({id,name:file.name,bytes,pdf});pages.push({id:crypto.randomUUID(),docId:id,pageNum:1,rotation:0,name:file.name})}
+
+const MM_TO_PT=72/25.4;
+function cropValues(item){return item.cropMm||{top:0,bottom:0,left:0,right:0}}
+function cropViewBox(item,pdfPage){
+  const base=pdfPage.view||[0,0,pdfPage.getViewport({scale:1,rotation:0}).width,pdfPage.getViewport({scale:1,rotation:0}).height];
+  const c=cropValues(item),x0=base[0]+c.left*MM_TO_PT,y0=base[1]+c.bottom*MM_TO_PT;
+  const x1=base[2]-c.right*MM_TO_PT,y1=base[3]-c.top*MM_TO_PT;
+  if(x1-x0<24||y1-y0<24)throw Error("Phần còn lại quá nhỏ. Hãy giảm số mm cắt.");
+  return [x0,y0,x1,y1];
+}
+function clearShapeCrop(item){delete item.perspectiveCrop;delete item.cropMode}
+const LOW_END=(navigator.hardwareConcurrency||4)<=4||(navigator.deviceMemory||8)<=4;
+if(LOW_END)document.body.classList.add("low-end");
+const THUMB_SCALE=LOW_END?.3:.42;
+const thumbCache=new Map(),thumbQueue=[];let thumbRunning=false;
+function thumbKey(it){return [it.docId,it.pageNum,it.rotation,it.cropMode||"",JSON.stringify(it.perspectiveCrop||null),JSON.stringify(it.cropMm||null)].join("|")}
+function paintFrom(cv,s){cv.width=s.width;cv.height=s.height;cv.getContext("2d").drawImage(s,0,0)}
+async function renderThumb(item,canvas){const d=sourceFor(item),p=await d.pdf.getPage(item.pageNum),v=p.getViewport({scale:THUMB_SCALE,rotation:((p.rotate||0)+item.rotation)%360,viewBox:cropViewBox(item,p)});canvas.width=Math.ceil(v.width);canvas.height=Math.ceil(v.height);await p.render({canvasContext:canvas.getContext("2d"),viewport:v}).promise;p.cleanup()}
+function thumbnail(item,canvas){
+  const key=thumbKey(item),hit=thumbCache.get(key);
+  if(hit){thumbCache.delete(key);thumbCache.set(key,hit);paintFrom(canvas,hit);return Promise.resolve()}
+  return new Promise(res=>{thumbQueue.push({item,canvas,key,res});pumpThumbs()});
+}
+async function pumpThumbs(){
+  if(thumbRunning)return;thumbRunning=true;
+  while(thumbQueue.length){
+    const job=thumbQueue.shift();
+    if(!job.canvas.isConnected){job.res();continue}
+    try{
+      const hit=thumbCache.get(job.key);
+      if(hit)paintFrom(job.canvas,hit);
+      else{
+        await renderThumb(job.item,job.canvas);
+        const c=document.createElement("canvas");paintFrom(c,job.canvas);thumbCache.set(job.key,c);
+        if(thumbCache.size>400)thumbCache.delete(thumbCache.keys().next().value);
+      }
+    }catch(e){console.warn(e)}
+    job.res();
+    await new Promise(r=>setTimeout(r,LOW_END?20:0));
+  }
+  thumbRunning=false;
+}
+function cropLabel(it){
+  if(it.perspectiveCrop)return it.cropMode==="rect"?" · chữ nhật":" · freeform";
+  return Object.values(cropValues(it)).some(v=>v>0)?" · đã cắt":"";
+}
+
+/* ====== CHUYỂN TRANG GIỮA CÁC TỆP ======
+   - moveItems: chuyển tập trang (giữ thứ tự hiện tại) vào tệp đích tại vị trí k trong danh sách trang của tệp đó.
+   - moveGroup: đổi thứ tự cả tệp (kéo chồng giấy lên chồng giấy khác). */
+function moveItems(idSet,destKey,k){
+  const moving=pages.filter(p=>idSet.has(p.id));
+  if(!moving.length)return 0;
+  const rest=pages.filter(p=>!idSet.has(p.id)),dest=rest.filter(p=>groupKey(p)===destKey);
+  let at;
+  if(!dest.length)at=rest.length;
+  else if(k<dest.length)at=rest.indexOf(dest[k]);
+  else at=rest.indexOf(dest[dest.length-1])+1;
+  pushHistory();
+  moving.forEach(p=>{p.group=destKey});
+  pages=[...rest.slice(0,at),...moving,...rest.slice(at)];
+  openGroups.add(destKey);
+  return moving.length;
+}
+function moveBeforeAfter(idSet,refId,after){
+  if(idSet.has(refId))return 0;
+  const ref=pages.find(p=>p.id===refId);if(!ref)return 0;
+  const key=groupKey(ref),dest=pages.filter(p=>!idSet.has(p.id)&&groupKey(p)===key);
+  return moveItems(idSet,key,dest.findIndex(p=>p.id===refId)+(after?1:0));
+}
+function moveGroup(srcKey,targetKey){
+  if(srcKey===targetKey)return;
+  const src=pages.filter(p=>groupKey(p)===srcKey),rest=pages.filter(p=>groupKey(p)!==srcKey);
+  const at=rest.findIndex(p=>groupKey(p)===targetKey);if(at<0)return;
+  pushHistory();pages=[...rest.slice(0,at),...src,...rest.slice(at)];
+}
+function groupNameOf(key){const g=getGroups().find(x=>x.key===key);return g?g.name:""}
+function shiftSelected(dir){
+  if(!selectedPages.size)return showToast("Hãy chọn trang cần dời");
+  const snap=snapshotPages();let changed=false;
+  const arr=pages.slice();
+  if(dir<0){for(let i=1;i<arr.length;i++)if(selectedPages.has(arr[i].id)&&!selectedPages.has(arr[i-1].id)&&groupKey(arr[i])===groupKey(arr[i-1])){[arr[i-1],arr[i]]=[arr[i],arr[i-1]];changed=true}}
+  else{for(let i=arr.length-2;i>=0;i--)if(selectedPages.has(arr[i].id)&&!selectedPages.has(arr[i+1].id)&&groupKey(arr[i])===groupKey(arr[i+1])){[arr[i+1],arr[i]]=[arr[i],arr[i+1]];changed=true}}
+  if(!changed)return showToast(dir<0?"Đã ở đầu tệp":"Đã ở cuối tệp");
+  undoStack.push(snap);if(undoStack.length>50)undoStack.shift();redoStack.length=0;updateHistoryButtons();
+  pages=arr;renderGrid();
+}
+$("moveLeftButton").onclick=()=>shiftSelected(-1);
+$("moveRightButton").onclick=()=>shiftSelected(1);
+
+/* --- Kéo thả --- */
+function clearDropMarks(){document.querySelectorAll(".drop-before,.drop-after,.drop-target").forEach(el=>el.classList.remove("drop-before","drop-after","drop-target"))}
+let liveRef=null,liveLast=null;
+function endDrag(){clearDropMarks();document.querySelectorAll(".dragging").forEach(el=>el.classList.remove("dragging"));dragPayload=null;liveRef=null;liveLast=null}
+// Hiệu ứng trượt (FLIP): các thẻ khác tự lùi ra khi trang đang kéo đi qua
+function flipMove(grid,fn){
+  if(LOW_END||grid.children.length>60){fn();return}
+  const els=[...grid.children],before=new Map(els.map(el=>[el,el.getBoundingClientRect()]));
+  fn();
+  const moved=[];
+  els.forEach(el=>{
+    const a=before.get(el),b=el.getBoundingClientRect(),dx=a.left-b.left,dy=a.top-b.top;
+    if(!dx&&!dy)return;
+    el.style.transition="none";el.style.transform=`translate(${dx}px,${dy}px)`;moved.push(el);
+  });
+  if(!moved.length)return;
+  void grid.offsetWidth;
+  moved.forEach(el=>{el.style.transition="transform .22s cubic-bezier(.2,.8,.3,1)";el.style.transform=""});
+  setTimeout(()=>moved.forEach(el=>{el.style.transition=""}),260);
+}
+function liveMovePages(targetCard,targetId){
+  const grid=$("pageGrid"),ids=dragPayload.ids.map(String);
+  const dragEls=[...grid.querySelectorAll(".page-card")].filter(c=>ids.includes(c.dataset.id));
+  if(!dragEls.length||dragEls.includes(targetCard))return;
+  const all=[...grid.children],after=all.indexOf(dragEls[0])<all.indexOf(targetCard);
+  flipMove(grid,()=>{
+    if(after){const ref=targetCard.nextSibling;dragEls.forEach(el=>grid.insertBefore(el,ref))}
+    else dragEls.forEach(el=>grid.insertBefore(el,targetCard));
+  });
+  liveRef={id:targetId,after};
+}
+function commitLive(){
+  const p=dragPayload,ref=liveRef;endDrag();
+  if(!p||p.type!=="pages")return;
+  if(!ref){renderGrid();return}
+  const n=moveBeforeAfter(new Set(p.ids),ref.id,ref.after);
+  selectedPages=new Set(p.ids);renderGrid();if(n)showToast(`Đã chuyển ${n} trang`);
+}
+(()=>{const g=$("pageGrid");
+  g.addEventListener("dragover",e=>{if(dragPayload&&dragPayload.type==="pages"){e.preventDefault();e.dataTransfer.dropEffect="move"}});
+  g.addEventListener("drop",e=>{if(dragPayload&&dragPayload.type==="pages"){e.preventDefault();commitLive()}});
+})();
+document.addEventListener("dragover",e=>{
+  if(!dragPayload)return;
+  if(e.clientY<90)window.scrollBy(0,-18);else if(e.clientY>innerHeight-90)window.scrollBy(0,18);
+});
+document.addEventListener("dragend",e=>{
+  if(!liveRef){endDrag();return}
+  // thả trong vùng lưới nhưng trình duyệt không gửi sự kiện drop: vẫn chốt vị trí hiện tại
+  const r=$("pageGrid").getBoundingClientRect();
+  if(dragPayload&&dragPayload.type==="pages"&&e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){commitLive();return}
+  endDrag();renderGrid();
+});
+function startPagesDrag(e,it,card){
+  let ids;
+  if(selectedPages.has(it.id))ids=pages.filter(p=>selectedPages.has(p.id)).map(p=>p.id);
+  else{
+    ids=[it.id];selectedPages.clear();selectedPages.add(it.id);
+    document.querySelectorAll(".page-card.selected").forEach(x=>x.classList.remove("selected"));card.classList.add("selected");
+  }
+  dragPayload={type:"pages",ids};
+  e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain","pdf-studio-pages");
+  setTimeout(()=>ids.forEach(id=>document.querySelector(`.page-card[data-id="${id}"]`)?.classList.add("dragging")),0);
+  if(ids.length>1)showToast(`Đang kéo ${ids.length} trang · thả vào vị trí mong muốn`);
+}
+function doDropOnPage(refId,after){
+  const p=dragPayload;endDrag();
+  if(!p||p.type!=="pages")return;
+  const n=moveBeforeAfter(new Set(p.ids),refId,after);
+  if(!n)return;
+  selectedPages=new Set(p.ids);renderGrid();showToast(`Đã chuyển ${n} trang`);
+}
+function doDropOnStack(key){
+  const p=dragPayload;endDrag();if(!p)return;
+  if(p.type==="group"){moveGroup(p.key,key);renderGrid();showToast("Đã đổi thứ tự tệp");return}
+  const n=moveItems(new Set(p.ids),key,Infinity);
+  if(!n)return;
+  selectedPages=new Set(p.ids);openGroups.add(key);renderGrid();showToast(`Đã chuyển ${n} trang vào cuối “${groupNameOf(key)}”`);
+}
+
+function makeStack(g,gi){
+  const card=document.createElement("div"),allSel=g.items.every(p=>selectedPages.has(p.id)),someSel=g.items.some(p=>selectedPages.has(p.id));
+  card.className="stack-card"+(allSel?" selected":"");card.title="Bấm để bung · kéo để đổi thứ tự tệp · thả trang vào đây để chuyển vào cuối tệp";
+  card.draggable=true;
+  const st=document.createElement("div");st.className="stack-pages";
+  if(g.items.length>2){const l=document.createElement("div");l.className="stack-layer l2";st.append(l)}
+  if(g.items.length>1){const l=document.createElement("div");l.className="stack-layer l1";st.append(l)}
+  const front=document.createElement("div");front.className="stack-front";const cv=document.createElement("canvas");front.append(cv);st.append(front);
+  const chk=document.createElement("div");chk.className="stack-check";chk.title="Chọn / bỏ chọn cả tệp";
+  chk.onclick=e=>{e.stopPropagation();if(allSel)g.items.forEach(p=>selectedPages.delete(p.id));else g.items.forEach(p=>selectedPages.add(p.id));renderGrid()};
+  card.append(chk);
+  if(someSel&&!allSel){const b=document.createElement("div");b.className="stack-badge";b.textContent=g.items.filter(p=>selectedPages.has(p.id)).length+" đã chọn";card.append(b)}
+  const pill=document.createElement("span");pill.className="stack-pill";pill.textContent=g.name;pill.title=g.name;pill.style.background=PILL_COLORS[gi%PILL_COLORS.length];
+  const cnt=document.createElement("div");cnt.className="stack-count";cnt.textContent=g.items.length+" trang";
+  card.append(st,pill,cnt);
+  card.onclick=()=>{openGroups.add(g.key);renderGrid()};
+  card.ondragstart=e=>{dragPayload={type:"group",key:g.key};e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain","pdf-studio-group");setTimeout(()=>card.classList.add("dragging"),0)};
+  card.ondragover=e=>{
+    if(!dragPayload||(dragPayload.type==="group"&&dragPayload.key===g.key))return;
+    e.preventDefault();e.dataTransfer.dropEffect="move";card.classList.add("drop-target");
+  };
+  card.ondragleave=e=>{if(!card.contains(e.relatedTarget))card.classList.remove("drop-target")};
+  card.ondrop=e=>{e.preventDefault();doDropOnStack(g.key)};
+  thumbnail(g.items[0],cv).catch(err=>console.warn(err));
+  return card;
+}
+function renderGrid(){
+  const grid=$("pageGrid"),bar=$("groupBar"),groups=getGroups(),multi=groups.length>=2;
+  if(!multi)openGroups.clear();else[...openGroups].forEach(k=>{if(!groups.some(g=>g.key===k))openGroups.delete(k)});
+  grid.innerHTML="";bar.innerHTML="";grid.className="page-grid";updateCount();bar.classList.add("hidden");
+  const gIndex=new Map(groups.map((g,i)=>[g.key,i])),seen=new Set();
+  if(multi){
+    const b1=document.createElement("button");b1.className="btn";b1.textContent="⤢ Bung tất cả";b1.onclick=()=>{groups.forEach(g=>openGroups.add(g.key));renderGrid()};
+    const b2=document.createElement("button");b2.className="btn";b2.textContent="⤡ Thu gọn tất cả";b2.onclick=()=>{openGroups.clear();renderGrid()};
+    const hint=document.createElement("span");hint.className="muted";hint.textContent="Bấm chồng giấy để bung · bấm nhãn màu để thu gọn · kéo trang thả lên chồng giấy hoặc lên trang của tệp khác để chuyển";
+    bar.append(b1,b2,hint);bar.classList.remove("hidden");
+  }
+  pages.forEach((it,i)=>{
+    const k=groupKey(it),gi=gIndex.get(k),g=groups[gi];
+    if(multi&&!openGroups.has(k)){if(!seen.has(k)){seen.add(k);grid.append(makeStack(g,gi))}return}
+    const card=document.createElement("div");card.className="page-card"+(selectedPages.has(it.id)?" selected":"");card.draggable=true;card.dataset.id=it.id;
+    const wrap=document.createElement("div");wrap.className="thumb-wrap";
+    const cv=document.createElement("canvas"),num=document.createElement("div"),check=document.createElement("div");
+    num.className="page-number";num.textContent=multi?g.items.indexOf(it)+1:i+1;check.className="page-check";wrap.append(cv,num,check);
+    if($("enhanceScope").value!=="all"&&!enhanceFlags()[i]){const tag=document.createElement("div");tag.className="skip-tag";tag.textContent="Không khử bóng";wrap.append(tag)}
+    const info=document.createElement("div");info.className="page-info";
+    const name=document.createElement("span");name.textContent=it.name;name.title=it.name;name.style.cssText="overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
+    if(multi){name.className="file-pill";name.style.background=PILL_COLORS[gi%PILL_COLORS.length];name.title=it.name+" — bấm để thu gọn tệp";name.onclick=e=>{e.stopPropagation();openGroups.delete(k);renderGrid()}}
+    const n=document.createElement("span");n.textContent="Trang "+it.pageNum+cropLabel(it);info.append(name,n);card.append(wrap,info);
+    card.onclick=e=>selectPage(it.id,i,e);card.ondblclick=()=>openPreview(i);
+    card.ondragstart=e=>startPagesDrag(e,it,card);
+    card.ondragover=e=>{
+      if(!dragPayload||dragPayload.type!=="pages")return;
+      e.preventDefault();e.dataTransfer.dropEffect="move";
+      if(dragPayload.ids.includes(it.id)){liveLast=null;return}
+      if(liveLast===it.id)return;
+      liveLast=it.id;liveMovePages(card,it.id);
+    };
+    card.ondrop=e=>{e.preventDefault();e.stopPropagation();commitLive()};
+    grid.append(card);thumbnail(it,cv).catch(err=>console.warn(err));
+  });
+}
+function selectPage(id,i,e){
+  const vis=visibleItems(),vi=vis.findIndex(p=>p.id===id);
+  if(e.ctrlKey||e.metaKey){selectedPages.has(id)?selectedPages.delete(id):selectedPages.add(id)}
+  else if(e.shiftKey&&selectedPages.size){const chosen=vis.map((p,j)=>selectedPages.has(p.id)?j:-1).filter(j=>j>=0),anchor=chosen.length?chosen.at(-1):vi;selectedPages.clear();for(let j=Math.min(vi,anchor);j<=Math.max(vi,anchor);j++)selectedPages.add(vis[j].id)}
+  else{selectedPages.clear();selectedPages.add(id)}
+  renderGrid()}
+function selectedIndexes(){return pages.map((p,i)=>selectedPages.has(p.id)?i:-1).filter(i=>i>=0)}
+$("selectAllButton").onclick=()=>{if(selectedPages.size===pages.length)selectedPages.clear();else pages.forEach(p=>selectedPages.add(p.id));renderGrid()};
+$("rotateButton").onclick=()=>{if(!selectedPages.size)return showToast("Chọn trang cần xoay");pushHistory();pages.forEach(p=>{if(selectedPages.has(p.id)){p.rotation=(p.rotation+90)%360;clearShapeCrop(p)}});renderGrid()};
+$("duplicateButton").onclick=()=>{const ids=selectedIndexes();if(!ids.length)return showToast("Chọn trang cần nhân đôi");pushHistory();let inserted=0;ids.forEach(i=>{const original=pages[i+inserted];pages.splice(i+inserted+1,0,{...original,id:crypto.randomUUID()});inserted++});renderGrid()};
+$("deleteButton").onclick=()=>{if(!selectedPages.size)return showToast("Chọn trang cần xóa");pushHistory();pages=pages.filter(p=>!selectedPages.has(p.id));selectedPages.clear();renderGrid()};
+$("clearButton").onclick=()=>{if(pages.length&&confirm("Xóa toàn bộ trang?")){pages=[];documents=[];thumbCache.clear();thumbQueue.length=0;openGroups.clear();undoStack.length=0;redoStack.length=0;selectedPages.clear();renderGrid();updateHistoryButtons()}};
+
+/* ====== HỘP THOẠI "CHUYỂN TRANG ĐẾN…" ====== */
+let mv=null;
+function openMoveTo(){
+  const ids=pages.filter(p=>selectedPages.has(p.id));
+  if(!ids.length)return showToast("Hãy chọn các trang cần chuyển (Ctrl/Shift+click để chọn nhiều trang)");
+  const groups=getGroups(),firstKey=groupKey(ids[0]);
+  const other=groups.find(g=>g.key!==firstKey&&g.items.some(p=>!selectedPages.has(p.id)));
+  mv={ids:new Set(ids.map(p=>p.id)),destKey:(other||groups.find(g=>g.key===firstKey)).key,k:Infinity};
+  const mvMoving=$("mvMoving");mvMoving.innerHTML="";
+  const gIdx=new Map(groups.map(g=>[g.key,g]));
+  ids.slice(0,40).forEach(p=>{const g=gIdx.get(groupKey(p)),c=document.createElement("span");c.className="chip";c.textContent=`${g?g.name:p.name} · tr.${g?g.items.indexOf(p)+1:p.pageNum}`;mvMoving.append(c)});
+  if(ids.length>40){const c=document.createElement("span");c.className="chip";c.textContent="… và "+(ids.length-40)+" trang nữa";mvMoving.append(c)}
+  const sel=$("mvDest");sel.innerHTML="";
+  groups.forEach(g=>{const rest=g.items.filter(p=>!mv.ids.has(p.id)).length,o=document.createElement("option");o.value=String(g.key);o.textContent=`${g.name} (${rest} trang còn lại)`;sel.append(o)});
+  sel.value=String(mv.destKey);
+  $("moveToModal").classList.remove("hidden");
+  renderMvStrip();
+}
+function mvDestList(){return pages.filter(p=>!mv.ids.has(p.id)&&String(groupKey(p))===String(mv.destKey))}
+function mvKeyFromSelect(){const g=getGroups().find(x=>String(x.key)===$("mvDest").value);return g?g.key:mv.destKey}
+function renderMvStrip(){
+  if(!mv)return;
+  const strip=$("mvStrip"),list=mvDestList();strip.innerHTML="";
+  if(mv.k>list.length)mv.k=list.length;
+  const slot=idx=>{
+    const s=document.createElement("div");s.className="mv-slot"+(mv.k===idx?" active":"");s.textContent="▼";s.title="Chèn vào đây";
+    s.onclick=()=>{mv.k=idx;renderMvStrip()};return s;
+  };
+  if(!list.length){
+    const s=slot(0);s.classList.add("only");s.textContent="Tệp này chưa còn trang nào — bấm để chèn vào đây";strip.append(s);
+  }else{
+    list.forEach((p,i)=>{
+      strip.append(slot(i));
+      const t=document.createElement("div");t.className="mv-thumb";
+      const tw=document.createElement("div");tw.className="tw";const cv=document.createElement("canvas");tw.append(cv);
+      const lb=document.createElement("div");lb.textContent="Trang "+(i+1);
+      t.append(tw,lb);strip.append(t);thumbnail(p,cv).catch(()=>{});
+    });
+    strip.append(slot(list.length));
+  }
+  const gname=groupNameOf(mv.destKey);
+  let where;
+  if(!list.length)where=`vào tệp “${gname}” (đang trống)`;
+  else if(mv.k>=list.length)where=`vào cuối tệp “${gname}”, sau trang ${list.length}`;
+  else if(mv.k===0)where=`vào đầu tệp “${gname}”, trước trang 1`;
+  else where=`vào tệp “${gname}”, giữa trang ${mv.k} và ${mv.k+1}`;
+  $("mvInfo").textContent=`Sẽ chuyển ${mv.ids.size} trang ${where}.`;
+  const active=strip.querySelector(".mv-slot.active");if(active&&active.scrollIntoView)active.scrollIntoView({inline:"center",block:"nearest"});
+}
+$("mvDest").onchange=()=>{if(!mv)return;mv.destKey=mvKeyFromSelect();mv.k=Infinity;renderMvStrip()};
+$("mvStart").onclick=()=>{if(!mv)return;mv.k=0;renderMvStrip()};
+$("mvEnd").onclick=()=>{if(!mv)return;mv.k=Infinity;renderMvStrip()};
+function closeMoveTo(){mv=null;$("moveToModal").classList.add("hidden")}
+$("closeMoveTo").onclick=$("cancelMoveTo").onclick=closeMoveTo;
+$("moveToModal").onclick=e=>{if(e.target===$("moveToModal"))closeMoveTo()};
+$("applyMoveTo").onclick=()=>{
+  if(!mv)return;
+  const ids=new Set(mv.ids),key=mv.destKey,name=groupNameOf(key),n=moveItems(ids,key,mv.k);
+  closeMoveTo();
+  if(n){selectedPages=ids;renderGrid();showToast(`Đã chuyển ${n} trang vào “${name}”`)}
+};
+$("moveToButton").onclick=openMoveTo;
+
+async function openPreview(i){previewIndex=i;$("previewModal").classList.remove("hidden");await renderPreview()}
+async function renderPreview(){
+  if(previewIndex<0||previewIndex>=pages.length)return;
+  const it=pages[previewIndex],d=sourceFor(it),p=await d.pdf.getPage(it.pageNum);
+  const v=p.getViewport({scale:1.35,rotation:((p.rotate||0)+it.rotation)%360});
+  const c=$("previewCanvas");c.width=Math.ceil(v.width);c.height=Math.ceil(v.height);
+  $("previewTitle").textContent=it.name;$("previewCounter").textContent=`Trang ${previewIndex+1} / ${pages.length}`;
+  await p.render({canvasContext:c.getContext("2d"),viewport:v}).promise;
+  if(manualCropState){initManualCropShape(it);drawCropOverlay()}
+}
+
+/* ====== CẮT FREEFORM (4 góc) & CẮT CHỮ NHẬT ====== */
+function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
+function clipTriangle(ctx,t,grow=1.6){
+  const cx=(t[0].x+t[1].x+t[2].x)/3,cy=(t[0].y+t[1].y+t[2].y)/3;
+  ctx.beginPath();
+  t.forEach((p,i)=>{const dx=p.x-cx,dy=p.y-cy,l=Math.hypot(dx,dy)||1,x=p.x+dx/l*grow,y=p.y+dy/l*grow;if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y)});
+  ctx.closePath();ctx.clip();
+}
+const RECT_MIN=20;
+function quadOfRect(r){return [{x:r.x0,y:r.y0},{x:r.x1,y:r.y0},{x:r.x1,y:r.y1},{x:r.x0,y:r.y1}]}
+function currentQuad(){return manualCropState.mode==="rect"?quadOfRect(manualCropState.rect):manualCropState.quad}
+function setCropButtonsVisible(editing){
+  $("startManualCrop").classList.toggle("hidden",editing);
+  $("startRectCrop").classList.toggle("hidden",editing);
+  $("moveCropPrev").classList.toggle("hidden",editing);
+  $("applyManualCrop").classList.toggle("hidden",!editing);
+  $("autoDetectCrop").classList.toggle("hidden",!editing);
+  $("cancelManualCrop").classList.toggle("hidden",!editing);
+  $("previousPageButton").disabled=$("nextPageButton").disabled=editing;
+}
+async function beginManualCrop(index=previewIndex,mode="free"){
+  if(index<0||index>=pages.length)return;
+  previewIndex=index;manualCropState={index,mode,quad:null,rect:null,drag:null};
+  $("previewModal").classList.remove("hidden");
+  await renderPreview();
+  $("cropOverlay").style.display="block";
+  setCropButtonsVisible(true);
+  $("previewCounter").textContent=mode==="rect"
+    ?`Trang ${index+1} / ${pages.length} · Kéo góc/cạnh để chỉnh, kéo giữa khung để di chuyển`
+    :`Trang ${index+1} / ${pages.length} · Kéo độc lập 4 góc để chỉnh freeform`;
+}
+function initManualCropShape(item){
+  const w=$("previewCanvas").width,h=$("previewCanvas").height,s=manualCropState;
+  const saved=item.perspectiveCrop;
+  if(s.mode==="rect"){
+    if(saved){
+      const xs=saved.map(p=>p.x*w),ys=saved.map(p=>p.y*h);
+      s.rect={x0:Math.min(...xs),y0:Math.min(...ys),x1:Math.max(...xs),y1:Math.max(...ys)};
+    }else s.rect={x0:.04*w,y0:.04*h,x1:.96*w,y1:.96*h};
+  }else{
+    const q=saved||[{x:.04,y:.04},{x:.96,y:.04},{x:.96,y:.96},{x:.04,y:.96}];
+    s.quad=q.map(pt=>({x:pt.x*w,y:pt.y*h}));
+  }
+}
+function drawCropOverlay(){
+  if(!manualCropState)return;
+  const s=manualCropState;if(!(s.mode==="rect"?s.rect:s.quad))return;
+  const svg=$("cropOverlay"),W=$("previewCanvas").width,H=$("previewCanvas").height,q=currentQuad(),rect=s.mode==="rect";
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  svg.style.cursor=rect?"move":"crosshair";
+  const pts=q.map(p=>`${p.x},${p.y}`).join(" ");
+  const labels=["Góc trên trái","Góc trên phải","Góc dưới phải","Góc dưới trái"];
+  let handles=q.map((p,i)=>`<circle data-handle="${i}" cx="${p.x}" cy="${p.y}" r="10" fill="#fff" stroke="#5148e5" stroke-width="3" style="cursor:${rect?(i%2===0?"nwse-resize":"nesw-resize"):"pointer"}"><title>${labels[i]}</title></circle><circle data-handle="${i}" cx="${p.x}" cy="${p.y}" r="17" fill="transparent"/>`).join("");
+  if(rect){
+    const r=s.rect,mx=(r.x0+r.x1)/2,my=(r.y0+r.y1)/2;
+    const edges=[{x:mx,y:r.y0,c:"ns-resize"},{x:r.x1,y:my,c:"ew-resize"},{x:mx,y:r.y1,c:"ns-resize"},{x:r.x0,y:my,c:"ew-resize"}];
+    handles+=edges.map((e,i)=>`<rect data-handle="e${i}" x="${e.x-8}" y="${e.y-8}" width="16" height="16" rx="4" fill="#fff" stroke="#5148e5" stroke-width="3" style="cursor:${e.c}"/><circle data-handle="e${i}" cx="${e.x}" cy="${e.y}" r="16" fill="transparent" style="cursor:${e.c}"/>`).join("");
+  }
+  svg.innerHTML=`<defs><mask id="quadMask"><rect width="${W}" height="${H}" fill="white"/><polygon points="${pts}" fill="black"/></mask></defs>
+    <rect width="${W}" height="${H}" fill="rgba(0,0,0,.50)" mask="url(#quadMask)"/>
+    <polygon ${rect?'data-handle="move"':""} points="${pts}" fill="rgba(99,91,255,.10)" stroke="#fff" stroke-width="2.5"/>
+    <polygon points="${pts}" fill="none" stroke="#29245f" stroke-width="1" stroke-dasharray="7 4" pointer-events="none"/>
+    ${handles}
+    <text x="12" y="22" fill="#fff" stroke="#222" stroke-width=".5" font-size="13" pointer-events="none">${rect?"Chế độ chữ nhật":"Chế độ freeform – kéo độc lập từng góc"}</text>`;
+}
+function pointerToCanvas(e){
+  const rect=$("cropOverlay").getBoundingClientRect();
+  return {x:clamp((e.clientX-rect.left)/rect.width*$("previewCanvas").width,0,$("previewCanvas").width),y:clamp((e.clientY-rect.top)/rect.height*$("previewCanvas").height,0,$("previewCanvas").height)};
+}
+$("cropOverlay").addEventListener("pointerdown",e=>{
+  const s=manualCropState;if(!s||!(s.mode==="rect"?s.rect:s.quad))return;
+  const h=e.target.getAttribute("data-handle");
+  if(h===null)return;
+  const pt=pointerToCanvas(e);
+  s.drag={handle:h,start:pt,initialQuad:s.quad?s.quad.map(p=>({...p})):null,initialRect:s.rect?{...s.rect}:null};
+  $("cropOverlay").setPointerCapture(e.pointerId);e.preventDefault();
+});
+$("cropOverlay").addEventListener("pointermove",e=>{
+  const s=manualCropState;if(!s?.drag)return;
+  const pt=pointerToCanvas(e),d=s.drag,dx=pt.x-d.start.x,dy=pt.y-d.start.y,W=$("previewCanvas").width,H=$("previewCanvas").height;
+  if(s.mode==="rect"){
+    const r={...d.initialRect},h=d.handle;
+    if(h==="move"){
+      const w=r.x1-r.x0,hh=r.y1-r.y0,nx=clamp(r.x0+dx,0,W-w),ny=clamp(r.y0+dy,0,H-hh);
+      s.rect={x0:nx,y0:ny,x1:nx+w,y1:ny+hh};
+    }else{
+      const left=h==="0"||h==="3"||h==="e3",right=h==="1"||h==="2"||h==="e1",top=h==="0"||h==="1"||h==="e0",bottom=h==="2"||h==="3"||h==="e2";
+      if(left)r.x0=clamp(r.x0+dx,0,r.x1-RECT_MIN);
+      if(right)r.x1=clamp(r.x1+dx,r.x0+RECT_MIN,W);
+      if(top)r.y0=clamp(r.y0+dy,0,r.y1-RECT_MIN);
+      if(bottom)r.y1=clamp(r.y1+dy,r.y0+RECT_MIN,H);
+      s.rect=r;
+    }
+  }else{
+    const q=d.initialQuad.map(p=>({...p})),c=Number(d.handle);
+    q[c]={x:clamp(q[c].x+dx,0,W),y:clamp(q[c].y+dy,0,H)};
+    s.quad=q;
+  }
+  drawCropOverlay();
+});
+$("cropOverlay").addEventListener("pointerup",()=>{if(manualCropState)manualCropState.drag=null});
+$("cropOverlay").addEventListener("pointercancel",()=>{if(manualCropState)manualCropState.drag=null});
+async function applyManualCropRect(){
+  if(!manualCropState)return;
+  const s=manualCropState,item=pages[s.index],W=$("previewCanvas").width,H=$("previewCanvas").height,q=currentQuad();
+  const area=Math.abs(q.reduce((sum,p,i)=>{const n=q[(i+1)%4];return sum+p.x*n.y-n.x*p.y},0))/2;
+  if(area<900) return showToast("Vùng chọn quá nhỏ. Hãy kéo các góc rộng hơn.");
+  pushHistory();
+  item.perspectiveCrop=q.map(p=>({x:p.x/W,y:p.y/H}));
+  item.cropMode=s.mode;
+  item.cropMm={top:0,bottom:0,left:0,right:0};
+  manualCropState=null;exitManualCropMode();renderGrid();await renderPreview();
+  showToast((item.cropMode==="rect"?"Đã áp dụng khung chữ nhật":"Đã áp dụng khung freeform")+" · bấm “Di chuyển vùng cắt” để dời trong trang");
+}
+function affineFromTriangles(src,dst){
+  const [s0,s1,s2]=src,[d0,d1,d2]=dst;
+  const det=s0.x*(s1.y-s2.y)+s1.x*(s2.y-s0.y)+s2.x*(s0.y-s1.y);
+  if(Math.abs(det)<1e-8)throw Error("Khung cắt bị gấp hoặc ba điểm gần thẳng hàng");
+  const solve=(v0,v1,v2)=>({
+    a:(v0*(s1.y-s2.y)+v1*(s2.y-s0.y)+v2*(s0.y-s1.y))/det,
+    c:(v0*(s2.x-s1.x)+v1*(s0.x-s2.x)+v2*(s1.x-s0.x))/det,
+    e:(v0*(s1.x*s2.y-s2.x*s1.y)+v1*(s2.x*s0.y-s0.x*s2.y)+v2*(s0.x*s1.y-s1.x*s0.y))/det
+  });
+  const X=solve(d0.x,d1.x,d2.x),Y=solve(d0.y,d1.y,d2.y);
+  return [X.a,Y.a,X.c,Y.c,X.e,Y.e];
+}
+function homographyUnit(q){
+  const [p0,p1,p2,p3]=q,bil=(u,v)=>({x:(1-u)*(1-v)*p0.x+u*(1-v)*p1.x+u*v*p2.x+(1-u)*v*p3.x,y:(1-u)*(1-v)*p0.y+u*(1-v)*p1.y+u*v*p2.y+(1-u)*v*p3.y});
+  const dx1=p1.x-p2.x,dx2=p3.x-p2.x,dx3=p0.x-p1.x+p2.x-p3.x,dy1=p1.y-p2.y,dy2=p3.y-p2.y,dy3=p0.y-p1.y+p2.y-p3.y;
+  const den=dx1*dy2-dy1*dx2;
+  if(Math.abs(den)<1e-9)return bil;
+  const g=(dx3*dy2-dy3*dx2)/den,h=(dx1*dy3-dy1*dx3)/den;
+  if(!isFinite(g)||!isFinite(h))return bil;
+  const a=p1.x-p0.x+g*p1.x,b=p3.x-p0.x+h*p3.x,c=p0.x,d=p1.y-p0.y+g*p1.y,e=p3.y-p0.y+h*p3.y,f=p0.y;
+  return (u,v)=>{const w=g*u+h*v+1;if(!(w>1e-6))return bil(u,v);return {x:(a*u+b*v+c)/w,y:(d*u+e*v+f)/w}};
+}
+function warpMesh(ctx,source,srcQ,dstQ,n=8){
+  const fs=homographyUnit(srcQ),fd=homographyUnit(dstQ);
+  for(let i=0;i<n;i++)for(let j=0;j<n;j++){
+    const u0=i/n,u1=(i+1)/n,v0=j/n,v1=(j+1)/n;
+    const S=[fs(u0,v0),fs(u1,v0),fs(u1,v1),fs(u0,v1)],D=[fd(u0,v0),fd(u1,v0),fd(u1,v1),fd(u0,v1)];
+    for(const t of [[0,1,2],[0,2,3]]){
+      const s=t.map(k=>S[k]),d=t.map(k=>D[k]);
+      let m;try{m=affineFromTriangles(s,d)}catch(e){continue}
+      if(!m.every(isFinite))continue;
+      const xs=s.map(q=>q.x),ys=s.map(q=>q.y);
+      const x0=Math.max(0,Math.floor(Math.min(...xs))-2),y0=Math.max(0,Math.floor(Math.min(...ys))-2);
+      const x1=Math.min(source.width,Math.ceil(Math.max(...xs))+2),y1=Math.min(source.height,Math.ceil(Math.max(...ys))+2);
+      if(x1<=x0||y1<=y0)continue;
+      ctx.save();clipTriangle(ctx,d);ctx.setTransform(...m);
+      ctx.drawImage(source,x0,y0,x1-x0,y1-y0,x0,y0,x1-x0,y1-y0);ctx.restore();
+    }
+  }
+}
+function warpPerspective(source,quad){
+  const [tl,tr,br,bl]=quad;
+  const top=Math.hypot(tr.x-tl.x,tr.y-tl.y),bottom=Math.hypot(br.x-bl.x,br.y-bl.y);
+  const left=Math.hypot(bl.x-tl.x,bl.y-tl.y),right=Math.hypot(br.x-tr.x,br.y-tr.y);
+  const outW=Math.max(2,Math.round((top+bottom)/2)),outH=Math.max(2,Math.round((left+right)/2));
+  const out=document.createElement("canvas");out.width=outW;out.height=outH;
+  const ctx=out.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,outW,outH);
+  const src=[tl,tr,br,bl],dst=[{x:0,y:0},{x:outW,y:0},{x:outW,y:outH},{x:0,y:outH}];
+  warpMesh(ctx,source,src,dst);
+  return out;
+}
+function cropRectCanvas(source,quad){
+  const xs=quad.map(p=>p.x),ys=quad.map(p=>p.y);
+  const x0=clamp(Math.round(Math.min(...xs)),0,source.width-1),y0=clamp(Math.round(Math.min(...ys)),0,source.height-1);
+  const x1=clamp(Math.round(Math.max(...xs)),x0+1,source.width),y1=clamp(Math.round(Math.max(...ys)),y0+1,source.height);
+  const out=document.createElement("canvas");out.width=Math.max(2,x1-x0);out.height=Math.max(2,y1-y0);
+  const ctx=out.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,out.width,out.height);
+  ctx.drawImage(source,x0,y0,x1-x0,y1-y0,0,0,x1-x0,y1-y0);
+  return out;
+}
+function applyShapeCrop(canvas,item){
+  if(!item.perspectiveCrop)return canvas;
+  const q=item.perspectiveCrop.map(p=>({x:p.x*canvas.width,y:p.y*canvas.height}));
+  return item.cropMode==="rect"?cropRectCanvas(canvas,q):warpPerspective(canvas,q);
+}
+function detectPaperQuad(canvas){
+  const sc=Math.min(1,360/Math.max(canvas.width,canvas.height));
+  const w=Math.max(16,Math.round(canvas.width*sc)),h=Math.max(16,Math.round(canvas.height*sc));
+  const tmp=document.createElement("canvas");tmp.width=w;tmp.height=h;
+  const tctx=tmp.getContext("2d",{willReadFrequently:true});tctx.drawImage(canvas,0,0,w,h);
+  const px=tctx.getImageData(0,0,w,h).data,N=w*h,raw=new Float32Array(N);
+  for(let i=0;i<N;i++)raw[i]=.299*px[i*4]+.587*px[i*4+1]+.114*px[i*4+2];
+  const blur=new Float32Array(N);
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){let sum=0,n=0;for(let dy=-2;dy<=2;dy++){const yy=y+dy;if(yy<0||yy>=h)continue;for(let dx=-2;dx<=2;dx++){const xx=x+dx;if(xx<0||xx>=w)continue;sum+=raw[yy*w+xx];n++}}blur[y*w+x]=sum/n}
+  const outside=new Uint8Array(N),stack=new Int32Array(N);let sp=0;
+  const seed=i=>{if(!outside[i]&&raw[i]>=253){outside[i]=1;stack[sp++]=i}};
+  for(let x=0;x<w;x++){seed(x);seed((h-1)*w+x)}
+  for(let y=0;y<h;y++){seed(y*w);seed(y*w+w-1)}
+  while(sp){const i=stack[--sp],x=i%w,y=(i-x)/w;if(x>0)seed(i-1);if(x<w-1)seed(i+1);if(y>0)seed(i-w);if(y<h-1)seed(i+w)}
+  const hist=new Float64Array(256);let total=0,outCount=0;
+  for(let i=0;i<N;i++){if(outside[i]){outCount++;continue}hist[Math.min(255,Math.round(blur[i]))]++;total++}
+  if(total<N*.2)return null;
+  let sumAll=0;for(let t=0;t<256;t++)sumAll+=t*hist[t];
+  let wB=0,sumB=0,bestVar=-1,thr=128;
+  for(let t=0;t<256;t++){wB+=hist[t];if(!wB)continue;const wF=total-wB;if(!wF)break;sumB+=t*hist[t];const mB=sumB/wB,mF=(sumAll-sumB)/wF,v=wB*wF*(mB-mF)*(mB-mF);if(v>bestVar){bestVar=v;thr=t}}
+  const mask=new Uint8Array(N);
+  for(let i=0;i<N;i++)mask[i]=(!outside[i]&&blur[i]>thr)?1:0;
+  const seen=new Uint8Array(N);let sp2=0,bestArea=0,bestInfo=null;
+  const push=j=>{if(mask[j]&&!seen[j]){seen[j]=1;stack[sp2++]=j}};
+  for(let s0=0;s0<N;s0++){
+    if(!mask[s0]||seen[s0])continue;
+    seen[s0]=1;stack[sp2++]=s0;
+    let area=0,sx=0,sy=0,minS=1e9,maxS=-1e9,minD=1e9,maxD=-1e9,pTL,pBR,pBL,pTR;
+    while(sp2){
+      const i=stack[--sp2],x=i%w,y=(i-x)/w;area++;sx+=x;sy+=y;
+      const s1=x+y,d1=x-y;
+      if(s1<minS){minS=s1;pTL=[x,y]}if(s1>maxS){maxS=s1;pBR=[x,y]}
+      if(d1>maxD){maxD=d1;pTR=[x,y]}if(d1<minD){minD=d1;pBL=[x,y]}
+      if(x>0)push(i-1);if(x<w-1)push(i+1);if(y>0)push(i-w);if(y<h-1)push(i+w);
+    }
+    if(area>bestArea){bestArea=area;bestInfo={p:[pTL,pTR,pBR,pBL],cx:sx/area,cy:sy/area}}
+  }
+  if(!bestInfo||bestArea<(N-outCount)*.12)return null;
+  const {p,cx,cy}=bestInfo;
+  const quad=p.map(([x,y])=>({x:clamp((x+(cx-x)*.012+.5)/w,0,1),y:clamp((y+(cy-y)*.012+.5)/h,0,1)}));
+  const A=Math.abs(quad.reduce((sum,q,i)=>{const n=quad[(i+1)%4];return sum+q.x*n.y-n.x*q.y},0))/2;
+  return A<.08?null:quad;
+}
+function runAutoDetect(){
+  const s=manualCropState;if(!s)return;
+  const c=$("previewCanvas"),W=c.width,H=c.height,quad=detectPaperQuad(c);
+  if(!quad){showToast("Không nhận diện được tờ giấy. Hãy kéo tay các góc.");return}
+  if(s.mode==="rect"){const xs=quad.map(p=>p.x*W),ys=quad.map(p=>p.y*H);s.rect={x0:Math.min(...xs),y0:Math.min(...ys),x1:Math.max(...xs),y1:Math.max(...ys)}}
+  else s.quad=quad.map(p=>({x:p.x*W,y:p.y*H}));
+  drawCropOverlay();showToast("Đã nhận diện tờ giấy. Kéo các góc nếu cần chỉnh lại.");
+}
+$("autoDetectCrop").onclick=runAutoDetect;
+$("autoCropButton").onclick=async()=>{const idx=selectedIndexes();if(!idx.length)return showToast("Hãy chọn một trang trước");await beginManualCrop(idx[0],"free");runAutoDetect()};
+function exitManualCropMode(){
+  $("cropOverlay").style.display="none";
+  setCropButtonsVisible(false);
+}
+$("applyManualCrop").onclick=applyManualCropRect;
+$("cancelManualCrop").onclick=()=>{manualCropState=null;exitManualCropMode();$("previewCounter").textContent=`Trang ${previewIndex+1} / ${pages.length}`};
+$("startManualCrop").onclick=()=>beginManualCrop(previewIndex,"free");
+$("startRectCrop").onclick=()=>beginManualCrop(previewIndex,"rect");
+$("manualCropButton").onclick=()=>{const indexes=selectedIndexes();if(!indexes.length)return showToast("Hãy chọn một trang trước");beginManualCrop(indexes[0],"free")};
+$("rectCropButton").onclick=()=>{const indexes=selectedIndexes();if(!indexes.length)return showToast("Hãy chọn một trang trước");beginManualCrop(indexes[0],"rect")};
+$("closePreview").onclick=()=>{$("previewModal").classList.add("hidden");manualCropState=null;exitManualCropMode()};$("previewModal").onclick=e=>{if(e.target===$("previewModal")){$("previewModal").classList.add("hidden");manualCropState=null;exitManualCropMode()}};
+$("previousPageButton").onclick=async()=>{if(previewIndex>0){previewIndex--;await renderPreview()}};
+$("nextPageButton").onclick=async()=>{if(previewIndex<pages.length-1){previewIndex++;await renderPreview()}};
+document.addEventListener("keydown",async e=>{if((e.ctrlKey||e.metaKey)&&!manualCropState&&!anyModalOpen()&&!$("app").classList.contains("hidden")&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName||"")){const k=e.key.toLowerCase();if(k==="z"&&!e.shiftKey){e.preventDefault();undo();return}if(k==="y"||(k==="z"&&e.shiftKey)){e.preventDefault();redo();return}}if(e.key==="Escape"){closeStamp();closeMerge();closeMove();closeMoveTo();$("previewModal").classList.add("hidden");manualCropState=null;exitManualCropMode()}if(!$("previewModal").classList.contains("hidden")&&!manualCropState){if(e.key==="ArrowLeft"&&previewIndex>0){previewIndex--;await renderPreview()}if(e.key==="ArrowRight"&&previewIndex<pages.length-1){previewIndex++;await renderPreview()}}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="a"&&!$("app").classList.contains("hidden")&&!anyModalOpen()&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName||"")){e.preventDefault();pages.forEach(p=>selectedPages.add(p.id));renderGrid()}});
+
+/* ====== DÙNG CHUNG: render trang thành canvas, lưu canvas thành trang PDF mới ====== */
+function anyModalOpen(){return ["previewModal","enhancePreviewModal","mergeModal","stampModal","moveModal","moveToModal","editorModal"].some(id=>!$(id).classList.contains("hidden"))}
+async function renderItemCanvas(item,{dpi,maxSide}={}){
+  const d=sourceFor(item),p=await d.pdf.getPage(item.pageNum),rotation=((p.rotate||0)+item.rotation)%360;
+  const vb=item.perspectiveCrop?undefined:cropViewBox(item,p);
+  const base=p.getViewport({scale:1,rotation});
+  let scale=dpi?dpi/72:maxSide/Math.max(base.width,base.height);
+  scale*=Math.min(1,Math.sqrt(26_000_000/(base.width*scale*base.height*scale)));
+  const v=p.getViewport({scale,rotation,viewBox:vb});
+  const c=document.createElement("canvas");c.width=Math.max(1,Math.ceil(v.width));c.height=Math.max(1,Math.ceil(v.height));
+  const ctx=c.getContext("2d",{willReadFrequently:true});ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);
+  await p.render({canvasContext:ctx,viewport:v,background:"rgb(255,255,255)"}).promise;
+  const out=applyShapeCrop(c,item);out.dpiUsed=scale*72;return out;
+}
+async function canvasToDocument(canvas,name,dpi){
+  const blob=await new Promise(r=>canvas.toBlob(r,"image/jpeg",.95));if(!blob)throw Error("Không tạo được ảnh trang");
+  const jpg=new Uint8Array(await blob.arrayBuffer()),doc=await PDFDocument.create(),im=await doc.embedJpg(jpg);
+  const pw=canvas.width*72/dpi,ph=canvas.height*72/dpi,pg=doc.addPage([pw,ph]);pg.drawImage(im,{x:0,y:0,width:pw,height:ph});
+  const bytes=new Uint8Array(await doc.save()),pdf=await pdfjsLib.getDocument({data:bytes.slice()}).promise,id=nextDocumentId++;
+  documents.push({id,name,bytes,pdf});
+  return {id:crypto.randomUUID(),docId:id,pageNum:1,rotation:0,name};
+}
+
+/* ====== GHÉP NHIỀU ẢNH VÀO 1 TRANG ====== */
+let mergeState=null;
+function trimWhite(canvas){
+  const w=canvas.width,h=canvas.height,d=canvas.getContext("2d",{willReadFrequently:true}).getImageData(0,0,w,h).data;
+  let x0=w,y0=h,x1=-1,y1=-1;
+  for(let y=0;y<h;y++){const row=y*w*4;for(let x=0;x<w;x++){const k=row+x*4;if(d[k]<244||d[k+1]<244||d[k+2]<244){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y}}}
+  if(x1<0)return canvas;
+  const pad=Math.round(Math.min(w,h)*.006);x0=Math.max(0,x0-pad);y0=Math.max(0,y0-pad);x1=Math.min(w-1,x1+pad);y1=Math.min(h-1,y1+pad);
+  const out=document.createElement("canvas");out.width=x1-x0+1;out.height=y1-y0+1;
+  out.getContext("2d").drawImage(canvas,x0,y0,out.width,out.height,0,0,out.width,out.height);return out;
+}
+function composeSheet(sources,o,dpi){
+  const pageW=o.landscape?841.89:595.28,pageH=o.landscape?595.28:841.89,k=dpi/72;
+  const W=Math.round(pageW*k),H=Math.round(pageH*k),c=document.createElement("canvas");c.width=W;c.height=H;
+  const ctx=c.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,W,H);ctx.imageSmoothingQuality="high";
+  const n=sources.length,cols=o.layout==="horizontal"?n:o.layout==="grid"?Math.min(2,n):1,rows=Math.ceil(n/cols);
+  const m=o.margin*k,gap=o.gap*k,cw=(W-2*m-(cols-1)*gap)/cols,ch=(H-2*m-(rows-1)*gap)/rows;
+  sources.forEach((s,i)=>{
+    const r=Math.floor(i/cols),col=i%cols,sc=Math.min(cw/s.width,ch/s.height),dw=s.width*sc,dh=s.height*sc;
+    const x=m+col*(cw+gap)+(cw-dw)/2,y=m+r*(ch+gap)+(ch-dh)/2;
+    ctx.drawImage(s,x,y,dw,dh);
+    if(o.border){ctx.strokeStyle="#b5b8c6";ctx.lineWidth=Math.max(1,k*.5);ctx.strokeRect(x,y,dw,dh)}
+  });
+  return c;
+}
+function mergeOpts(){
+  const num=(id,def)=>clamp(Number($(id).value),0,40)||(Number($(id).value)===0?0:def);
+  return {layout:$("mergeLayout").value,landscape:$("mergePage").value==="land",margin:num("mergeMargin",12)*72/25.4,gap:num("mergeGap",8)*72/25.4,border:$("mergeBorder").checked};
+}
+function refreshMergeSources(){if(!mergeState)return;mergeState.sources=mergeState.raws.map(c=>$("mergeTrim").checked?trimWhite(c):c)}
+function renderMergePreview(){
+  if(!mergeState?.sources)return;
+  const prev=composeSheet(mergeState.sources,mergeOpts(),60),c=$("mergePreview");
+  c.width=prev.width;c.height=prev.height;c.getContext("2d").drawImage(prev,0,0);
+  $("mergeInfo").textContent=`${mergeState.sources.length} ảnh · ${$("mergePage").selectedOptions[0].text}`;
+}
+async function openMerge(){
+  const idx=selectedIndexes();
+  if(idx.length<2)return showToast("Hãy chọn từ 2 trang/ảnh trở lên để ghép");
+  if(idx.length>12)return showToast("Chỉ ghép tối đa 12 trang một lần");
+  setBusy(true);showToast("Đang chuẩn bị ảnh...");
+  try{
+    const items=idx.map(i=>pages[i]),raws=[];
+    for(const it of items)raws.push(await renderItemCanvas(it,{maxSide:2200}));
+    mergeState={items,raws,sources:null};
+    refreshMergeSources();
+    $("mergeModal").classList.remove("hidden");
+    renderMergePreview();
+  }catch(e){console.error(e);showToast("Lỗi chuẩn bị ảnh ghép: "+e.message);mergeState=null}
+  finally{setBusy(false)}
+}
+function closeMerge(){$("mergeModal").classList.add("hidden");mergeState=null}
+async function applyMerge(){
+  if(!mergeState)return;
+  setBusy(true);
+  try{
+    const sheet=composeSheet(mergeState.sources,mergeOpts(),220),newItem=await canvasToDocument(sheet,"Trang ghép",220);
+    pushHistory();
+    const ids=new Set(mergeState.items.map(i=>i.id)),last=Math.max(...mergeState.items.map(it=>pages.findIndex(p=>p.id===it.id)));
+    newItem.group=groupKey(pages[last]);pages.splice(last+1,0,newItem);
+    if($("mergeDelete").checked)pages=pages.filter(p=>!ids.has(p.id));
+    selectedPages.clear();selectedPages.add(newItem.id);
+    closeMerge();renderGrid();showToast("Đã tạo trang ghép");
+  }catch(e){console.error(e);showToast("Lỗi ghép trang: "+e.message)}
+  finally{setBusy(false)}
+}
+$("mergeButton").onclick=openMerge;
+$("closeMerge").onclick=$("cancelMerge").onclick=closeMerge;
+$("applyMerge").onclick=applyMerge;
+$("mergeReverse").onclick=()=>{if(!mergeState)return;mergeState.items.reverse();mergeState.raws.reverse();refreshMergeSources();renderMergePreview()};
+["mergeLayout","mergePage","mergeMargin","mergeGap","mergeBorder"].forEach(id=>$(id).addEventListener("input",renderMergePreview));
+$("mergeTrim").addEventListener("input",()=>{refreshMergeSources();renderMergePreview()});
+
+/* ====== KHUNG BIẾN ĐỔI TỰ DO (dùng chung cho chèn ảnh & di chuyển vùng cắt) ====== */
+const BOX_HANDLES=[[-1,-1],[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0]];
+function attachBox(cfg){
+  const frame=$(cfg.frame),img=$(cfg.img),stage=$(cfg.stage);
+  frame.innerHTML=BOX_HANDLES.map(([hx,hy])=>{
+    const corner=hx&&hy,cur=corner?(hx*hy>0?"nwse-resize":"nesw-resize"):(hx?"ew-resize":"ns-resize");
+    return `<div data-mode="h" data-hx="${hx}" data-hy="${hy}" style="position:absolute;left:${(hx+1)*50}%;top:${(hy+1)*50}%;width:16px;height:16px;transform:translate(-50%,-50%);border-radius:${corner?"50%":"4px"};background:#fff;border:3px solid #5148e5;cursor:${cur}"></div>`;
+  }).join("")+
+  `<div style="position:absolute;left:50%;top:-30px;width:2px;height:30px;background:#5148e5;transform:translateX(-50%);pointer-events:none"></div>`+
+  `<div data-mode="rot" title="Xoay" style="position:absolute;left:50%;top:-30px;width:20px;height:20px;transform:translate(-50%,-50%);border-radius:50%;background:#5148e5;border:3px solid #fff;cursor:grab"></div>`;
+  function position(){
+    const s=cfg.get();if(!s)return;
+    const g={left:(s.cx-s.w/2)*100+"%",top:(s.cy-s.h/2)*100+"%",width:s.w*100+"%",height:s.h*100+"%",transform:`rotate(${s.rot}deg)`,transformOrigin:"50% 50%"};
+    Object.assign(img.style,g);Object.assign(frame.style,g);
+    img.style.mixBlendMode=cfg.blend&&cfg.blend()?"multiply":"normal";
+  }
+  frame.addEventListener("pointerdown",e=>{
+    const s=cfg.get();if(!s)return;
+    const t=e.target,r=stage.getBoundingClientRect();
+    s.drag={mode:t.dataset.mode||"move",hx:Number(t.dataset.hx||0),hy:Number(t.dataset.hy||0),sx:e.clientX,sy:e.clientY,cx:s.cx,cy:s.cy,w:s.w,h:s.h,rot:s.rot,rw:r.width,rh:r.height,rl:r.left,rt:r.top};
+    frame.setPointerCapture(e.pointerId);e.preventDefault();
+  });
+  frame.addEventListener("pointermove",e=>{
+    const s=cfg.get();if(!s?.drag)return;
+    const d=s.drag,dx=e.clientX-d.sx,dy=e.clientY-d.sy;
+    if(d.mode==="move"){
+      s.cx=clamp(d.cx+dx/d.rw,0,1);s.cy=clamp(d.cy+dy/d.rh,0,1);
+    }else if(d.mode==="rot"){
+      const px=d.rl+d.cx*d.rw,py=d.rt+d.cy*d.rh;
+      let a=Math.atan2(e.clientY-py,e.clientX-px)*180/Math.PI+90;
+      if(e.shiftKey)a=Math.round(a/15)*15;
+      s.rot=((a+180)%360+360)%360-180;
+    }else{
+      const th=d.rot*Math.PI/180,cos=Math.cos(th),sin=Math.sin(th);
+      const lx=dx*cos+dy*sin,ly=-dx*sin+dy*cos;
+      const W=d.w*d.rw,H=d.h*d.rh;
+      let nW=W+d.hx*lx,nH=H+d.hy*ly;
+      if(d.hx&&d.hy&&(cfg.lock()||e.shiftKey)){const k=Math.max(nW/W,nH/H);nW=W*k;nH=H*k}
+      nW=Math.max(12,nW);nH=Math.max(12,nH);
+      const ddx=d.hx*(nW-W)/2,ddy=d.hy*(nH-H)/2;
+      s.w=nW/d.rw;s.h=nH/d.rh;
+      s.cx=d.cx+(ddx*cos-ddy*sin)/d.rw;s.cy=d.cy+(ddx*sin+ddy*cos)/d.rh;
+    }
+    position();
+  });
+  const up=()=>{const s=cfg.get();if(s)s.drag=null};
+  frame.addEventListener("pointerup",up);frame.addEventListener("pointercancel",up);
+  return {position};
+}
+function drawTransformed(ctx,src,s,W,H,multiply){
+  ctx.save();ctx.imageSmoothingQuality="high";
+  ctx.globalCompositeOperation=multiply?"multiply":"source-over";
+  ctx.translate(s.cx*W,s.cy*H);ctx.rotate(s.rot*Math.PI/180);
+  ctx.drawImage(src,-s.w*W/2,-s.h*H/2,s.w*W,s.h*H);ctx.restore();
+}
+
+/* ====== CHÈN / DÁN ẢNH LÊN MỘT TRANG ====== */
+let stampState=null;
+const stampBox=attachBox({stage:"stampStage",frame:"stampFrame",img:"stampImg",get:()=>stampState,lock:()=>$("stampLock").checked,blend:()=>$("stampMultiply").checked});
+function positionStamp(){stampBox.position()}
+function resetStampShape(){
+  const s=stampState;if(!s)return;
+  const c=$("stampCanvas");let w=.3,h=w*c.width*s.aspect/c.height;
+  if(h>.45){w=w*.45/h;h=.45}
+  Object.assign(s,{cx:.5,cy:.5,w,h,rot:0});positionStamp();
+}
+function setStampImage(file){
+  return new Promise((resolve,reject)=>{
+    const img=$("stampImg"),url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const s=stampState;if(!s){URL.revokeObjectURL(url);return resolve()}
+      s.aspect=img.naturalHeight/img.naturalWidth;resetStampShape();resolve();
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);reject(Error("Không đọc được ảnh"))};
+    if(stampState?.url)URL.revokeObjectURL(stampState.url);
+    if(stampState)stampState.url=url;
+    img.src=url;
+  });
+}
+async function openStamp(file){
+  const idx=selectedIndexes();
+  if(!idx.length)return showToast("Hãy chọn một trang trước");
+  const item=pages[idx[0]];
+  setBusy(true);
+  try{
+    const canvas=await renderItemCanvas(item,{maxSide:1300}),c=$("stampCanvas");
+    c.width=canvas.width;c.height=canvas.height;c.getContext("2d").drawImage(canvas,0,0);
+    stampState={itemId:item.id,cx:.5,cy:.5,w:.3,h:.3,rot:0,aspect:1,url:null,drag:null};
+    $("stampModal").classList.remove("hidden");
+    await setStampImage(file);
+  }catch(e){console.error(e);showToast("Lỗi: "+e.message);closeStamp()}
+  finally{setBusy(false)}
+}
+function closeStamp(){
+  if(stampState?.url)URL.revokeObjectURL(stampState.url);
+  stampState=null;$("stampModal").classList.add("hidden");
+}
+$("stampMultiply").addEventListener("input",positionStamp);
+$("stampReset").onclick=resetStampShape;
+$("closeStamp").onclick=closeStamp;
+$("stampChooseOther").onclick=()=>$("stampFileInput").click();
+$("stampButton").onclick=()=>{if(!selectedIndexes().length)return showToast("Hãy chọn một trang trước");$("stampFileInput").click()};
+$("stampFileInput").onchange=async e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  if(stampState&&!$("stampModal").classList.contains("hidden"))setStampImage(f).catch(err=>showToast(err.message));
+  else await openStamp(f);
+};
+document.addEventListener("paste",async e=>{
+  if($("app").classList.contains("hidden"))return;
+  if(!$("editorModal").classList.contains("hidden"))return; // đang soạn văn bản: để trình soạn thảo tự xử lý
+  if(/INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName||""))return;
+  const it=[...(e.clipboardData?.items||[])].find(x=>x.type.startsWith("image/"));if(!it)return;
+  const file=it.getAsFile();if(!file)return;e.preventDefault();
+  if(!$("stampModal").classList.contains("hidden")){setStampImage(file).catch(err=>showToast(err.message));return}
+  if(busy||anyModalOpen())return;
+  if(!selectedIndexes().length)return showToast("Chọn một trang rồi dán ảnh (Ctrl+V) để chèn lên trang đó");
+  await openStamp(file);
+});
+async function applyStamp(){
+  const s=stampState;if(!s)return;
+  const index=pages.findIndex(p=>p.id===s.itemId);if(index<0)return showToast("Không tìm thấy trang");
+  setBusy(true);
+  try{
+    const item=pages[index],base=await renderItemCanvas(item,{dpi:220});
+    drawTransformed(base.getContext("2d"),$("stampImg"),s,base.width,base.height,$("stampMultiply").checked);
+    const newItem=await canvasToDocument(base,item.name,base.dpiUsed||220);
+    pushHistory();newItem.group=groupKey(item);pages[index]=newItem;
+    selectedPages.clear();selectedPages.add(newItem.id);
+    closeStamp();renderGrid();showToast("Đã dán ảnh vào trang");
+  }catch(e){console.error(e);showToast("Lỗi dán ảnh: "+e.message)}
+  finally{setBusy(false)}
+}
+$("applyStamp").onclick=applyStamp;
+
+/* ====== DI CHUYỂN VÙNG ĐÃ CẮT TRONG TRANG ====== */
+let moveState=null;
+const moveBox=attachBox({stage:"moveStage",frame:"moveFrame",img:"moveImg",get:()=>moveState,lock:()=>$("moveLock").checked,blend:()=>false});
+const bareItem=item=>({...item,perspectiveCrop:undefined,cropMode:undefined,cropMm:undefined});
+async function openMove(index){
+  const item=pages[index];if(!item)return;
+  if(!item.perspectiveCrop)return showToast("Hãy cắt freeform hoặc cắt chữ nhật trang này trước");
+  setBusy(true);
+  try{
+    const full=await renderItemCanvas(bareItem(item),{maxSide:1300}),part=applyShapeCrop(full,item);
+    const c=$("moveCanvas");c.width=full.width;c.height=full.height;
+    const cx=c.getContext("2d");cx.fillStyle="#fff";cx.fillRect(0,0,c.width,c.height);
+    const xs=item.perspectiveCrop.map(p=>p.x),ys=item.perspectiveCrop.map(p=>p.y);
+    const orig={cx:(Math.min(...xs)+Math.max(...xs))/2,cy:(Math.min(...ys)+Math.max(...ys))/2,w:part.width/full.width,h:part.height/full.height,rot:0};
+    const origQuad=item.cropMode==="rect"?null:item.perspectiveCrop.map(p=>({x:p.x,y:p.y}));
+    moveState={itemId:item.id,...orig,orig,origQuad,drag:null,part,quad:null,free:false,qdrag:null,copies:[]};
+    if(origQuad){moveState.quad=origQuad.map(p=>({...p}));setMoveFree(true)}else setMoveFree(false);
+    $("moveImg").src=part.toDataURL("image/png");
+    $("moveModal").classList.remove("hidden");
+    moveBox.position();
+  }catch(e){console.error(e);showToast("Lỗi: "+e.message);moveState=null}
+  finally{setBusy(false)}
+}
+function paintPiece(ctx,part,c,W,H){
+  if(c.quad)drawQuad(ctx,part,c.quad.map(p=>({x:p.x*W,y:p.y*H})));
+  else drawTransformed(ctx,part,c,W,H,false);
+}
+function redrawMoveBase(){
+  const s=moveState;if(!s)return;
+  const c=$("moveCanvas"),ctx=c.getContext("2d");
+  ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);
+  s.copies.forEach(k=>paintPiece(ctx,s.part,k,c.width,c.height));
+}
+function currentPiece(s){return s.free&&s.quad?{quad:s.quad.map(p=>({...p}))}:{cx:s.cx,cy:s.cy,w:s.w,h:s.h,rot:s.rot}}
+$("moveDup").onclick=()=>{
+  const s=moveState;if(!s)return;
+  s.copies.push(currentPiece(s));redrawMoveBase();
+  if(s.free&&s.quad)s.quad=shiftQuad(s.quad,.03,.03);
+  else{s.cx=clamp(s.cx+.03,0,1);s.cy=clamp(s.cy+.03,0,1)}
+  if(s.free)drawMoveFree();else moveBox.position();
+  showToast("Đã nhân bản ("+s.copies.length+" bản giữ lại) · kéo bản mới đến vị trí khác");
+};
+$("moveUndoDup").onclick=()=>{const s=moveState;if(!s||!s.copies.length)return showToast("Chưa có bản sao nào");s.copies.pop();redrawMoveBase()};
+async function copyCropToClipboard(item){
+  if(!item?.perspectiveCrop)return showToast("Hãy cắt freeform hoặc cắt chữ nhật trang này trước");
+  setBusy(true);
+  try{
+    const cv=await renderItemCanvas(item,{dpi:220}),blob=await new Promise(r=>cv.toBlob(r,"image/png"));
+    if(!blob)throw Error("Không tạo được ảnh");
+    try{await navigator.clipboard.write([new ClipboardItem({"image/png":blob})]);showToast("Đã sao chép vùng cắt · chọn trang khác rồi nhấn Ctrl+V để dán")}
+    catch(err){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="vung-cat.png";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);showToast("Trình duyệt không cho ghi clipboard, đã tải ảnh vùng cắt về máy")}
+  }catch(e){console.error(e);showToast("Lỗi sao chép: "+e.message)}
+  finally{setBusy(false)}
+}
+$("copyCropButton").onclick=()=>{const i=selectedIndexes();if(!i.length)return showToast("Hãy chọn một trang đã cắt trước");copyCropToClipboard(pages[i[0]])};
+$("moveCopyClip").onclick=()=>{const s=moveState;if(!s)return;copyCropToClipboard(pages.find(p=>p.id===s.itemId))};
+function closeMove(){moveState=null;["moveImg","moveFrame"].forEach(id=>$(id).style.display="");["moveWarp","moveSvg"].forEach(id=>$(id).style.display="none");$("moveFree").checked=false;$("moveModal").classList.add("hidden")}
+$("closeMove").onclick=$("cancelMove").onclick=closeMove;
+function drawQuad(ctx,src,q){
+  const sp=[{x:0,y:0},{x:src.width,y:0},{x:src.width,y:src.height},{x:0,y:src.height}];
+  warpMesh(ctx,src,sp,q);
+}
+function shiftQuad(q,dx,dy){
+  const cx=q.reduce((a,p)=>a+p.x,0)/q.length,cy=q.reduce((a,p)=>a+p.y,0)/q.length;
+  const ddx=clamp(dx,-cx,1-cx),ddy=clamp(dy,-cy,1-cy);
+  return q.map(p=>({x:p.x+ddx,y:p.y+ddy}));
+}
+function boxToQuad(s){
+  const W=$("moveCanvas").width,H=$("moveCanvas").height,th=s.rot*Math.PI/180,c=Math.cos(th),n=Math.sin(th),hw=s.w*W/2,hh=s.h*H/2;
+  return [[-hw,-hh],[hw,-hh],[hw,hh],[-hw,hh]].map(([x,y])=>({x:(s.cx*W+x*c-y*n)/W,y:(s.cy*H+x*n+y*c)/H}));
+}
+function quadToBox(q){
+  const W=$("moveCanvas").width,H=$("moveCanvas").height,P=q.map(p=>({x:p.x*W,y:p.y*H})),d=(a,b)=>Math.hypot(b.x-a.x,b.y-a.y);
+  return {cx:P.reduce((a,p)=>a+p.x,0)/4/W,cy:P.reduce((a,p)=>a+p.y,0)/4/H,w:(d(P[0],P[1])+d(P[3],P[2]))/2/W,h:(d(P[0],P[3])+d(P[1],P[2]))/2/H,rot:Math.atan2(P[1].y-P[0].y,P[1].x-P[0].x)*180/Math.PI};
+}
+function drawMoveFree(){
+  const s=moveState;if(!s?.quad)return;
+  const W=$("moveCanvas").width,H=$("moveCanvas").height,wc=$("moveWarp"),svg=$("moveSvg");
+  wc.width=W;wc.height=H;const ctx=wc.getContext("2d");ctx.clearRect(0,0,W,H);
+  const P=s.quad.map(p=>({x:p.x*W,y:p.y*H}));
+  drawQuad(ctx,s.part,P);
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const pts=P.map(p=>`${p.x},${p.y}`).join(" ");
+  svg.innerHTML=`<polygon data-h="m" points="${pts}" fill="rgba(99,91,255,.06)" stroke="#fff" stroke-width="2.5" style="cursor:move"/>
+    <polygon points="${pts}" fill="none" stroke="#29245f" stroke-width="1" stroke-dasharray="7 4" pointer-events="none"/>`+
+    P.map((p,i)=>`<circle data-h="${i}" cx="${p.x}" cy="${p.y}" r="10" fill="#fff" stroke="#5148e5" stroke-width="3" style="cursor:pointer"/><circle data-h="${i}" cx="${p.x}" cy="${p.y}" r="17" fill="transparent"/>`).join("");
+}
+function setMoveFree(on){
+  const s=moveState;if(!s)return;
+  if(on&&!s.quad)s.quad=boxToQuad(s);
+  else if(!on&&s.quad){Object.assign(s,quadToBox(s.quad));s.quad=null}
+  s.free=on;
+  ["moveImg","moveFrame"].forEach(id=>$(id).style.display=on?"none":"");
+  ["moveWarp","moveSvg"].forEach(id=>$(id).style.display=on?"block":"none");
+  $("moveFree").checked=on;
+  if(on)drawMoveFree();else moveBox.position();
+}
+$("moveFree").onchange=e=>setMoveFree(e.target.checked);
+(()=>{
+  const svg=$("moveSvg"),toN=e=>{const r=svg.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height}};
+  svg.addEventListener("pointerdown",e=>{
+    const s=moveState,h=e.target.getAttribute("data-h");if(!s?.quad||h===null)return;
+    s.qdrag={h,start:toN(e),q:s.quad.map(p=>({...p}))};svg.setPointerCapture(e.pointerId);e.preventDefault();
+  });
+  svg.addEventListener("pointermove",e=>{
+    const s=moveState,d=s?.qdrag;if(!d)return;
+    const pt=toN(e),dx=pt.x-d.start.x,dy=pt.y-d.start.y;
+    if(d.h==="m")s.quad=shiftQuad(d.q,dx,dy);
+    else{const i=Number(d.h);s.quad=d.q.map((p,j)=>j===i?{x:clamp(p.x+dx,0,1),y:clamp(p.y+dy,0,1)}:p)}
+    drawMoveFree();
+  });
+  const up=()=>{if(moveState)moveState.qdrag=null};
+  svg.addEventListener("pointerup",up);svg.addEventListener("pointercancel",up);
+})();
+$("moveReset").onclick=()=>{
+  const s=moveState;if(!s)return;Object.assign(s,s.orig);
+  if(s.origQuad){s.quad=s.origQuad.map(p=>({...p}));if(s.free)drawMoveFree();else setMoveFree(true)}
+  else if(s.free){s.quad=boxToQuad(s);drawMoveFree()}else moveBox.position();
+};
+$("moveCenter").onclick=()=>{
+  const s=moveState;if(!s)return;
+  if(s.free&&s.quad){const mx=s.quad.reduce((a,p)=>a+p.x,0)/4,my=s.quad.reduce((a,p)=>a+p.y,0)/4;s.quad=shiftQuad(s.quad,.5-mx,.5-my);drawMoveFree()}
+  else{s.cx=.5;s.cy=.5;moveBox.position()}
+};
+$("moveCropButton").onclick=()=>{const i=selectedIndexes();if(!i.length)return showToast("Hãy chọn một trang đã cắt trước");openMove(i[0])};
+$("moveCropPrev").onclick=async()=>{
+  if(manualCropState||previewIndex<0)return;
+  const i=previewIndex;
+  if(!pages[i]?.perspectiveCrop)return showToast("Hãy cắt freeform hoặc cắt chữ nhật trang này trước");
+  $("previewModal").classList.add("hidden");await openMove(i);
+};
+async function applyMove(){
+  const s=moveState;if(!s)return;
+  const index=pages.findIndex(p=>p.id===s.itemId);if(index<0)return showToast("Không tìm thấy trang");
+  setBusy(true);
+  try{
+    const item=pages[index],full=await renderItemCanvas(bareItem(item),{dpi:220}),part=applyShapeCrop(full,item);
+    const out=document.createElement("canvas");out.width=full.width;out.height=full.height;
+    const ctx=out.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,out.width,out.height);
+    s.copies.forEach(k=>paintPiece(ctx,part,k,out.width,out.height));paintPiece(ctx,part,currentPiece(s),out.width,out.height);
+    const newItem=await canvasToDocument(out,item.name,full.dpiUsed||220);
+    pushHistory();newItem.group=groupKey(item);pages[index]=newItem;
+    selectedPages.clear();selectedPages.add(newItem.id);
+    closeMove();renderGrid();showToast("Đã di chuyển vùng cắt");
+  }catch(e){console.error(e);showToast("Lỗi di chuyển vùng cắt: "+e.message)}
+  finally{setBusy(false)}
+}
+$("applyMove").onclick=applyMove;
+
+async function appendNormalPage(out,it,i){
+  const d=sourceFor(it);
+  if(it.perspectiveCrop){
+    const srcPage=await d.pdf.getPage(it.pageNum),rotation=((srcPage.rotate||0)+it.rotation)%360;
+    const scale=220/72,viewport=srcPage.getViewport({scale,rotation});
+    const maxPixels=24_000_000,reduce=Math.min(1,Math.sqrt(maxPixels/(viewport.width*viewport.height)));
+    const canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.floor(viewport.width*reduce));canvas.height=Math.max(1,Math.floor(viewport.height*reduce));
+    const ctx=canvas.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);
+    const v=srcPage.getViewport({scale:scale*reduce,rotation});
+    await srcPage.render({canvasContext:ctx,viewport:v,background:"rgb(255,255,255)"}).promise;
+    const shaped=applyShapeCrop(canvas,it),png=await new Promise(resolve=>shaped.toBlob(resolve,"image/png"));
+    if(!png)throw Error("Không tạo được trang đã cắt "+(i+1));
+    const image=await out.embedPng(new Uint8Array(await png.arrayBuffer()));
+    const pw=shaped.width/(scale*reduce),ph=shaped.height/(scale*reduce),page=out.addPage([pw,ph]);
+    page.drawImage(image,{x:0,y:0,width:pw,height:ph});canvas.width=canvas.height=shaped.width=shaped.height=1;
+  }else{
+    const src=d.lib||(d.lib=await PDFDocument.load(d.bytes)),[p]=await out.copyPages(src,[it.pageNum-1]);
+    const c=cropValues(it),box=p.getCropBox(),x=box.x+c.left*MM_TO_PT,y=box.y+c.bottom*MM_TO_PT,w=box.width-(c.left+c.right)*MM_TO_PT,h=box.height-(c.top+c.bottom)*MM_TO_PT;
+    if(w<24||h<24)throw Error(`Trang ${i+1}: vùng cắt quá nhỏ`);
+    if(c.top||c.bottom||c.left||c.right)p.setCropBox(x,y,w,h);
+    if(it.rotation)p.setRotation(degrees(((p.getRotation().angle||0)+it.rotation)%360));
+    out.addPage(p);
+  }
+}
+async function exportNormal(list=pages,fileName="PDF-Studio.pdf"){
+  if(!list.length)throw Error("Chưa có trang");
+  const out=await PDFDocument.create();
+  for(let i=0;i<list.length;i++){
+    const it=list[i];
+    await appendNormalPage(out,it,i);
+    setProgress((i+1)/list.length*100,`Đang xuất trang ${i+1}/${list.length}${it.perspectiveCrop?(it.cropMode==="rect"?" · cắt chữ nhật":" · nắn freeform"):""}`);
+    await new Promise(r=>setTimeout(r,0));
+  }
+  downloadBytes(await out.save(),fileName);
+}
+
+/* ====== KHỬ BÓNG v2: chia cho "bản đồ nền giấy" ====== */
+function morph1D(a,off,stride,n,r,isMax,o,ooff,ostride,dq){
+  let head=0,tail=0,next=0;
+  for(let i=0;i<n;i++){
+    const hi=Math.min(n-1,i+r);
+    while(next<=hi){
+      const v=a[off+next*stride];
+      while(tail>head){const last=a[off+dq[tail-1]*stride];if(isMax?last<=v:last>=v)tail--;else break}
+      dq[tail++]=next;next++;
+    }
+    const lo=i-r;while(dq[head]<lo)head++;
+    o[ooff+i*ostride]=a[off+dq[head]*stride];
+  }
+}
+function morph2D(a,w,h,r,isMax){
+  const tmp=new Float32Array(a.length),out=new Float32Array(a.length),dq=new Int32Array(Math.max(w,h)+2);
+  for(let y=0;y<h;y++)morph1D(a,y*w,1,w,r,isMax,tmp,y*w,1,dq);
+  for(let x=0;x<w;x++)morph1D(tmp,x,w,h,r,isMax,out,x,w,dq);
+  return out;
+}
+function boxBlur2D(a,w,h,r,passes){
+  let src=a;
+  for(let p=0;p<passes;p++){
+    const tmp=new Float32Array(src.length),out=new Float32Array(src.length),inv=1/(2*r+1);
+    for(let y=0;y<h;y++){
+      const row=y*w;let sum=0;
+      for(let i=-r;i<=r;i++)sum+=src[row+Math.min(w-1,Math.max(0,i))];
+      for(let x=0;x<w;x++){
+        tmp[row+x]=sum*inv;
+        sum+=src[row+Math.min(w-1,x+r+1)]-src[row+Math.max(0,x-r)];
+      }
+    }
+    for(let x=0;x<w;x++){
+      let sum=0;
+      for(let i=-r;i<=r;i++)sum+=tmp[Math.min(h-1,Math.max(0,i))*w+x];
+      for(let y=0;y<h;y++){
+        out[y*w+x]=sum*inv;
+        sum+=tmp[Math.min(h-1,y+r+1)*w+x]-tmp[Math.max(0,y-r)*w+x];
+      }
+    }
+    src=out;
+  }
+  return src;
+}
+function buildBackground(data,w,h,rFrac,kind){
+  const sc=Math.min(1,520/Math.max(w,h)),lw=Math.max(8,Math.round(w*sc)),lh=Math.max(8,Math.round(h*sc));
+  const np=kind==="rgb"?3:1,planes=[];for(let c=0;c<np;c++)planes.push(new Float32Array(lw*lh));
+  for(let ly=0;ly<lh;ly++){
+    const y0=Math.floor(ly*h/lh),y1=Math.max(y0+1,Math.floor((ly+1)*h/lh)),sy=Math.max(1,Math.floor((y1-y0)/4));
+    for(let lx=0;lx<lw;lx++){
+      const x0=Math.floor(lx*w/lw),x1=Math.max(x0+1,Math.floor((lx+1)*w/lw)),sx=Math.max(1,Math.floor((x1-x0)/4));
+      let s0=0,s1=0,s2=0,n=0;
+      for(let y=y0;y<y1;y+=sy)for(let x=x0;x<x1;x+=sx){
+        const k=(y*w+x)*4,r=data[k],g=data[k+1],b=data[k+2];
+        if(kind==="rgb"){s0+=r;s1+=g;s2+=b}
+        else if(kind==="v")s0+=r>g?(r>b?r:b):(g>b?g:b);
+        else s0+=.299*r+.587*g+.114*b;
+        n++;
+      }
+      const i=ly*lw+lx;planes[0][i]=s0/n;if(np===3){planes[1][i]=s1/n;planes[2][i]=s2/n}
+    }
+  }
+  const R=clamp(Math.round(Math.max(lw,lh)*rFrac),5,44),br=Math.max(1,Math.round(R*.12));
+  for(let c=0;c<np;c++){
+    let p=morph2D(planes[c],lw,lh,R,true);
+    p=morph2D(p,lw,lh,R,false);
+    p=boxBlur2D(p,lw,lh,br,2);
+    for(let i=0;i<p.length;i++)p[i]=Math.max(40,p[i]);
+    planes[c]=p;
+  }
+  return {planes,lw,lh};
+}
+function makeSampler(w,h,lw,lh){
+  const xi0=new Int32Array(w),xi1=new Int32Array(w),xf=new Float32Array(w);
+  for(let x=0;x<w;x++){const g=clamp((x+.5)*lw/w-.5,0,lw-1),i=Math.floor(g);xi0[x]=i;xi1[x]=Math.min(lw-1,i+1);xf[x]=g-i}
+  return{xi0,xi1,xf,row(y){const g=clamp((y+.5)*lh/h-.5,0,lh-1),i=Math.floor(g);return{o0:i*lw,o1:Math.min(lh-1,i+1)*lw,fy:g-i}}};
+}
+function bil(P,s,rw,x){const f=s.xf[x],a=P[rw.o0+s.xi0[x]],b=P[rw.o0+s.xi1[x]],c=P[rw.o1+s.xi0[x]],d=P[rw.o1+s.xi1[x]];return(a*(1-f)+b*f)*(1-rw.fy)+(c*(1-f)+d*f)*rw.fy}
+function sharpenLuma(data,w,h,amount){
+  const L=new Uint8Array(w*h);
+  for(let i=0,k=0;i<L.length;i++,k+=4)L[i]=(.299*data[k]+.587*data[k+1]+.114*data[k+2])+.5;
+  for(let y=0;y<h;y++){
+    const ym=Math.max(0,y-1)*w,y0=y*w,yp=Math.min(h-1,y+1)*w;
+    for(let x=0;x<w;x++){
+      const xm=x>0?x-1:0,xp=x<w-1?x+1:w-1;
+      const blur=(L[ym+xm]+2*L[ym+x]+L[ym+xp]+2*L[y0+xm]+4*L[y0+x]+2*L[y0+xp]+L[yp+xm]+2*L[yp+x]+L[yp+xp])/16;
+      const d=(L[y0+x]-blur)*amount;
+      if(d>-1&&d<1)continue;
+      const k=(y0+x)*4,r=data[k],g=data[k+1],b=data[k+2];
+      const mx=Math.max(r,g,b),mn=Math.min(r,g,b),cwt=mx>1?clamp(((mx-mn)/mx-.18)/.22,0,1):0;
+      let nr=r+d,ng=g+d,nb=b+d;
+      if(cwt>0){
+        const l0=L[y0+x],gain=clamp((l0+d)/Math.max(l0,1),.88,1.15);
+        nr=nr*(1-cwt)+r*gain*cwt;ng=ng*(1-cwt)+g*gain*cwt;nb=nb*(1-cwt)+b*gain*cwt;
+      }
+      data[k]=clamp(nr,0,255);data[k+1]=clamp(ng,0,255);data[k+2]=clamp(nb,0,255);
+    }
+  }
+}
+const ENH_LEVELS={
+  light :{T:248,maxGain:1.6,snap:230,ink:.05,r:.065,str:.85,sharp:.45},
+  medium:{T:251,maxGain:2.1,snap:220,ink:.10,r:.055,str:1,sharp:.65},
+  strong:{T:253,maxGain:2.7,snap:208,ink:.16,r:.045,str:1,sharp:.85}
+};
+function enhanceCanvas(canvas,level,opts){
+  opts=opts||{};const whiten=!!opts.whiten,S=ENH_LEVELS[level]||ENH_LEVELS.medium;
+  const ctx=canvas.getContext("2d",{willReadFrequently:true}),w=canvas.width,h=canvas.height;
+  const image=ctx.getImageData(0,0,w,h),data=image.data;
+  const bg=buildBackground(data,w,h,S.r,whiten?"rgb":"v"),sm=makeSampler(w,h,bg.lw,bg.lh),T=S.T;
+  const P0=bg.planes[0],P1=bg.planes[1],P2=bg.planes[2];
+  for(let y=0;y<h;y++){
+    const rw=sm.row(y);
+    for(let x=0;x<w;x++){
+      const k=(y*w+x)*4;
+      let m0,m1,m2;
+      if(whiten){m0=T/bil(P0,sm,rw,x);m1=T/bil(P1,sm,rw,x);m2=T/bil(P2,sm,rw,x)}
+      else m0=m1=m2=T/bil(P0,sm,rw,x);
+      m0=1+(Math.min(S.maxGain,m0)-1)*S.str;m1=1+(Math.min(S.maxGain,m1)-1)*S.str;m2=1+(Math.min(S.maxGain,m2)-1)*S.str;
+      let r=data[k]*m0,g=data[k+1]*m1,b=data[k+2]*m2;
+      const lum=.299*r+.587*g+.114*b;
+      let s=1;
+      if(lum>S.snap){
+        const t=clamp((lum-S.snap)/(T-S.snap),0,1),wt=t*t*(3-2*t),mx=Math.max(r,g,b,1);
+        s=Math.min(1+(255/Math.max(lum,1)-1)*wt,255/mx);
+      }else if(lum<150)s=1-S.ink*(1-lum/150);
+      data[k]=clamp(r*s,0,255);data[k+1]=clamp(g*s,0,255);data[k+2]=clamp(b*s,0,255);
+    }
+  }
+  if(opts.sharpen)sharpenLuma(data,w,h,S.sharp);
+  ctx.putImageData(image,0,0);
+}
+function scanCanvas(canvas,level,mode,opts){
+  opts=opts||{};
+  const ctx=canvas.getContext("2d",{willReadFrequently:true}),w=canvas.width,h=canvas.height;
+  const image=ctx.getImageData(0,0,w,h),data=image.data,S=ENH_LEVELS[level]||ENH_LEVELS.medium;
+  const bg=buildBackground(data,w,h,S.r,"lum"),sm=makeSampler(w,h,bg.lw,bg.lh),B=bg.planes[0];
+  const P={light:{lo:.50,hi:.76,g:1.25},medium:{lo:.58,hi:.82,g:1.5},strong:{lo:.66,hi:.88,g:1.8}}[level]||{lo:.58,hi:.82,g:1.5};
+  for(let y=0;y<h;y++){
+    const rw=sm.row(y);
+    for(let x=0;x<w;x++){
+      const k=(y*w+x)*4,lum=.299*data[k]+.587*data[k+1]+.114*data[k+2],norm=lum/bil(B,sm,rw,x);
+      let v;
+      if(mode==="bw"){const t=clamp((norm-P.lo)/(P.hi-P.lo),0,1);v=t*t*(3-2*t)}
+      else v=Math.pow(clamp(norm/.97,0,1),P.g);
+      data[k]=data[k+1]=data[k+2]=v*255;
+    }
+  }
+  if(opts.sharpen&&mode==="gray")sharpenLuma(data,w,h,S.sharp*.8);
+  ctx.putImageData(image,0,0);
+}
+function enhanceByMode(canvas,level,mode,opts){if(mode==="gray"||mode==="bw")scanCanvas(canvas,level,mode,opts);else enhanceCanvas(canvas,level,opts)}
+/* ====== MAGIC COLOR (kiểu CamScanner) ====== */
+function magicCanvas(canvas,opts){
+  opts=opts||{};
+  const ctx=canvas.getContext("2d",{willReadFrequently:true}),w=canvas.width,h=canvas.height;
+  const image=ctx.getImageData(0,0,w,h),data=image.data;
+  const bg=buildBackground(data,w,h,.055,"rgb"),sm=makeSampler(w,h,bg.lw,bg.lh),P0=bg.planes[0],P1=bg.planes[1],P2=bg.planes[2];
+  const T=252,maxGain=2.4;
+  for(let y=0;y<h;y++){
+    const rw=sm.row(y);
+    for(let x=0;x<w;x++){
+      const k=(y*w+x)*4;
+      let r=data[k]*Math.min(maxGain,T/bil(P0,sm,rw,x)),g=data[k+1]*Math.min(maxGain,T/bil(P1,sm,rw,x)),b=data[k+2]*Math.min(maxGain,T/bil(P2,sm,rw,x));
+      r=r>255?255:r;g=g>255?255:g;b=b>255?255:b;
+      const mx=Math.max(r,g,b),mn=Math.min(r,g,b),lum=.299*r+.587*g+.114*b;
+      const sat=mx>1?(mx-mn)/mx:0;
+      const cw=clamp((sat-.10)/.25,0,1);
+      const t=clamp((lum/255-.20)/(.88-.20),0,1),yv=(t*t*(3-2*t))*255;
+      let f=lum>1?yv/lum:1;
+      f=f*(1-cw)+cw;
+      r*=f;g*=f;b*=f;
+      if(cw>0){
+        const boost=1+.30*cw,l2=.299*r+.587*g+.114*b;
+        r=l2+(r-l2)*boost;g=l2+(g-l2)*boost;b=l2+(b-l2)*boost;
+      }
+      data[k]=clamp(r,0,255);data[k+1]=clamp(g,0,255);data[k+2]=clamp(b,0,255);
+    }
+  }
+  if(opts.sharpen!==false)sharpenLuma(data,w,h,.8);
+  ctx.putImageData(image,0,0);
+}
+
+/* ====== CHỌN TRANG ÁP DỤNG KHỬ BÓNG ====== */
+function enhanceOpts(){return{whiten:$("enhanceWhiten").value==="white",sharpen:$("enhanceSharpen").checked}}
+function enhanceFlags(){
+  const scope=$("enhanceScope").value;
+  return pages.map(p=>scope==="selected"?selectedPages.has(p.id):scope==="except"?!selectedPages.has(p.id):true);
+}
+function magicFlags(){return $("magicScope").value==="all"?pages.map(()=>true):pages.map(p=>selectedPages.has(p.id))}
+function updateMagicInfo(){
+  const el=$("magicScopeInfo");if(!el)return;
+  if(!pages.length){el.textContent="";return}
+  const n=magicFlags().filter(Boolean).length;
+  el.textContent=$("magicScope").value==="all"?`Sẽ áp dụng cho tất cả ${pages.length} trang`:(n?`Sẽ áp dụng cho ${n}/${pages.length} trang đã chọn`:"Hãy chọn trang trong danh sách phía trên");
+}
+function updateEnhanceInfo(){
+  updateMagicInfo();
+  const el=$("enhanceScopeInfo");if(!el)return;
+  const scope=$("enhanceScope").value,f=enhanceFlags(),n=f.filter(Boolean).length;
+  if(!pages.length){el.textContent="";return}
+  let t=`Sẽ khử bóng ${n}/${pages.length} trang`+(n<pages.length?` · giữ nguyên ${pages.length-n} trang`:"");
+  if(scope!=="all"&&!selectedPages.size)t+=" · hãy chọn trang trong danh sách phía trên";
+  el.textContent=t;
+}
+async function exportEnhanced(cfg){
+  if(!pages.length)throw Error("Chưa có trang để làm đẹp");
+  cfg=cfg||{};const level=$("enhanceLevel").value,mode=$("enhanceMode").value,dpi=cfg.dpi||Number($("renderDpi").value)||220,out=await PDFDocument.create(),scale=dpi/72,opts=enhanceOpts(),flags=cfg.flags||enhanceFlags(),verb=cfg.verb||"khử bóng";
+  let done=0;const todo=flags.filter(Boolean).length;
+  for(let i=0;i<pages.length;i++){
+    const it=pages[i];
+    if(!flags[i]){
+      await appendNormalPage(out,it,i);
+      setProgress((i+1)/pages.length*100,`Giữ nguyên trang ${i+1}/${pages.length}`);
+      await new Promise(r=>setTimeout(r,0));continue;
+    }
+    const d=sourceFor(it),p=await d.pdf.getPage(it.pageNum),rotation=((p.rotate||0)+it.rotation)%360;
+    const vb=it.perspectiveCrop?undefined:cropViewBox(it,p);
+    const v=p.getViewport({scale,rotation,viewBox:vb});
+    const maxPixels=28_000_000,reduce=Math.min(1,Math.sqrt(maxPixels/(v.width*v.height))),canvas=document.createElement("canvas");
+    canvas.width=Math.max(1,Math.floor(v.width*reduce));canvas.height=Math.max(1,Math.floor(v.height*reduce));
+    const renderViewport=p.getViewport({scale:scale*reduce,rotation,viewBox:vb}),ctx=canvas.getContext("2d",{willReadFrequently:true});
+    ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);
+    await p.render({canvasContext:ctx,viewport:renderViewport,background:"rgb(255,255,255)"}).promise;
+    const shaped=applyShapeCrop(canvas,it);
+    if(cfg.process)cfg.process(shaped);else enhanceByMode(shaped,level,mode,opts);
+    const blob=await new Promise(resolve=>shaped.toBlob(resolve,"image/jpeg",.96));if(!blob)throw Error("Không tạo được ảnh trang "+(i+1));
+    const jpg=new Uint8Array(await blob.arrayBuffer()),image=await out.embedJpg(jpg);
+    const pw=shaped.width/(scale*reduce),ph=shaped.height/(scale*reduce),newPage=out.addPage([pw,ph]);
+    newPage.drawImage(image,{x:0,y:0,width:pw,height:ph});
+    canvas.width=canvas.height=1;if(shaped!==canvas)shaped.width=shaped.height=1;
+    done++;
+    setProgress((i+1)/pages.length*100,`Đang ${verb} trang ${i+1}/${pages.length} (${done}/${todo} trang áp dụng, ${dpi} DPI)...`);
+    await new Promise(r=>setTimeout(r,0));
+  }
+  const bytes=await out.save({useObjectStreams:true});downloadBytes(bytes,cfg.fileName||(mode==="bw"?"PDF-Studio-Scan-DenTrang.pdf":mode==="gray"?"PDF-Studio-Scan-Xam.pdf":"PDF-Studio-Da-Khu-Bong.pdf"));
+}
+async function renderEnhancementComparison(magic){
+  if(!pages.length)throw Error("Chưa có trang để xem thử");
+  const chosen=selectedIndexes();
+  const index=chosen.length?chosen[0]:0;
+  const item=pages[index],doc=sourceFor(item),pdfPage=await doc.pdf.getPage(item.pageNum);
+  const rotation=((pdfPage.rotate||0)+item.rotation)%360;
+  const scale=1.15;
+  const vb=item.perspectiveCrop?undefined:cropViewBox(item,pdfPage);
+  const viewport=pdfPage.getViewport({scale,rotation,viewBox:vb});
+  const tmp=document.createElement("canvas");
+  tmp.width=Math.ceil(viewport.width);tmp.height=Math.ceil(viewport.height);
+  const tctx=tmp.getContext("2d");
+  tctx.fillStyle="#fff";tctx.fillRect(0,0,tmp.width,tmp.height);
+  await pdfPage.render({canvasContext:tctx,viewport,background:"rgb(255,255,255)"}).promise;
+  const shaped=applyShapeCrop(tmp,item);
+  const before=$("beforeEnhanceCanvas"),after=$("afterEnhanceCanvas");
+  before.width=after.width=shaped.width;before.height=after.height=shaped.height;
+  before.getContext("2d").drawImage(shaped,0,0);
+  after.getContext("2d").drawImage(shaped,0,0);
+  if(magic)magicCanvas(after,{sharpen:true});else enhanceByMode(after,$("enhanceLevel").value,$("enhanceMode").value,enhanceOpts());
+  $("enhancePreviewLabel").textContent=magic?`${item.name} · trang ${item.pageNum} · Magic Color`:`${item.name} · trang ${item.pageNum} · ${$("enhanceMode").selectedOptions[0].text} · mức ${$("enhanceLevel").selectedOptions[0].text}`;
+  $("enhancePreviewModal").classList.remove("hidden");
+}
+$("previewEnhanceButton").onclick=async()=>{
+  try{await renderEnhancementComparison()}catch(e){console.error(e);showToast("Không tạo được bản xem thử: "+e.message)}
+};
+$("closeEnhancePreview").onclick=$("closeEnhancePreview2").onclick=()=>$("enhancePreviewModal").classList.add("hidden");
+$("enhancePreviewModal").onclick=e=>{if(e.target===$("enhancePreviewModal"))$("enhancePreviewModal").classList.add("hidden")};
+
+$("exportButton").onclick=async()=>{if(busy)return;setBusy(true);try{await exportNormal();$("enhanceStatus").textContent="Đã xuất PDF gốc.";showToast("Xuất PDF thành công")}catch(e){console.error(e);showToast("Lỗi xuất PDF: "+e.message)}finally{setBusy(false);setTimeout(()=>$("progressArea").classList.add("hidden"),1200)}};
+$("enhanceExportButton").onclick=async()=>{
+  if(busy)return;if(!pages.length)return showToast("Hãy thêm PDF hoặc ảnh trước");
+  const scope=$("enhanceScope").value,n=enhanceFlags().filter(Boolean).length;
+  if(scope!=="all"&&!selectedPages.size)return showToast(scope==="selected"?"Hãy chọn các trang cần khử bóng":"Hãy chọn các trang muốn giữ nguyên (không khử bóng)");
+  if(n===0)return showToast("Không còn trang nào để khử bóng");
+  if(!confirm(`Khử bóng ${n}/${pages.length} trang`+(n<pages.length?` (giữ nguyên ${pages.length-n} trang còn lại)`:"")+" và xuất PDF mới? Trang được khử bóng sẽ chuyển thành ảnh; chữ trên các trang đó có thể không còn chọn/tìm kiếm được."))return;
+  setBusy(true);$("enhanceStatus").textContent="Đang phân tích và khử bóng từng trang...";
+  try{await exportEnhanced();$("enhanceStatus").textContent=`Hoàn tất: đã khử bóng ${n} trang và xuất PDF.`;showToast("Đã khử bóng và xuất PDF")}
+  catch(e){console.error(e);$("enhanceStatus").textContent="Có lỗi trong quá trình xử lý.";showToast("Lỗi xử lý: "+e.message)}
+  finally{setBusy(false);setTimeout(()=>$("progressArea").classList.add("hidden"),1800)}
+};
+$("enhanceScope").onchange=()=>{updateEnhanceInfo();renderGrid()};
+$("magicScope").onchange=updateMagicInfo;
+$("previewMagicButton").onclick=async()=>{
+  try{await renderEnhancementComparison(true)}catch(e){console.error(e);showToast("Không tạo được bản xem thử: "+e.message)}
+};
+$("magicExportButton").onclick=async()=>{
+  if(busy)return;if(!pages.length)return showToast("Hãy thêm PDF hoặc ảnh trước");
+  const flags=magicFlags(),n=flags.filter(Boolean).length;
+  if(n===0)return showToast("Hãy chọn các trang cần áp dụng Magic Color (hoặc chọn “Tất cả trang”)");
+  if(!confirm(`Áp dụng Magic Color cho ${n}/${pages.length} trang`+(n<pages.length?` (giữ nguyên ${pages.length-n} trang còn lại)`:"")+" và xuất PDF mới? Trang được xử lý sẽ chuyển thành ảnh; chữ trên các trang đó có thể không còn chọn/tìm kiếm được."))return;
+  setBusy(true);$("magicStatus").textContent="Đang xử lý Magic Color từng trang...";
+  try{await exportEnhanced({flags,dpi:Number($("magicDpi").value)||220,process:c=>magicCanvas(c,{sharpen:true}),verb:"xử lý Magic Color",fileName:"PDF-Studio-Magic-Color.pdf"});$("magicStatus").textContent=`Hoàn tất: đã áp dụng Magic Color cho ${n} trang.`;showToast("Đã áp dụng Magic Color và xuất PDF")}
+  catch(e){console.error(e);$("magicStatus").textContent="Có lỗi trong quá trình xử lý.";showToast("Lỗi xử lý: "+e.message)}
+  finally{setBusy(false);setTimeout(()=>$("progressArea").classList.add("hidden"),1800)}
+};
+
+/* ====== GIẢM DUNG LƯỢNG PDF ====== */
+const COMPRESS_PRESETS={light:{dpi:150,q:80},medium:{dpi:120,q:65},strong:{dpi:90,q:50}};
+$("compressPreset").onchange=()=>{const p=COMPRESS_PRESETS[$("compressPreset").value];if(p){$("compressDpi").value=p.dpi;$("compressQuality").value=p.q}};
+["compressDpi","compressQuality"].forEach(id=>$(id).addEventListener("input",()=>{$("compressPreset").value="custom"}));
+function fmtSize(b){return b>=1048576?(b/1048576).toFixed(2)+" MB":Math.round(b/1024)+" KB"}
+async function buildCompressed(dpi,quality,gray,label){
+  const out=await PDFDocument.create(),scale=dpi/72;
+  for(let i=0;i<pages.length;i++){
+    const it=pages[i],d=sourceFor(it),p=await d.pdf.getPage(it.pageNum),rotation=((p.rotate||0)+it.rotation)%360;
+    const vb=it.perspectiveCrop?undefined:cropViewBox(it,p),v=p.getViewport({scale,rotation,viewBox:vb});
+    const reduce=Math.min(1,Math.sqrt(20_000_000/(v.width*v.height))),canvas=document.createElement("canvas");
+    canvas.width=Math.max(1,Math.floor(v.width*reduce));canvas.height=Math.max(1,Math.floor(v.height*reduce));
+    const ctx=canvas.getContext("2d",{willReadFrequently:true});ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);
+    await p.render({canvasContext:ctx,viewport:p.getViewport({scale:scale*reduce,rotation,viewBox:vb}),background:"rgb(255,255,255)"}).promise;
+    const shaped=applyShapeCrop(canvas,it);
+    if(gray){const sc=shaped.getContext("2d",{willReadFrequently:true}),im=sc.getImageData(0,0,shaped.width,shaped.height),a=im.data;for(let k=0;k<a.length;k+=4){const l=.299*a[k]+.587*a[k+1]+.114*a[k+2];a[k]=a[k+1]=a[k+2]=l}sc.putImageData(im,0,0)}
+    const blob=await new Promise(r=>shaped.toBlob(r,"image/jpeg",quality));if(!blob)throw Error("Không tạo được ảnh trang "+(i+1));
+    const image=await out.embedJpg(new Uint8Array(await blob.arrayBuffer())),pw=shaped.width/(scale*reduce),ph=shaped.height/(scale*reduce),np=out.addPage([pw,ph]);
+    np.drawImage(image,{x:0,y:0,width:pw,height:ph});
+    canvas.width=canvas.height=1;if(shaped!==canvas)shaped.width=shaped.height=1;
+    setProgress((i+1)/pages.length*100,`${label} · trang ${i+1}/${pages.length} (${dpi} DPI, ${Math.round(quality*100)}%)`);
+    await new Promise(r=>setTimeout(r,0));
+  }
+  return new Uint8Array(await out.save({useObjectStreams:true}));
+}
+async function exportCompressed(){
+  if(!pages.length)throw Error("Chưa có trang để nén");
+  let dpi=clamp(Number($("compressDpi").value)||120,50,300),q=clamp(Number($("compressQuality").value)||65,20,95)/100,gray=$("compressGray").checked;
+  const origSize=documents.reduce((a,d)=>a+d.bytes.length,0);
+  let bytes;
+  if($("compressTarget").checked){
+    const limit=(Number($("compressTargetMb").value)||2)*1048576;
+    const steps=[[dpi,q],[dpi,q*.85],[dpi*.85,q*.75],[dpi*.7,q*.65],[dpi*.6,q*.55],[dpi*.5,q*.45],[50,.3]];
+    for(let n=0;n<steps.length;n++){
+      const [d2,q2]=steps[n];dpi=Math.max(50,Math.round(d2));q=clamp(q2,.2,.95);
+      bytes=await buildCompressed(dpi,q,gray,`Lần thử ${n+1}/${steps.length}`);
+      if(bytes.length<=limit)break;
+    }
+    if(bytes.length>limit)showToast("Chưa đạt "+fmtSize(limit)+" ở mức nén thấp nhất; thử bật thang xám hoặc bỏ bớt trang");
+  }else bytes=await buildCompressed(dpi,q,gray,"Đang nén");
+  downloadBytes(bytes,"PDF-Studio-Nen.pdf");
+  $("compressStatus").textContent=`Hoàn tất: ${fmtSize(bytes.length)} (${dpi} DPI, JPEG ${Math.round(q*100)}%)`+(origSize?` · tệp gốc tổng ${fmtSize(origSize)}`:"");
+}
+$("compressExportButton").onclick=async()=>{
+  if(busy)return;if(!pages.length)return showToast("Hãy thêm PDF hoặc ảnh trước");
+  setBusy(true);$("compressStatus").textContent="Đang nén...";
+  try{await exportCompressed();showToast("Đã nén và xuất PDF")}
+  catch(e){console.error(e);$("compressStatus").textContent="Có lỗi khi nén.";showToast("Lỗi nén: "+e.message)}
+  finally{setBusy(false);setTimeout(()=>$("progressArea").classList.add("hidden"),1800)}
+};
+$("saveSelectedButton").onclick=async()=>{
+  if(busy)return;
+  const idx=selectedIndexes();
+  if(!idx.length)return showToast("Hãy chọn các trang cần lưu (Shift+click để chọn dải, Ctrl+click để chọn rời)");
+  setBusy(true);
+  try{
+    await exportNormal(idx.map(i=>pages[i]),"PDF-Studio-trang-"+rangeLabel(idx)+".pdf");
+    $("enhanceStatus").textContent=`Đã lưu ${idx.length} trang đã chọn thành 1 file PDF.`;
+    showToast(`Đã lưu ${idx.length} trang thành 1 file PDF`);
+  }catch(e){console.error(e);showToast("Lỗi lưu trang đã chọn: "+e.message)}
+  finally{setBusy(false);setTimeout(()=>$("progressArea").classList.add("hidden"),1200)}
+};
+
+/* ====== IN TRỰC TIẾP ====== */
+// In một đoạn HTML bằng iframe ẩn (không cần mở tab mới)
+function printHTML(html){
+  return new Promise(resolve=>{
+    const f=document.createElement("iframe");
+    f.style.cssText="position:fixed;left:-9999px;top:0;width:900px;height:700px;border:0";
+    document.body.append(f);
+    const w=f.contentWindow,d=w.document;
+    d.open();d.write(html);d.close();
+    let cleaned=false;
+    const cleanup=()=>{if(cleaned)return;cleaned=true;setTimeout(()=>f.remove(),500)};
+    w.onafterprint=cleanup;
+    setTimeout(cleanup,180000);
+    const imgs=[...d.images];
+    Promise.all(imgs.map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r}))).then(()=>{
+      setTimeout(()=>{try{w.focus();w.print()}catch(e){console.error(e);showToast("Không mở được hộp thoại in: "+e.message)}resolve()},250);
+    });
+  });
+}
+$("printSelectedButton").onclick=async()=>{
+  if(busy)return;
+  const idx=selectedIndexes();
+  if(!idx.length)return showToast("Hãy chọn các trang cần in (Shift+click để chọn dải, Ctrl+click để chọn rời)");
+  if(idx.length>80&&!confirm(`Bạn đang in ${idx.length} trang, có thể mất nhiều thời gian và bộ nhớ. Tiếp tục?`))return;
+  setBusy(true);
+  try{
+    const sheets=[];
+    for(let n=0;n<idx.length;n++){
+      const cv=await renderItemCanvas(pages[idx[n]],{dpi:150});
+      sheets.push({src:cv.toDataURL("image/jpeg",.92),land:cv.width>cv.height});
+      cv.width=cv.height=1;
+      setProgress((n+1)/idx.length*100,`Đang chuẩn bị in trang ${n+1}/${idx.length}...`);
+      await new Promise(r=>setTimeout(r,0));
+    }
+    const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>PDF Studio - In trang</title><style>
+@page{size:A4 portrait;margin:0}@page land{size:A4 landscape;margin:0}
+html,body{margin:0;padding:0;background:#fff}
+.pg{width:209mm;height:296mm;display:flex;align-items:center;justify-content:center;overflow:hidden;break-after:page;page-break-after:always}
+.pg.land{page:land;width:296mm;height:209mm}
+.pg:last-child{break-after:auto;page-break-after:auto}
+.pg img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+</style></head><body>${sheets.map(s=>`<div class="pg${s.land?" land":""}"><img src="${s.src}"></div>`).join("")}</body></html>`;
+    showToast(`Đang mở hộp thoại in ${idx.length} trang...`);
+    await printHTML(html);
+  }catch(e){console.error(e);showToast("Lỗi in trang đã chọn: "+e.message)}
+  finally{setBusy(false);setTimeout(()=>$("progressArea").classList.add("hidden"),800)}
+};
+
+/* ====== TRÌNH SOẠN THẢO VĂN BẢN (kiểu Word) ====== */
+const ED_KEY="pdfstudio_editor_draft_v1";
+const ed=$("edPage");
+let edRange=null,edPendingSize=null;
+const ED_BASE_CSS=`body{margin:0;font-family:"Times New Roman",Times,serif;font-size:13pt;line-height:1.3;color:#000}p{margin:0 0 6pt}ul,ol{margin:0 0 6pt}table{border-collapse:collapse}td,th{vertical-align:top}img{max-width:100%}img.ed-fimg{position:absolute}.sheet{position:relative}.ed-tb{position:absolute;border:1px solid #000;padding:6px;box-sizing:border-box;overflow:hidden}.ed-tb p{margin:0}`;
+function edSaveDraft(){try{localStorage.setItem(ED_KEY,edClone("draft"))}catch(e){}}
+function edLoadDraft(){
+  try{const v=localStorage.getItem(ED_KEY);if(v&&v.trim())ed.innerHTML=v}catch(e){}
+  ed.querySelectorAll(".ed-tb").forEach(tb=>{tb.classList.remove("sel");tb.tabIndex=0;tb.contentEditable="false";const b=tb.querySelector(".ed-tb-body");if(b)b.contentEditable="true"});
+}
+// Bản sao nội dung để lưu nháp hoặc in (bỏ trạng thái chọn; khi in thì dời toạ độ textbox theo lề)
+function edClone(mode){
+  const c=ed.cloneNode(true);
+  c.querySelectorAll(".ed-tb").forEach(tb=>{
+    tb.classList.remove("sel");
+    if(mode==="print"){
+      tb.removeAttribute("tabindex");tb.removeAttribute("contenteditable");
+      tb.style.left=((parseFloat(tb.dataset.x)||0)-edCfg.l)+"mm";
+      tb.style.top=((parseFloat(tb.dataset.y)||0)-edCfg.t)+"mm";
+      tb.querySelectorAll("[contenteditable]").forEach(x=>x.removeAttribute("contenteditable"));
+    }
+  });
+  if(mode==="print")c.querySelectorAll("img.ed-fimg").forEach(im=>{
+    im.style.left=((parseFloat(im.dataset.x)||0)-edCfg.l)+"mm";
+    im.style.top=((parseFloat(im.dataset.y)||0)-edCfg.t)+"mm";
+  });
+  return c.innerHTML;
+}
+function edResetEmpty(){ed.innerHTML="<p><br></p>"}
+function edInRange(n){return n&&ed.contains(n.nodeType===3?n.parentNode:n)}
+document.addEventListener("selectionchange",()=>{
+  const s=getSelection();
+  if(s.rangeCount&&edInRange(s.anchorNode)){edRange=s.getRangeAt(0).cloneRange();if(!$("editorModal").classList.contains("hidden"))edUpdateState()}
+});
+function edFocus(){
+  ed.focus({preventScroll:true});
+  if(edRange){const s=getSelection();s.removeAllRanges();s.addRange(edRange)}
+}
+// Đổi các thẻ <font size="7"> (do execCommand tạo) thành span có cỡ chữ pt chính xác
+function edNormalizeSizes(){
+  const pt=edPendingSize;if(!pt)return;
+  ed.querySelectorAll('font[size="7"]').forEach(f=>{
+    const sp=document.createElement("span");sp.style.fontSize=pt+"pt";
+    while(f.firstChild)sp.appendChild(f.firstChild);
+    f.replaceWith(sp);
+    // bỏ cỡ chữ cũ trong các span con để cỡ mới có hiệu lực
+    sp.querySelectorAll("span").forEach(c=>{if(c.style&&c.style.fontSize)c.style.fontSize=""});
+  });
+}
+function edExec(cmd,val){
+  edFocus();
+  document.execCommand(cmd,false,val);
+  edNormalizeSizes();
+  edUpdateState();edSaveDraft();
+}
+function edUpdateState(){
+  document.querySelectorAll("#edToolbar [data-cmd]").forEach(b=>{
+    const c=b.dataset.cmd;if(c==="undo"||c==="redo")return;
+    let on=false;try{on=document.queryCommandState(c)}catch(e){}
+    b.classList.toggle("on",!!on);
+  });
+  const s=getSelection();
+  if(s.rangeCount&&edInRange(s.anchorNode)){
+    const el=s.anchorNode.nodeType===3?s.anchorNode.parentElement:s.anchorNode;
+    if(el){
+      const cs=getComputedStyle(el),pt=Math.round(parseFloat(cs.fontSize)*.75),fam=(cs.fontFamily||"").split(",")[0].replace(/["']/g,"").trim();
+      const so=[...$("edSize").options].find(o=>Number(o.value)===pt);if(so&&document.activeElement!==$("edSize"))$("edSize").value=so.value;
+      const fo=[...$("edFont").options].find(o=>o.value.toLowerCase()===fam.toLowerCase());if(fo&&document.activeElement!==$("edFont"))$("edFont").value=fo.value;
+    }
+  }
+}
+// nút lệnh: giữ nguyên vùng chọn khi bấm
+document.querySelectorAll("#edToolbar .ed-btn").forEach(b=>b.addEventListener("mousedown",e=>e.preventDefault()));
+document.querySelectorAll("#edToolbar [data-cmd]").forEach(b=>b.addEventListener("click",()=>edExec(b.dataset.cmd)));
+$("edFont").onchange=()=>edExec("fontName",$("edFont").value);
+$("edSize").onchange=()=>{edPendingSize=Number($("edSize").value);edExec("fontSize","7");edNormalizeSizes();edSaveDraft()};
+$("edColor").addEventListener("input",e=>edExec("foreColor",e.target.value));
+$("edHilite").addEventListener("input",e=>edExec("hiliteColor",e.target.value));
+$("edLine").onchange=()=>{
+  const v=$("edLine").value;if(!v)return;
+  edFocus();
+  const s=getSelection();if(!s.rangeCount)return;
+  const r=s.getRangeAt(0);
+  let blocks=[...ed.querySelectorAll("p,div,li,h1,h2,h3,h4,td,th")].filter(b=>r.intersectsNode(b)&&!b.querySelector("p,div,li,td,th"));
+  if(!blocks.length){document.execCommand("formatBlock",false,"p");blocks=[...ed.querySelectorAll("p")].filter(b=>r.intersectsNode(b))}
+  blocks.forEach(b=>b.style.lineHeight=v);
+  $("edLine").value="";edSaveDraft();
+};
+// Bảng
+function edCurrentCell(){
+  const s=getSelection(),n=(s.rangeCount&&edInRange(s.anchorNode))?s.anchorNode:(edRange?edRange.startContainer:null);
+  if(!n)return null;
+  const el=n.nodeType===3?n.parentElement:n;
+  const c=el&&el.closest("td,th");
+  return c&&ed.contains(c)?c:null;
+}
+const CELL_STYLE="border:1px solid #000;padding:4px 6px;min-width:24px";
+function edMakeCell(tag="td"){const c=document.createElement(tag);c.setAttribute("style",CELL_STYLE);c.innerHTML="<br>";return c}
+$("edTable").onclick=()=>{
+  const r=clamp(parseInt($("edRows").value)||3,1,30),c=clamp(parseInt($("edCols").value)||3,1,12);
+  let h='<table style="border-collapse:collapse;width:100%;table-layout:fixed"><tbody>';
+  for(let i=0;i<r;i++){h+="<tr>";for(let j=0;j<c;j++)h+=`<td style="${CELL_STYLE}"><br></td>`;h+="</tr>"}
+  h+="</tbody></table><p><br></p>";
+  edFocus();document.execCommand("insertHTML",false,h);edSaveDraft();showToast(`Đã chèn bảng ${r}×${c}`);
+};
+function edTableAction(act){
+  const cell=edCurrentCell();
+  if(!cell)return showToast("Hãy bấm con trỏ vào một ô của bảng trước");
+  const tr=cell.parentElement,table=cell.closest("table"),ci=cell.cellIndex;
+  if(act==="rowAbove"||act==="rowBelow"){
+    const n=document.createElement("tr");
+    for(let i=0;i<tr.cells.length;i++)n.appendChild(edMakeCell(tr.cells[i].tagName.toLowerCase()));
+    tr.parentNode.insertBefore(n,act==="rowAbove"?tr:tr.nextSibling);
+  }else if(act==="colLeft"||act==="colRight"){
+    [...table.rows].forEach(r=>{const ref=r.cells[Math.min(ci,r.cells.length-1)],nc=edMakeCell(ref?ref.tagName.toLowerCase():"td");if(!ref)r.appendChild(nc);else r.insertBefore(nc,act==="colLeft"?ref:ref.nextSibling)});
+  }else if(act==="delRow"){
+    tr.remove();if(!table.rows.length)table.remove();
+  }else if(act==="delCol"){
+    [...table.rows].forEach(r=>{if(r.cells[ci])r.cells[ci].remove()});
+    if(![...table.rows].some(r=>r.cells.length))table.remove();
+  }else if(act==="delTable"){table.remove()}
+  if(!ed.innerHTML.trim())edResetEmpty();
+  edSaveDraft();
+}
+document.querySelectorAll("#edToolbar [data-tbl]").forEach(b=>b.addEventListener("click",()=>edTableAction(b.dataset.tbl)));
+$("edCellColor").addEventListener("input",e=>{
+  const cell=edCurrentCell();if(!cell)return showToast("Hãy bấm con trỏ vào một ô của bảng trước");
+  cell.style.backgroundColor=e.target.value;edSaveDraft();
+});
+// Phím Tab & phím tắt
+ed.addEventListener("keydown",e=>{
+  if(edTbKey(e))return;
+  if(e.key==="Tab"){
+    e.preventDefault();
+    const cell=edCurrentCell();
+    if(cell){
+      const table=cell.closest("table"),all=[...table.querySelectorAll("td,th")];
+      let i=all.indexOf(cell)+(e.shiftKey?-1:1);
+      if(i>=all.length){edTableAction("rowBelow");const t2=cell.closest("table");i=[...t2.querySelectorAll("td,th")].indexOf(cell)+1}
+      const target=[...cell.closest("table").querySelectorAll("td,th")][clamp(i,0,Infinity)];
+      if(target){const r=document.createRange();r.selectNodeContents(target);r.collapse(true);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+    }else document.execCommand("insertText",false,"\u00a0\u00a0\u00a0\u00a0");
+    return;
+  }
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="p"){e.preventDefault();edPrint()}
+});
+ed.addEventListener("input",()=>{edNormalizeSizes();edSaveDraft()});
+ed.addEventListener("paste",e=>{
+  // dán văn bản thuần để tránh mang theo định dạng lạ từ web/Word, trừ khi có ảnh
+  const cd=e.clipboardData;if(!cd)return;
+  const imgItem=[...cd.items].find(i=>i.kind==="file"&&i.type.startsWith("image/"));
+  if(imgItem){
+    // ảnh thuần (chụp màn hình, sao chép ảnh): tự chèn để có thể chọn và kéo giãn tự do
+    if(!cd.getData("text/plain").trim()){const f=imgItem.getAsFile();if(f){e.preventDefault();edInsertImageFile(f)}}
+    return;
+  }
+  const html=cd.getData("text/html"),txt=cd.getData("text/plain");
+  if(html&&/<table/i.test(html))return; // giữ bảng
+  if(txt){e.preventDefault();document.execCommand("insertText",false,txt)}
+});
+// Chèn ảnh
+$("edImgBtn").onclick=()=>$("edImgInput").click();
+$("edImgInput").onchange=e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  edInsertImageFile(f);
+};
+function edInsertImageFile(f){
+  const fr=new FileReader();
+  fr.onload=()=>edInsertImageURL(fr.result);
+  fr.readAsDataURL(f);
+}
+function edInsertImageURL(src){
+  edFocus();document.execCommand("insertImage",false,src);
+  const im=[...ed.querySelectorAll("img")].find(i=>!i.style.width);
+  edInitImgs();edSaveDraft();
+  if(im){const sel=()=>{if(im.isConnected)edImgSelect(im)};if(im.complete)sel();else im.addEventListener("load",()=>setTimeout(sel,0),{once:true})}
+}
+// In / lưu .doc / xóa
+function edDocHTML(forWord){
+  const head=forWord
+    ?`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Văn bản</title><style>@page Section1{size:${edPageCss(true)};mso-page-orientation:${edCfg.land?"landscape":"portrait"};margin:${edMarginCss()}}div.Section1{page:Section1}${ED_BASE_CSS}</style></head>`
+    :`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Văn bản</title><style>@page{size:${edPageCss(false)};margin:${edMarginCss()}}${ED_BASE_CSS}</style></head>`;
+  return head+'<body><div class="Section1 sheet">'+edClone("print")+"</div></body></html>";
+}
+function edPrint(){
+  const txt=ed.innerText.replace(/\s/g,"");
+  if(!txt&&!ed.querySelector("img,table"))return showToast("Văn bản đang trống");
+  printHTML(edDocHTML(false));
+}
+$("edPrint").onclick=edPrint;
+$("edSaveDoc").onclick=()=>{
+  const blob=new Blob(["\ufeff"+edDocHTML(true)],{type:"application/msword"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="Van-ban.doc";a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);showToast("Đã tải Van-ban.doc");
+};
+$("edClear").onclick=()=>{if(confirm("Xóa toàn bộ nội dung văn bản?")){edResetEmpty();edRange=null;edSaveDraft();ed.focus()}};
+function openEditor(){
+  $("editorModal").classList.remove("hidden");
+  setTimeout(()=>{ed.focus();try{document.execCommand("defaultParagraphSeparator",false,"p");document.execCommand("enableObjectResizing",false,false)}catch(e){}edInitImgs()},50);
+}
+function closeEditor(){edImgSelect(null);edSaveDraft();$("editorModal").classList.add("hidden")}
+$("editorButton").onclick=()=>{openEditor();setTimeout(edReplaceTbs,60)};
+$("closeEditor").onclick=closeEditor;
+
+/* ====== KHỔ GIẤY (dọc / ngang), LỀ & THƯỚC KẺ ====== */
+const ED_CFG_KEY="pdfstudio_editor_cfg_v1",MM_PX=96/25.4;
+let edCfg={land:false,t:20,r:20,b:20,l:20};
+function edLoadCfg(){try{const c=JSON.parse(localStorage.getItem(ED_CFG_KEY)||"null");if(c&&typeof c==="object")edCfg={...edCfg,...c}}catch(e){}}
+function edSaveCfg(){try{localStorage.setItem(ED_CFG_KEY,JSON.stringify(edCfg))}catch(e){}}
+function edPageMM(){return edCfg.land?{w:297,h:210}:{w:210,h:297}}
+function edPageCss(word){const l=edCfg.land;return word?(l?"29.7cm 21cm":"21cm 29.7cm"):("A4 "+(l?"landscape":"portrait"))}
+function edMarginCss(){return `${edCfg.t}mm ${edCfg.r}mm ${edCfg.b}mm ${edCfg.l}mm`}
+function edBuildRulers(){
+  const {w,h}=edPageMM(),hr=$("edHR"),vr=$("edVR");
+  hr.style.width=w+"mm";vr.style.height=h+"mm";
+  let a="",b="";
+  for(let i=0;i<=w;i++){
+    a+=`<i class="tk ${i%10===0?"t10":i%5===0?"t5":"t1"}" style="left:${i}mm"></i>`;
+    if(i%10===0&&i>0&&i<w)a+=`<b class="lb" style="left:${i}mm">${i/10}</b>`;
+  }
+  for(let i=0;i<=h;i++){
+    b+=`<i class="tk ${i%10===0?"t10":i%5===0?"t5":"t1"}" style="top:${i}mm"></i>`;
+    if(i%10===0&&i>0&&i<h)b+=`<b class="lb" style="top:${i}mm">${i/10}</b>`;
+  }
+  a+=`<div class="rz" data-z="l"></div><div class="rz" data-z="r"></div><div class="rm" data-m="l" title="Kéo để chỉnh lề trái"></div><div class="rm" data-m="r" title="Kéo để chỉnh lề phải"></div>`;
+  b+=`<div class="rz" data-z="t"></div><div class="rz" data-z="b"></div><div class="rm" data-m="t" title="Kéo để chỉnh lề trên"></div><div class="rm" data-m="b" title="Kéo để chỉnh lề dưới"></div>`;
+  hr.innerHTML=a;vr.innerHTML=b;
+  edMarkMargins();
+}
+function edMarkMargins(){
+  const {w,h}=edPageMM(),c=edCfg,q=s=>document.querySelector(s);
+  q("#edHR [data-z=l]").style.width=c.l+"mm";q("#edHR [data-z=r]").style.width=c.r+"mm";
+  q("#edHR [data-m=l]").style.left=`calc(${c.l}mm - 7px)`;q("#edHR [data-m=r]").style.left=`calc(${w-c.r}mm - 7px)`;
+  q("#edVR [data-z=t]").style.height=c.t+"mm";q("#edVR [data-z=b]").style.height=c.b+"mm";
+  q("#edVR [data-m=t]").style.top=`calc(${c.t}mm - 7px)`;q("#edVR [data-m=b]").style.top=`calc(${h-c.b}mm - 7px)`;
+  ed.style.padding=edMarginCss();
+  $("edMarginInfo").textContent=`Lề (mm): trái ${c.l} · phải ${c.r} · trên ${c.t} · dưới ${c.b}`;
+}
+function edApplyCfg(){
+  const {w,h}=edPageMM();
+  ed.style.width=w+"mm";ed.style.minHeight=h+"mm";
+  $("edOrient").value=edCfg.land?"land":"port";
+  edBuildRulers();edReplaceTbs();edSaveCfg();edSaveDraft();
+}
+$("edOrient").onchange=()=>{edCfg.land=$("edOrient").value==="land";edApplyCfg();showToast(edCfg.land?"Đã chuyển sang A4 ngang":"Đã chuyển sang A4 dọc")};
+$("edMarginReset").onclick=()=>{edCfg.t=edCfg.r=edCfg.b=edCfg.l=20;edMarkMargins();edSaveCfg();showToast("Đã đặt lại lề 20 mm")};
+// kéo mũi tên tím trên thước để đổi lề
+let edRulerDrag=null;
+function edGuideMove(e){
+  const g=$("edGuide"),wr=$("edWrap").getBoundingClientRect(),d=edRulerDrag;if(!d)return;
+  if(d.m==="l"||d.m==="r"){g.className="ed-guide v";g.style.top="";g.style.left=(e.clientX-wr.left)+"px"}
+  else{g.className="ed-guide h";g.style.left="";g.style.top=(e.clientY-wr.top)+"px"}
+}
+[$("edHR"),$("edVR")].forEach(r=>{
+  r.addEventListener("pointerdown",e=>{
+    const m=e.target.dataset&&e.target.dataset.m;if(!m)return;
+    edRulerDrag={m};e.target.setPointerCapture(e.pointerId);e.preventDefault();edGuideMove(e);
+  });
+  r.addEventListener("pointermove",e=>{
+    const d=edRulerDrag;if(!d)return;
+    const {w,h}=edPageMM(),c=edCfg,MIN=40;
+    if(d.m==="l"||d.m==="r"){
+      const rc=$("edHR").getBoundingClientRect(),mm=(e.clientX-rc.left)/rc.width*w;
+      if(d.m==="l")c.l=clamp(Math.round(mm),0,w-c.r-MIN);else c.r=clamp(Math.round(w-mm),0,w-c.l-MIN);
+    }else{
+      const rc=$("edVR").getBoundingClientRect(),mm=(e.clientY-rc.top)/rc.height*h;
+      if(d.m==="t")c.t=clamp(Math.round(mm),0,h-c.b-MIN);else c.b=clamp(Math.round(h-mm),0,h-c.t-MIN);
+    }
+    edMarkMargins();edGuideMove(e);
+  });
+  const end=()=>{if(!edRulerDrag)return;edRulerDrag=null;$("edGuide").className="ed-guide hidden";edSaveCfg()};
+  r.addEventListener("pointerup",end);r.addEventListener("pointercancel",end);
+});
+
+/* ====== TEXTBOX: chèn, kéo, dời bằng phím mũi tên ====== */
+let tbSel=null,tbDrag=null;
+const TB_ARROWS={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
+function markSel(tb){
+  ed.querySelectorAll(".ed-tb.sel").forEach(x=>{if(x!==tb)x.classList.remove("sel")});
+  tbSel=tb||null;if(tb)tb.classList.add("sel");
+  tbSyncBorderUI(tb);
+}
+// Đồng bộ ô chọn màu / độ dày viền với textbox đang chọn
+function tbRgbToHex(c){
+  const m=(c||"").match(/[\d.]+/g);if(!m||m.length<3)return null;
+  return "#"+m.slice(0,3).map(v=>Math.round(Number(v)).toString(16).padStart(2,"0")).join("");
+}
+function tbIsTransparent(tb){
+  const m=getComputedStyle(tb).borderTopColor.match(/[\d.]+/g)||[];
+  return m.length>3&&parseFloat(m[3])===0;
+}
+function tbSyncBorderUI(tb){
+  const t=$("edTbTransp"),c=$("edTbBorderColor"),w=$("edTbBorderW");
+  if(!t||!c||!w)return;
+  if(!tb){t.classList.remove("on");return}
+  const tr=tbIsTransparent(tb);
+  t.classList.toggle("on",tr);
+  if(tr){if(tb.dataset.bc)c.value=tb.dataset.bc}
+  else{const h=tbRgbToHex(getComputedStyle(tb).borderTopColor);if(h)c.value=h}
+  const px=parseFloat(getComputedStyle(tb).borderTopWidth)||parseFloat(tb.style.borderWidth)||0;
+  if(px>0){const o=[...w.options].find(o=>Number(o.value)===px);if(o)w.value=o.value}
+}
+// Bảo đảm viền đang hiển thị (nếu đang tắt "Viền" thì bật lại khi chỉnh màu / độ dày)
+function tbEnsureBorder(tb){
+  if(tb.style.borderStyle==="none"||!tb.style.borderStyle)tb.style.borderStyle="solid";
+  const bw=tb.style.borderWidth;
+  if(!bw||bw==="medium")tb.style.borderWidth=$("edTbBorderW").value+"px";
+}
+function tbSelect(tb){markSel(tb);edRange=null;tb.focus({preventScroll:true})}
+function tbPlace(tb,x,y){
+  const {w,h}=edPageMM(),tw=tb.offsetWidth/MM_PX,th=tb.offsetHeight/MM_PX;
+  x=Math.round(clamp(x,0,Math.max(0,w-tw))*100)/100;y=Math.round(clamp(y,0,Math.max(0,h-th))*100)/100;
+  tb.dataset.x=x;tb.dataset.y=y;tb.style.left=x+"mm";tb.style.top=y+"mm";
+}
+function tbMove(tb,dx,dy){tbPlace(tb,(parseFloat(tb.dataset.x)||0)+dx,(parseFloat(tb.dataset.y)||0)+dy);edSaveDraft()}
+function edReplaceTbs(){ed.querySelectorAll(".ed-tb").forEach(tb=>tbPlace(tb,parseFloat(tb.dataset.x)||0,parseFloat(tb.dataset.y)||0));ed.querySelectorAll("img.ed-fimg").forEach(im=>imgPlace(im,parseFloat(im.dataset.x)||0,parseFloat(im.dataset.y)||0))}
+function tbEdit(tb){
+  const b=tb.querySelector(".ed-tb-body");if(!b)return;
+  b.focus();const r=document.createRange();r.selectNodeContents(b);r.collapse(false);const s=getSelection();s.removeAllRanges();s.addRange(r);
+}
+function tbRemove(tb){
+  if(tb.innerText.trim()&&!confirm("Xóa textbox này và nội dung bên trong?"))return;
+  tb.remove();markSel(null);ed.focus();edSaveDraft();
+}
+function edAddTextbox(){
+  const n=ed.querySelectorAll(".ed-tb").length,tb=document.createElement("div");
+  tb.className="ed-tb";tb.tabIndex=0;tb.contentEditable="false";tb.style.width="60mm";tb.style.height="25mm";
+  tb.innerHTML='<div class="ed-tb-body" contenteditable="true">Văn bản</div>';
+  ed.appendChild(tb);
+  tbPlace(tb,edCfg.l+8+(n%6)*7,edCfg.t+8+(n%6)*7);
+  tbSelect(tb);edSaveDraft();
+  showToast("Đã chèn textbox · dùng phím ← ↑ ↓ → để dời, Enter hoặc nhấp đúp để gõ chữ");
+}
+function edTbKey(e){
+  const tb=e.target.closest&&e.target.closest(".ed-tb");if(!tb)return false;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="p")return false;
+  const a=TB_ARROWS[e.key],step=(Number($("edStep").value)||1)*(e.shiftKey?5:1);
+  if(e.target===tb){ // chế độ dời: đang chọn khung textbox
+    if(a){e.preventDefault();tbMove(tb,a[0]*step,a[1]*step);return true}
+    if(e.key==="Enter"||e.key==="F2"){e.preventDefault();tbEdit(tb);return true}
+    if(e.key==="Delete"||e.key==="Backspace"){e.preventDefault();tbRemove(tb);return true}
+    if(e.key==="Escape"){e.preventDefault();e.stopPropagation();markSel(null);ed.focus();return true}
+    return true;
+  }
+  // đang gõ chữ trong textbox
+  if(e.key==="Escape"){e.preventDefault();e.stopPropagation();tbSelect(tb);return true}
+  if(e.altKey&&a){e.preventDefault();tbMove(tb,a[0]*step,a[1]*step);return true}
+  if(e.key==="Tab"){e.preventDefault();document.execCommand("insertText",false,"    ");return true}
+  return false;
+}
+ed.addEventListener("focusin",e=>{markSel(e.target.closest&&e.target.closest(".ed-tb"))});
+ed.addEventListener("pointerdown",e=>{
+  const tb=e.target;
+  if(tb.classList&&tb.classList.contains("ed-tb")){
+    const r=tb.getBoundingClientRect();
+    if(e.clientX>r.right-18&&e.clientY>r.bottom-18)return; // góc kéo đổi cỡ
+    tbSelect(tb);
+    tbDrag={tb,sx:e.clientX,sy:e.clientY,x:parseFloat(tb.dataset.x)||0,y:parseFloat(tb.dataset.y)||0};
+    tb.setPointerCapture(e.pointerId);e.preventDefault();
+  }else if(!(e.target.closest&&e.target.closest(".ed-tb")))markSel(null);
+});
+ed.addEventListener("pointermove",e=>{
+  if(!tbDrag)return;
+  tbPlace(tbDrag.tb,tbDrag.x+(e.clientX-tbDrag.sx)/MM_PX,tbDrag.y+(e.clientY-tbDrag.sy)/MM_PX);
+});
+const tbDragEnd=()=>{if(tbDrag){tbDrag=null;edSaveDraft()}};
+ed.addEventListener("pointerup",tbDragEnd);ed.addEventListener("pointercancel",tbDragEnd);
+// kéo đổi cỡ bằng góc dưới-phải cũng cần lưu
+ed.addEventListener("mouseup",()=>{if(tbSel)edSaveDraft()});
+ed.addEventListener("dblclick",e=>{const tb=e.target.classList&&e.target.classList.contains("ed-tb")?e.target:null;if(tb){e.preventDefault();tbEdit(tb)}});
+$("edTbBtn").onclick=edAddTextbox;
+document.querySelectorAll("#edToolbar [data-mv]").forEach(b=>b.addEventListener("click",()=>{
+  if(!tbSel)return showToast("Hãy bấm vào viền một textbox để chọn trước");
+  const [dx,dy]=b.dataset.mv.split(",").map(Number),st=Number($("edStep").value)||1;
+  tbMove(tbSel,dx*st,dy*st);
+}));
+$("edStep").addEventListener("change",()=>{if(tbSel)tbSel.focus({preventScroll:true})});
+$("edTbBorder").onclick=()=>{
+  if(!tbSel)return showToast("Hãy bấm vào viền một textbox để chọn trước");
+  // chỉ bật/tắt kiểu viền, giữ nguyên màu và độ dày đã chọn
+  if(tbSel.style.borderStyle==="none")tbEnsureBorder(tbSel);
+  else tbSel.style.borderStyle="none";
+  tbSyncBorderUI(tbSel);edSaveDraft();
+};
+$("edTbBorderColor").addEventListener("input",e=>{
+  if(!tbSel)return showToast("Hãy bấm vào viền một textbox để chọn trước");
+  tbEnsureBorder(tbSel);
+  tbSel.style.borderColor=e.target.value;tbSel.dataset.bc=e.target.value;
+  $("edTbTransp").classList.remove("on");edSaveDraft();
+});
+$("edTbTransp").onclick=()=>{
+  if(!tbSel)return showToast("Hãy bấm vào viền một textbox để chọn trước");
+  tbEnsureBorder(tbSel);
+  if(tbIsTransparent(tbSel)){ // trả lại màu trước đó
+    tbSel.style.borderColor=tbSel.dataset.bc||$("edTbBorderColor").value||"#000000";
+  }else{ // đặt trong suốt, nhớ màu hiện tại
+    const h=tbRgbToHex(getComputedStyle(tbSel).borderTopColor);
+    tbSel.dataset.bc=h||$("edTbBorderColor").value||"#000000";
+    tbSel.style.borderColor="transparent";
+  }
+  tbSyncBorderUI(tbSel);edSaveDraft();
+};
+$("edTbBorderW").addEventListener("change",()=>{
+  if(!tbSel)return showToast("Hãy bấm vào viền một textbox để chọn trước");
+  tbEnsureBorder(tbSel);
+  tbSel.style.borderWidth=$("edTbBorderW").value+"px";
+  edSaveDraft();tbSel.focus({preventScroll:true});
+});
+$("edTbDel").onclick=()=>{if(!tbSel)return showToast("Hãy bấm vào viền một textbox để chọn trước");tbRemove(tbSel)};
+
+/* ====== ẢNH: chọn và kéo giãn tự do ====== */
+let edImg=null,edImgDrag=null,edImgLockOn=false,edImgRaf=0;
+const edImgBox=$("edImgBox");
+function edImgMaxW(img,init){
+  const tbb=img.closest(".ed-tb-body");
+  if(tbb)return init?Math.max(20,tbb.clientWidth):3000;
+  const cell=img.closest("td,th");
+  if(cell){const cs=getComputedStyle(cell);return Math.max(20,cell.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight))}
+  const cs=getComputedStyle(ed);return Math.max(20,ed.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight));
+}
+function edImgApply(img,w,h){
+  w=Math.round(w);h=Math.round(h);
+  img.style.width=w+"px";img.style.height=h+"px";img.style.maxWidth="none";
+  img.setAttribute("width",w);img.setAttribute("height",h);
+}
+// Mọi ảnh trong văn bản đều có cỡ cụ thể (px) để kéo giãn độc lập chiều rộng / chiều cao
+function edInitImgs(){
+  if($("editorModal").classList.contains("hidden")||!ed.clientWidth)return;
+  let changed=false;
+  ed.querySelectorAll("img").forEach(img=>{
+    if(img.style.width&&img.style.height)return;
+    if(!img.complete){img.addEventListener("load",edInitImgs,{once:true});return}
+    if(!img.naturalWidth)return;
+    const nw=img.naturalWidth,nh=img.naturalHeight,w=Math.min(nw,edImgMaxW(img,true));
+    edImgApply(img,w,w*nh/nw);changed=true;
+  });
+  if(changed)edSaveDraft();
+}
+function edImgPos(){
+  if(!edImg)return;
+  const wr=$("edWrap").getBoundingClientRect(),r=edImg.getBoundingClientRect();
+  const st=edImgBox.style;
+  st.left=(r.left-wr.left)+"px";st.top=(r.top-wr.top)+"px";st.width=r.width+"px";st.height=r.height+"px";
+  $("edImgLabel").textContent=`${(r.width/MM_PX).toFixed(1)} × ${(r.height/MM_PX).toFixed(1)} mm`;
+  edImgSyncUI(r);
+}
+function edImgSyncUI(r){
+  r=r||(edImg&&edImg.getBoundingClientRect());if(!r)return;
+  const w=$("edImgW"),h=$("edImgH");
+  if(document.activeElement!==w)w.value=(r.width/MM_PX).toFixed(1);
+  if(document.activeElement!==h)h.value=(r.height/MM_PX).toFixed(1);
+}
+function edImgTick(){
+  edImgRaf=0;
+  if(!edImg)return;
+  if(!edImg.isConnected||$("editorModal").classList.contains("hidden")){edImgSelect(null);return}
+  edImgPos();edImgRaf=requestAnimationFrame(edImgTick);
+}
+function edImgSelect(img){
+  edImg=img||null;
+  edImgBox.classList.toggle("hidden",!edImg);
+  if(edImg){edImgPos();if(!edImgRaf)edImgRaf=requestAnimationFrame(edImgTick)}
+  else{$("edImgW").value="";$("edImgH").value=""}
+}
+// vị trí tự do (mm, tính từ mép giấy) giống textbox
+function imgPlace(img,x,y){
+  const {w,h}=edPageMM(),iw=img.offsetWidth/MM_PX,ih=img.offsetHeight/MM_PX,H=Math.max(h,ed.offsetHeight/MM_PX);
+  x=Math.round(clamp(x,0,Math.max(0,w-iw))*100)/100;y=Math.round(clamp(y,0,Math.max(0,H-ih))*100)/100;
+  img.dataset.x=x;img.dataset.y=y;img.style.left=x+"mm";img.style.top=y+"mm";
+}
+function edImgFloat(img){
+  if(img.classList.contains("ed-fimg"))return;
+  const er=ed.getBoundingClientRect(),r=img.getBoundingClientRect(),par=img.parentElement;
+  const x=(r.left-er.left)/MM_PX,y=(r.top-er.top)/MM_PX;
+  img.classList.add("ed-fimg");img.style.position="absolute";img.style.zIndex="2";
+  ed.appendChild(img);
+  if(par&&par!==ed&&!par.firstChild)par.appendChild(document.createElement("br"));
+  imgPlace(img,x,y);
+}
+let edCaret=null,imgMove=null;
+document.addEventListener("selectionchange",()=>{
+  const s=getSelection();
+  if(s.rangeCount&&s.isCollapsed&&edInRange(s.anchorNode)){
+    const el=s.anchorNode.nodeType===3?s.anchorNode.parentElement:s.anchorNode;
+    if(el&&!el.closest(".ed-tb"))edCaret=s.getRangeAt(0).cloneRange();
+  }
+});
+ed.addEventListener("dragstart",e=>{if(e.target.tagName==="IMG")e.preventDefault()});
+ed.addEventListener("pointerdown",e=>{
+  const t=e.target;
+  if(t&&t.tagName==="IMG"&&ed.contains(t)){
+    edInitImgs();edImgSelect(t);
+    if(e.button===0&&!t.closest(".ed-tb")){
+      const fl=t.classList.contains("ed-fimg"),r=t.getBoundingClientRect(),er=ed.getBoundingClientRect();
+      imgMove={img:t,sx:e.clientX,sy:e.clientY,x:fl?(parseFloat(t.dataset.x)||0):(r.left-er.left)/MM_PX,y:fl?(parseFloat(t.dataset.y)||0):(r.top-er.top)/MM_PX,moved:false,pid:e.pointerId};
+    }
+  }else edImgSelect(null);
+},true);
+document.addEventListener("pointermove",e=>{
+  const m=imgMove;if(!m||!m.img.isConnected)return;
+  const dx=e.clientX-m.sx,dy=e.clientY-m.sy;
+  if(!m.moved){if(Math.hypot(dx,dy)<4)return;m.moved=true;edImgFloat(m.img);edImgSelect(m.img);e.preventDefault()}
+  imgPlace(m.img,m.x+dx/MM_PX,m.y+dy/MM_PX);
+});
+const imgMoveEnd=()=>{if(!imgMove)return;const m=imgMove;imgMove=null;if(m.moved)edSaveDraft()};
+document.addEventListener("pointerup",imgMoveEnd);document.addEventListener("pointercancel",imgMoveEnd);
+$("edImgInline").onclick=()=>{
+  if(!edImgNeed())return;
+  const im=edImg;
+  if(!im.classList.contains("ed-fimg"))return showToast("Ảnh đang nằm trong dòng chữ rồi");
+  im.classList.remove("ed-fimg");["position","left","top","zIndex"].forEach(k=>im.style[k]="");
+  delete im.dataset.x;delete im.dataset.y;
+  if(edCaret&&edInRange(edCaret.startContainer)){try{edCaret.insertNode(im)}catch(e){ed.appendChild(im)}}
+  else{const p=document.createElement("p");p.appendChild(im);ed.appendChild(p)}
+  edImgSelect(im);edSaveDraft();
+};
+ed.addEventListener("keydown",e=>{if(e.key==="Escape"&&edImg)edImgSelect(null)});
+ed.addEventListener("input",()=>edInitImgs());
+// kéo các ô vuông để đổi cỡ (8 hướng; kéo cạnh/góc trên hoặc trái thì ảnh chuyển sang chế độ tự do để giữ cố định cạnh đối diện)
+edImgBox.addEventListener("pointerdown",e=>{
+  const h=e.target.dataset&&e.target.dataset.h;if(!h||!edImg)return;
+  const hasW=h.includes("w"),hasN=h.includes("n");
+  if((hasW||hasN)&&!edImg.closest(".ed-tb"))edImgFloat(edImg);
+  const fl=edImg.classList.contains("ed-fimg"),r=edImg.getBoundingClientRect();
+  edImgDrag={h,hasW,hasN,hasE:h.includes("e"),hasS:h.includes("s"),fl,x:e.clientX,y:e.clientY,w:r.width,h0:r.height,
+    x0:fl?(parseFloat(edImg.dataset.x)||0)*MM_PX:0,y0:fl?(parseFloat(edImg.dataset.y)||0)*MM_PX:0,max:edImgMaxW(edImg,false)};
+  edImgBox.classList.add("drag");
+  e.target.setPointerCapture(e.pointerId);e.preventDefault();e.stopPropagation();
+});
+edImgBox.addEventListener("pointermove",e=>{
+  const d=edImgDrag;if(!d||!edImg)return;
+  const dx=e.clientX-d.x,dy=e.clientY-d.y,MIN=12;
+  const horiz=d.hasW||d.hasE,vert=d.hasN||d.hasS;
+  const maxW=(d.hasW&&d.fl)?Math.min(d.max,d.x0+d.w):d.max,maxH=(d.hasN&&d.fl)?d.y0+d.h0:Infinity;
+  let w=d.w,h=d.h0;
+  if(d.hasE)w=d.w+dx;if(d.hasW)w=d.w-dx;
+  if(d.hasS)h=d.h0+dy;if(d.hasN)h=d.h0-dy;
+  if(e.shiftKey||edImgLockOn){
+    const ratio=d.w/d.h0;
+    if(horiz&&!vert)h=w/ratio;
+    else if(vert&&!horiz)w=h*ratio;
+    else{if(Math.abs(w-d.w)/d.w>=Math.abs(h-d.h0)/d.h0)h=w/ratio;else w=h*ratio}
+    if(w>maxW){w=maxW;h=w/ratio}
+    if(h>maxH){h=maxH;w=h*ratio}
+    if(w<MIN){w=MIN;h=w/ratio}
+    if(h<MIN){h=MIN;w=h*ratio}
+  }else{w=clamp(w,MIN,maxW);h=clamp(h,MIN,maxH)}
+  edImgApply(edImg,w,h);
+  if(d.fl&&(d.hasW||d.hasN)){
+    const nw=edImg.offsetWidth,nh=edImg.offsetHeight;
+    imgPlace(edImg,(d.hasW?d.x0+d.w-nw:d.x0)/MM_PX,(d.hasN?d.y0+d.h0-nh:d.y0)/MM_PX);
+  }
+  edImgPos();
+});
+const edImgDragEnd=()=>{if(!edImgDrag)return;edImgDrag=null;edImgBox.classList.remove("drag");edSaveDraft()};
+edImgBox.addEventListener("pointerup",edImgDragEnd);edImgBox.addEventListener("pointercancel",edImgDragEnd);
+// nhập số mm
+function edImgNeed(){if(!edImg){showToast("Hãy bấm vào một ảnh để chọn trước");return false}return true}
+function edImgSetMM(which){
+  const inp=$(which==="w"?"edImgW":"edImgH");
+  if(!edImgNeed()){inp.value="";return}
+  const v=parseFloat(String(inp.value).replace(",","."));
+  if(!(v>0)){edImgSyncUI();return}
+  const r=edImg.getBoundingClientRect(),max=edImgMaxW(edImg,false),MIN=12;
+  let w=r.width,h=r.height;
+  if(which==="w"){w=v*MM_PX;if(edImgLockOn)h=w*r.height/r.width}
+  else{h=v*MM_PX;if(edImgLockOn)w=h*r.width/r.height}
+  if(w>max){if(edImgLockOn)h=h*max/w;w=max}
+  w=Math.max(w,MIN);h=Math.max(h,MIN);
+  edImgApply(edImg,w,h);edImgPos();edSaveDraft();
+}
+$("edImgW").addEventListener("change",()=>edImgSetMM("w"));
+$("edImgH").addEventListener("change",()=>edImgSetMM("h"));
+[$("edImgW"),$("edImgH")].forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();i.blur();i.dispatchEvent(new Event("change"))}}));
+$("edImgLock").onclick=()=>{
+  edImgLockOn=!edImgLockOn;
+  $("edImgLock").classList.toggle("on",edImgLockOn);
+  $("edImgLock").textContent=edImgLockOn?"🔒 Tỉ lệ":"🔓 Tỉ lệ";
+};
+$("edImgReset").onclick=()=>{
+  if(!edImgNeed())return;
+  const nw=edImg.naturalWidth,nh=edImg.naturalHeight;if(!nw)return;
+  const w=Math.min(nw,edImgMaxW(edImg,true));
+  edImgApply(edImg,w,w*nh/nw);edImgPos();edSaveDraft();
+};
+$("edImgDel").onclick=()=>{
+  if(!edImgNeed())return;
+  const im=edImg;edImgSelect(null);im.remove();
+  if(!ed.innerHTML.trim())edResetEmpty();
+  edSaveDraft();ed.focus();
+};
+
+edLoadDraft();edLoadCfg();edApplyCfg();
+
+$("undoButton").onclick=undo;$("redoButton").onclick=redo;
+renderGrid();updateHistoryButtons();
+</script>
+
+
+</body></html>
